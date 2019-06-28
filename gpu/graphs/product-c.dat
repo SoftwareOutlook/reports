@@ -1,0 +1,10 @@
+"CPU"             1.05701
+"OpenMP (mt)"     0.2150794
+"Kokkos (mt)"     0.7994784
+"CUDA"            1.550446
+"CUDA (streams)"  1.549938
+"OpenCL"          1.752546
+"OpenCL (queues)" 1.035406
+"OpenACC"         0.6684781
+"OpenMP (GPU)"    0.2137073
+"Kokkos (GPU)"    0.6925047
