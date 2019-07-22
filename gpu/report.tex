@@ -22,7 +22,7 @@
 We compare the performance of several frameworks that can be used, in C, for general-purpose programming on a graphical processing unit (GPU) or to compute Fast Fourier Transforms (FFTs).  
 \end{abstract}
 \section{Introduction}
-For a bit more than a decade, the use of GPU has become increasingly widespread. They are indeed capable of significantly increasing the performance of a single workstation or compute node. While there are some overheads associated to the t data transfers between the memory and the GPU and the launch of the kernel and some constraints on the types of algorithms can be efficiently programmed, one can obtain tremendous performance gains on suitable problems.\\
+For a bit more than a decade, the use of GPU has become increasingly widespread. They are indeed capable of significantly increasing the performance of a single workstation or compute node. While there are some overheads associated to the data transfers between the memory and the GPU and the launch of the kernel and some constraints on the types of algorithms can be efficiently programmed, one can obtain tremendous performance gains on suitable problems.\\
 
 In this report, we will compare the performance of several of these frameworks that we measured for a simple general-purpose programming example and for computing FFTs on the GPU by using the libraries provided by these frameworks. 
 
@@ -56,14 +56,16 @@ The benchmark \cite{code} consists in calculating the FFT of a series of volumes
 \label{benchmark}
 \end{figure}
 
-We used a number of points varying from $\sim 10^3$ to $\sim 10^7$. The domains had sides of equal lengths (square or cubic) or were flattened (rectangle or cuboid). These dimensions could be powers of 2, products of powers of small integers (2, 3, 5 and 7) or prime numbers. The values appearing in the graphs are the execution times averaged over 10 runs.
+We used a number of points varying from $\sim 10^3$ to $\sim 10^7$. The domains had sides of equal lengths (square or cubic) or were flattened (rectangle or cuboid). These dimensions could be powers of 2, products of powers of small integers (2, 3, 5 and 7) or prime numbers. The values appearing in the graphs are the execution times averaged over 10 runs. The bumps remaining on the graphs in some cases appear consistently when we repeat the measurements.
 
 \section{Setup}
 
-The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU (6 cores, 3.6 GHz), a NVIDIA Quadro GV100 GPU and 12 GB of RAM. We used the following GPU programming frameworks: CUDA (version 10.0.130), OpenCL (version 1.2.7) and  
+The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU (6 cores, 3.6 GHz), a NVIDIA Quadro GV100 GPU and 12 GB of RAM. We used the following frameworks: CUDA (version 10.0.130), OpenCL (version 1.2.7), OpenACC (version 2.7), OpenMP (version 4.0.0) and Kokkos (version 2.9.0) and clFFT (version 2.0).  
 
 \section{Product}
+We first compare the multiplication of an array of $2^{24}$ real or complex numbers by an array of real numbers by considering the operation executed respecively in a serial way on the processor, in a multi-threaded way on the processor as well using OpenMP and Kokkos, on the GPU using CUDA, OpenCL, OpenACC, OpenMP and Kokkos. In the case of CUDA and OpenCL, we have made the comparison using streams or queues. This is a mechanism that allows the concurrent execution of kernels as well as overlapping data transfers in different directions. We observe that the best performance is obtanined with OpenMP, both on the CPU and the GPU.\\
 
+We noted that the example involving with Kokkos was relatively complicated to compile. An external makefile as well as a header file containing the configuration must be included. This will produce, during compilation, sevral object files in the current directory that will have to be linked to produce our executable file. 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
 \centering
@@ -86,12 +88,10 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 
 
 \section{Fast Fourier Transform}
-\subsection{Effect of the problem size - One dimension}
+We measure the initialisation and execution times obtained in computing the FFT transform with CUDA, OpenCL and OpenACC for signals that were real and complex in one, two and three dimensions. We consider domains whose sides are identical\footnote{We will study the effect of flattening the domain in .} and that contain a number of points varying from $\sim 10^3$ to $\sim 10^7$. More precisely, we consider numbers of points, on each side, that are a power of two, a product of small integers (2, 3, 5 and 7) and a prime number. \\
 
-
-
-
-
+As expected, in most cases, we obtain a better performance with a number of points that is a power of 2 or the product of small integers than with primes. CUDA and OpenCL also tend to be more efficient than OpenACC. On the other had, OpenCL suffers from another drawback. While, with the two other frameworks, the initialisation time increases as a function of the domain size, it remains constant and quite large with OpenCL. It can be close and, in some cases, even larger than the execution time.
+  
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
 \centering
@@ -115,11 +115,11 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-cuda-1d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-cuda-1d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
 \label{FFTCUDA1DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
+\caption{Initialisation and execution times as a function of the number of points (CUDA, 1 dimension)}
 \label{FFTCUDA1D}
 \end{figure}
 
@@ -147,15 +147,13 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-opencl-1d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-opencl-1d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
 \label{FFTCL1DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
+\caption{Initialisation and execution times as a function of the number of points (OpenCL, 1 dimension)}
 \label{FFTCL1D}
 \end{figure}
-
-
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -174,20 +172,19 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
-%\includegraphics[width=.9\linewidth]{}
+\includegraphics[width=.9\linewidth]{graphs/fft-openacc-1d-pow2-c-exec.pdf}
 \caption{Intialisation (complex)}
 \label{FFTACC1DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-openacc-1d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-openacc-1d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
 \label{FFTACC1DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
+\caption{Initialisation and execution times as a function of the number of points (OpenACC, 1 dimension)}
 \label{FFTCL1D}
 \end{figure}
-
 
 
 \begin{figure}[H]
@@ -217,7 +214,7 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \caption{Execution (complex)}
 \label{FFTPOW21DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
+\caption{Initialisation and execution times as a function of the number of points (1 dimension, powers of 2)}
 \label{FFTPOW21D}
 \end{figure}
 
@@ -227,7 +224,7 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-1d-r-init.pdf}}
+\includegraphics[width=.9\linewidth]{graphs/fft-1d-r-init.pdf}
 \caption{Intialisation (real)}
 \label{FFT1DRI}
 \end{subfigure}%
@@ -249,11 +246,9 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \caption{Execution (complex)}
 \label{FFT1DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
+\caption{Initialisation and execution times as a function of the number of points (1 dimension)}
 \label{FFT1D}
 \end{figure}
-
-\subsection{Effect of the problem size - Two dimensions}
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -262,28 +257,28 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-cuda-2d-pow2-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFTCUDA1DRI}
+\label{FFTCUDA2DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-cuda-2d-pow2-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFTCUDA1DRE}
+\label{FFTCUDA2DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-cuda-2d-pow2-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFTCUDA1DCI}
+\label{FFTCUDA2DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-cuda-2d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-cuda-2d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFTCUDA1DCE}
+\label{FFTCUDA2DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
-\label{FFTCUDA1D}
+\caption{Initialisation and execution times as a function of the number of points\\(CUDA, 2 dimension)}
+\label{FFTCUDA2D}
 \end{figure}
 
 \begin{figure}[H]
@@ -293,28 +288,28 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-opencl-2d-pow2-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFTCL1DRI}
+\label{FFTCL2DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-opencl-2d-pow2-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFTCL1DRE}
+\label{FFTCL2DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-opencl-2d-pow2-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFTCL1DCI}
+\label{FFTCL2DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-opencl-2d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-opencl-2d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFTCL1DCE}
+\label{FFTCL2DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
-\label{FFTCL1D}
+\caption{Initialisation and execution times as a function of the number of points\\(OpenCL, 1 dimension)}
+\label{FFTCL2D}
 \end{figure}
 
 
@@ -325,28 +320,28 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-openacc-2d-pow2-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFTACC1DRI}
+\label{FFTACC2DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-openacc-2d-pow2-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFTACC1DRE}
+\label{FFTACC2DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
-%\includegraphics[width=.9\linewidth]{}
+\includegraphics[width=.9\linewidth]{graphs/fft-openacc-2d-pow2-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFTACC1DCI}
+\label{FFTACC2DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-openacc-2d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-openacc-2d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFTACC1DCE}
+\label{FFTACC2DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
-\label{FFTCL1D}
+\caption{Initialisation and execution times as a function of the number of points\\(OpenACC, 1 dimension)}
+\label{FFTCL2D}
 \end{figure}
 
 \begin{figure}[H]
@@ -356,28 +351,28 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFTPOW21DRI}
+\label{FFTPOW22DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFTPOW21DRE}
+\label{FFTPOW22DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFTPOW21DCI}
+\label{FFTPOW22DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFTPOW21DCE}
+\label{FFTPOW22DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
-\label{FFTPOW21D}
+\caption{Initialisation and execution times as a function of the number of points\\(1 dimension, powers of 2)}
+\label{FFTPOW22D}
 \end{figure}
 
 \begin{figure}[H]
@@ -385,39 +380,31 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{fft-2d-r-init.pdf}}
+\includegraphics[width=.9\linewidth]{graphs/fft-2d-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFT1DRI}
+\label{FFT2DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFT1DRE}
+\label{FFT2DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFT1DCI}
+\label{FFT2DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFT1DCE}
+\label{FFT2DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
+\caption{Initialisation and execution times as a function of the number of points\\(2 dimensions)}
 \label{FFT1D}
 \end{figure}
-
-
-
-
-
-
-
-\subsection{Effect of the problem size - Three dimensions}
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -426,31 +413,29 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-cuda-3d-pow2-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFTCUDA1DRI}
+\label{FFTCUDA3DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-cuda-3d-pow2-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFTCUDA1DRE}
+\label{FFTCUDA3DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-cuda-3d-pow2-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFTCUDA1DCI}
+\label{FFTCUDA3DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-cuda-3d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-cuda-3d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFTCUDA1DCE}
+\label{FFTCUDA3DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
-\label{FFTCUDA1D}
+\caption{Initialisation and execution times as a function of the number of points (CUDA, 3 dimensions)}
+\label{FFTCUDA3D}
 \end{figure}
-
-
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -459,60 +444,59 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-opencl-3d-pow2-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFTCL1DRI}
+\label{FFTCL3DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-opencl-3d-pow2-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFTCL1DRE}
+\label{FFTCL3DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-opencl-3d-pow2-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFTCL1DCI}
+\label{FFTCL3DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-opencl-3d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-opencl-3d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFTCL1DCE}
+\label{FFTCL3DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
-\label{FFTCL1D}
+\caption{Initialisation and execution times as a function of the number of points (OpenCL, 1 dimension)}
+\label{FFTCL3D}
 \end{figure}
-
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-openacc-2d-pow2-r-init.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-openacc-3d-pow2-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFTACC1DRI}
+\label{FFTACC3DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-openacc-2d-pow2-r-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-openacc-3d-pow2-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFTACC1DRE}
+\label{FFTACC3DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
-%\includegraphics[width=.9\linewidth]{}
+\includegraphics[width=.9\linewidth]{graphs/fft-openacc-3d-pow2-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFTACC1DCI}
+\label{FFTACC3DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-openacc-2d-pow2c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-openacc-3d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFTACC1DCE}
+\label{FFTACC3DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
-\label{FFTCL1D}
+\caption{Initialisation and execution times as a function of the number of points (OpenACC, 3 dimension)}
+\label{FFTCL3D}
 \end{figure}
 
 \begin{figure}[H]
@@ -520,30 +504,30 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-r-init.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-3d-pow2-r-init.pdf}
 \caption{Intialisation (real)}
-\label{FFTPOW21DRI}
+\label{FFTPOW23DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-r-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-3d-pow2-r-exec.pdf}
 \caption{Execution (real)}
-\label{FFTPOW21DRE}
+\label{FFTPOW23DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-c-init.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-3d-pow2-c-init.pdf}
 \caption{Intialisation (complex)}
-\label{FFTPOW21DCI}
+\label{FFTPOW23DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/fft-3d-pow2-c-exec.pdf}
 \caption{Execution (complex)}
-\label{FFTPOW21DCE}
+\label{FFTPOW23DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
-\label{FFTPOW21D}
+\caption{Initialisation and execution times as a function of the number of points (3 dimensions, powers of 2)}
+\label{FFTPOW23D}
 \end{figure}
 
 \begin{figure}[H]
@@ -551,115 +535,90 @@ The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-2d-r-init.pdf}}
+\includegraphics[width=.9\linewidth]{graphs/fft-3d-r-init.pdf}
+\caption{Intialisation (real)}
+\label{FFT3DRI}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=.9\linewidth]{graphs/fft-3d-r-exec.pdf}
+\caption{Execution (real)}
+\label{FFT3DRE}
+\end{subfigure}\\
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=.9\linewidth]{graphs/fft-3d-c-init.pdf}
+\caption{Intialisation (complex)}
+\label{FFT3DCI}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=.9\linewidth]{graphs/fft-3d-c-exec.pdf}
+\caption{Execution (complex)}
+\label{FFT3DCE}
+\end{subfigure}
+\caption{Initialisation and execution times as a function of the number of points (3 dimensions)}
+\label{FFT3D}
+\end{figure}
+
+\subsection{Flatness}
+So far, we have considered only square or cubic domains. In this section, we study the effect of the flatness of the domain by computing the FFT on a cuboid containing $256^3$. We define the flatmess by the ratio bewtween the number of points in the $y$ and $x$ directions whereas the dimensions in the $y$ and $z$ directions are identical (Flatness:=$N_y/N_x$, $N_y=N_z$). We observe that the flatness does not alter significantly the performance which remains dependent only on the total number of points.
+\begin{figure}[H]
+\captionsetup{width=0.8\linewidth}
+\centering
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=.9\linewidth]{graphs/flatness-r-init.pdf}
 \caption{Intialisation (real)}
 \label{FFT1DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-2d-r-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/flatness-r-exec.pdf}
 \caption{Execution (real)}
 \label{FFT1DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-2d-c-init.pdf}
+\includegraphics[width=.9\linewidth]{graphs/flatness-c-init.pdf}
 \caption{Intialisation (complex)}
 \label{FFT1DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\includegraphics[width=.9\linewidth]{graphs/fft-2d-c-exec.pdf}
+\includegraphics[width=.9\linewidth]{graphs/flatness-c-exec.pdf}
 \caption{Execution (complex)}
 \label{FFT1DCE}
 \end{subfigure}
 \caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
 \label{FFT1D}
 \end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsubsection{OpenCL}
-\includegraphics[height=8cm]{graphs/fft-opencl-3d-pow2-r-init.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-opencl-3d-pow2-r-exec.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-opencl-3d-pow2-c-init.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-opencl-3d-pow2c-exec.pdf}\\
-\subsubsection{OpenACC}
-\includegraphics[height=8cm]{graphs/fft-openacc-3d-pow2-r-init.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-openacc-3d-pow2-r-exec.pdf}\\
-\includegraphics[height=8cm]{fft-openacc-3d-pow2c-exec.pdf}\\
-\subsubsection{All - powers of 2}
-\includegraphics[height=8cm]{graphs/fft-3d-pow2-r-init.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-3d-pow2-r-exec.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-3d-pow2-c-init.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-3d-pow2-c-exec.pdf}\\
-\subsubsection{All}
-\includegraphics[height=8cm]{graphs/fft-3d-r-init.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-3d-r-exec.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-3d-c-init.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-3d-c-exec.pdf}\\
-\subsection{Flatness}
-\includegraphics[height=8cm]{graphs/flatness-r-init.pdf}\\
 \subsection{CCPPETMR}
-\includegraphics[height=8cm]{graphs/fft-ccppetmr-init.pdf}\\
-\includegraphics[height=8cm]{graphs/fft-ccppetmr-exec.pdf}\\
-\section{Product}
-\includegraphics[height=8cm]{graphs/product-r.pdf}\\
-\includegraphics[height=8cm]{graphs/product-c.pdf}\\
-
-%\subsectection{Flatness}
-
-%These experiments were carried out with domains whose dimensions were the same #in all directions, that is, squares or cubes. We have observed that there is no clear trend in the way the flatness of the domain affects the performance. Fig. \ref{FLATNESS} shows the performance obtained, in 3 dimensions, for a cuboid containing $512^3$ points whose sides in the $y$ and $z$ directions have identical lengths. We hade defined the flatness as the ratio between the number of points in the $y$ and $x$ directions ($N_y/N_x,\ N_y=N_z$). We varied the proportions of the volume from $512:512:512$ till $2^{24}:2:2$.  \\
-
-%\begin{figure}[H]
-%\captionsetup{width=0.8\linewidth}
-%\centering
-%\begin{subfigure}{.5\textwidth}
-%\centering
-%\includegraphics[width=.9\linewidth]{graphs/performance/3d-flatness-pow2-r.pdf}
-%\caption{Real}
-%\label{FLATNESSR}
-%\end{subfigure}%
-%\begin{subfigure}{.5\textwidth}
-%\centering
-%\includegraphics[width=.9\linewidth]{graphs/performance/3d-flatness-pow2-c.pdf}
-%\caption{Complex}
-%\label{FLATNESSC}
-%\end{subfigure}
-%\caption{Execution time as a function of the flatness of the domain ($N_y/N_x$), for $N_y=N_z$ (3 dimensions, powers of 2, 1 thread)}
-%\label{FLATNESS}
-%\end{figure}
+We have also benchmarked the libraries provided by these framework for the computation of FFTs in a context similar to the situation encountered by the CCP/PET-MR collaboration. In this example, we compute the FFT of 32 square complex images. Their side is made of 252, 256 and 256 points in the cases respectively of a number of points corresponding to the product of small integers, a power of 2 or a prime number. In this context, it is CUDA that is the most efficient.
+\begin{figure}[H]
+\captionsetup{width=0.8\linewidth}
+\centering
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=.9\linewidth]{graphs/fft-ccppetmr-init.pdf}
+\caption{Intialisation (real)}
+\label{FFT1DRI}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=.9\linewidth]{graphs/fft-ccppetmr-exec.pdf}
+\caption{Execution (real)}
+\label{FFT1DRE}
+\end{subfigure}
+\caption{Initialisation and execution times as a function of the number of points\\(1 dimension)}
+\label{FFT1D}
+\end{figure}s context, it is CUDA that is the most efficient. 
 
 
-%\section{Requirements from the CCP}
-%We have also benchmarked the FFT libraries in a situation corresponding to a problem encountered by the CCP/PET-MR collaboration, by computing the transform of a series of 32 square complex images whose side consists of 256 points as well as the closest prime number (257) and product of powers of small integers ($2^23^27=252$). As in the other cases, the MKL library performs better than FFTW. None of the other libraries we have considered could be used in this situation. GSL works only in one dimension. The FORTRAN version of FFTPACK does not share that limitation. However all the C/C++ wrappers we have found offer only one-dimensional transforms. Finally FFTPACK is distributed with a licence that is less constraining than the GPL but, nevertheless, the C++ wrapper provided by CASA that we have used is distributed under the GPL v2.
 
-%\begin{figure}[H]
-%\captionsetup{width=0.6\textwidth}
-%\centering
-%\includegraphics[height=8cm]{graphs/ccp/ccp.pdf}
-%\caption{Execution time for the transform of 32 complex square images as a function of square side\\(2 dimensions, complex, 1 thread)}
-%\label{method}
-%\end{figure}
 
-%\section{Acknowledgements}
-%This work was funded by under grant .
+\section{Acknowledgements}
+
 \begin{thebibliography}{9}
 
 \bibitem{cuda}

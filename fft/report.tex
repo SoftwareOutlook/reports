@@ -22,7 +22,7 @@
 We compare the performance of several libraries computing FFTs called from C/C++ code and running on a single node. 
 \end{abstract}
 \section{Introduction}
-Some applications require the computation of the fast Fourier transform (FFT) of large datasets. In such a case, the efficiency of that step can become of critical importance. In this report, we compare the performance obtained, on a single node, with several libraries that can be called from C or C++.
+Some applications require the computation of the fast Fourier transform (FFT) of large datasets. In such a case, the efficiency of that step can become of critical importance. In this report, we compare the performance obtained with several libraries that can be called from C or C++.
 \section{Overview of the chosen libraries}
 We consider the following libraries computing FFTs: FFTW \cite{fftw}, MKL \cite{mkl}, GSL \cite{gsl} and FFTPACK \cite{fftpack} (Table \ref{ffttable}). They can perform complex transforms, real-to-half-complex ones (and conversely) as well as, in the case of FFTW, real-to-real transforms when the signal is odd or even. The half-complex output consists in half as many complex values as there were points in the signal, taking advantage of the hermiticity of the Fourier transform of a real function.\\
 
@@ -49,7 +49,26 @@ FFTPACK {\scriptsize (CASA wrapper)} &  R$\to$H,\ \ \  C$\to$C,\ \ \ \  H$\to$R 
 \section{Benchmark}
 The benchmark \cite{code} consists of calculating the FFT of a series of volumes, in 1, 2 or 3 dimensions, of real or complex values. The purpose was to mimick a problem submitted to us by the CCP PET-MR collaboration \cite{ccppetmr}, within the Software Outlook initiative \cite{softwareoutlook}, who needed to take the transform of a series of square complex images. This example is depicted in Fig. \ref{benchmark} and considered in Section \ref{CCPPETMR}. For our more general test, in Sections \ref{PERFORMANCE1D}, \ref{PERFORMANCE2D} and \ref{PERFORMANCE3D}, the 2-dimensional slices could be replaced by a line or a rectangular cuboid. We used 32 images, which was a typical value used by that collaboration, for the tests that were representative of their requirement. For the other runs, we always processed a single image.\\
 
-We used a number of points varying from $\sim 10^3$ to $\sim 10^7$ and 1, 2 and 3 dimensions. The domains had sides of equal lengths (square or cubic) or were flattened (rectangle or cuboid). These dimensions could be powers of 2, products of powers of small integers (2, 3, 5 and 7) or prime numbers. We used a single thread in all cases except when we assessed the effect of multithreading. In that case, the number of threads was increased till 24.\\
+\begin{verbatim}
+// create a real or complex signal of dimensions N1, N2 ...
+// (asymetrical multi-dimensional step function) 
+for i running from 0 to N_IMAGES
+  image[i]=generate_image({N1, N2 ...})
+
+initialise FFT
+
+for i running from 0 to N_IMAGES
+  transform[i]=FFT(image[i])
+
+initialise inverse_FFT
+
+for i running from 0 to N_IMAGES
+  inverse_transform[i]=FFT(image[i])
+
+error=sum(||inverse_transform[i]/(N1 N2 ...) - signal[i]||)
+\end{verbatim}
+
+We used a number of points varying from $\sim 10^3$ to $\sim 10^7$ in 1, 2 and 3 dimensions. The domains had sides of equal lengths (square or cubic) or were flattened (rectangle or cuboid). These dimensions could be powers of 2, products of powers of small integers (2, 3, 5 and 7) or prime numbers. We used a single thread in all cases except when we assessed the effect of multithreading. In that case, the number of threads was increased till 24.\\
 
 The values appearing in the graphs are the execution time averaged over 10 runs. A certain number of bumps or slight unexpected features are apparent. However they were consistently repeated in all our measurements. This is also confirmed by the standard deviation of our results which was always quite small, of the order of a few percents of the average value. We chose not to display error bars on our graphs since they were so small that they were barely visible. 
 

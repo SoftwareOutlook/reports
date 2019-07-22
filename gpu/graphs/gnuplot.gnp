@@ -44,7 +44,7 @@ plot "fft-cuda-1d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-cuda-1d-pow2c-exec.pdf"
+set output "fft-cuda-1d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -101,7 +101,7 @@ plot "fft-opencl-1d-pow2.dat"    using 1:4 with linespoints lc rgb "red" pt 7 ps
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-opencl-1d-pow2c-exec.pdf"
+set output "fft-opencl-1d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -160,7 +160,7 @@ plot "fft-openacc-1d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-openacc-1d-pow2c-exec.pdf"
+set output "fft-openacc-1d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -355,7 +355,7 @@ plot [400:10000] "fft-cuda-2d-pow2.dat"    using 1:4 with linespoints lc rgb "bl
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-cuda-2d-pow2c-exec.pdf"
+set output "fft-cuda-2d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -412,7 +412,7 @@ plot [400:10000] "fft-opencl-2d-pow2.dat"    using 1:4 with linespoints lc rgb "
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-opencl-2d-pow2c-exec.pdf"
+set output "fft-opencl-2d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -457,7 +457,7 @@ plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:3 with linespoints lc rgb 
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-cuda-2d-pow2-c-init.pdf"
+set output "fft-openacc-2d-pow2-c-init.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -471,7 +471,7 @@ plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:4 with linespoints lc rgb 
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-openacc-2d-pow2c-exec.pdf"
+set output "fft-openacc-2d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -662,7 +662,7 @@ plot [20:600] "fft-cuda-3d-pow2.dat"    using 1:4 with linespoints lc rgb "blue"
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-cuda-3d-pow2c-exec.pdf"
+set output "fft-cuda-3d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -719,7 +719,7 @@ plot [20:600] "fft-opencl-3d-pow2.dat"    using 1:4 with linespoints lc rgb "red
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-opencl-3d-pow2c-exec.pdf"
+set output "fft-opencl-3d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -764,7 +764,7 @@ plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:3 with linespoints lc rgb "gr
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-cuda-3d-pow2-c-init.pdf"
+set output "fft-openacc-3d-pow2-c-init.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -778,7 +778,7 @@ plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:4 with linespoints lc rgb "gr
 reset
 set format y "10^{%L}"
 set terminal pdf enhanced
-set output "fft-openacc-3d-pow2c-exec.pdf"
+set output "fft-openacc-3d-pow2-c-exec.pdf"
 set key right bottom
 set logscale xy
 set xlabel "N points"
@@ -937,6 +937,50 @@ set title "Initialisation time as a function of flatness - 3D - powers of 2 - re
 plot "flatness.dat" using 2:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
      "flatness.dat" using 2:7 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "OpenCL",\
      "flatness.dat" using 2:11 with linespoints lc rgb "green"  pt 7 ps 0.5 dashtype 1 title "OpenACC"
+
+
+reset
+set format y "10^{%L}"
+set format x "10^{%L}"
+set terminal pdf enhanced
+set output "flatness-r-exec.pdf"
+set key right bottom
+set logscale xy
+set xlabel "Flatness (n_x/n_z, n_x=n_y)"
+set ylabel "Time (s)"
+set title "Execution time as a function of flatness - 3D - powers of 2 - real"
+plot "flatness.dat" using 2:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
+     "flatness.dat" using 2:8 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "OpenCL",\
+     "flatness.dat" using 2:12 with linespoints lc rgb "green"  pt 7 ps 0.5 dashtype 1 title "OpenACC"
+
+reset
+set format y "10^{%L}"
+set format x "10^{%L}"
+set terminal pdf enhanced
+set output "flatness-c-init.pdf"
+set key right bottom
+set logscale xy
+set xlabel "Flatness (n_x/n_z, n_x=n_y)"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of flatness - 3D - powers of 2 - complex"
+plot "flatness.dat" using 2:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
+     "flatness.dat" using 2:9 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "OpenCL",\
+     "flatness.dat" using 2:13 with linespoints lc rgb "green"  pt 7 ps 0.5 dashtype 1 title "OpenACC"
+
+
+reset
+set format y "10^{%L}"
+set format x "10^{%L}"
+set terminal pdf enhanced
+set output "flatness-c-exec.pdf"
+set key right bottom
+set logscale xy
+set xlabel "Flatness (n_x/n_z, n_x=n_y)"
+set ylabel "Time (s)"
+set title "Execution time as a function of flatness - 3D - powers of 2 - complex"
+plot "flatness.dat" using 2:6 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
+     "flatness.dat" using 2:10 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "OpenCL",\
+     "flatness.dat" using 2:14 with linespoints lc rgb "green"  pt 7 ps 0.5 dashtype 1 title "OpenACC"
 
 
 # CCPPETMR
