@@ -636,28 +636,30 @@ As previously, the best performance is achieved when the number of points is a p
 \end{figure}
 \subsection{Effect of the flatness}\label{FLATNESS}
 
-The experiments were carried out in Sections \ref{PERFORMANCE2D} and \ref{PERFORMANCE3D} where with domains whose dimensions were the same in all directions, that is, squares or cubes. In this section, we will study, in three dimensions, the effect of the flatness of the domain on the performance. We will compute the transform of a signal on a cuboid containing $512^3$ points and whose sides in the $x$ and $y$ directions have identical lengths ($N_x=N_y$) . We hade defined the flatness as the ratio between the number of points in the $z$ and $x$ directions ($N_z/N_x$). The dimensions of the domains considered appear in Table \ref{FLATNESSDIM}.
+The experiments were carried out in Sections \ref{PERFORMANCE2D} and \ref{PERFORMANCE3D} where with domains whose dimensions were the same in all directions, that is, squares or cubes. In this section, we will study, in three dimensions, the effect of the flatness of the domain on the performance. We will compute the transform of a signal on a cuboid containing $512^3$ points stretched in the $z$ direction. The sides in the $x$ and $y$ directions have identical lengths ($N_x=N_y$) and the flatness is defined as the ratio between the number of points in the $z$ and $x$ directions ($N_z/N_x$). The dimensions of the domains considered appear in Table \ref{FLATNESSDIM}.
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|}
   \hline
-  \multicolumn{3}{|c|}{$N_x=N_y=N_z$}\\
+  $N_x=N_y$ & $N_z $ & Flatness\\ 
   \hline
   \hline
-  Powers of 2 & prod. of int. & primes\\ \hline
-
-  
-$2^5=32$ & $2\ 3\ 5=30$	& 31\\ \hline
-$2^6=64$ & $2\ 5\ 7=70$	& 61\\ \hline
-$2^7=128$ & $3\ 5\ 7=105$ & 127\\ \hline
-$2^8=256$ & $2\ 3\ 5\ 7=210$ & 257\\ \hline
-$2^9=512$ & $2^2\ 3\ 5\ 7=420$ & 509\\ \hline
+512 & 512       & 1\\ \hline
+256 & 2048      & 8\\ \hline
+128 & 8192      & 64\\ \hline
+64  & 32768     & 512\\ \hline
+32  & 131072    & 4096\\ \hline
+16  & 524288    & 32768\\ \hline
+8   & 2097152   & 262144\\ \hline
+4   & 8388608   & 2097152\\ \hline
+2   & 33554432  & 16777216\\ \hline
+1   & 134217728 & 134217728\\ \hline
 \end{tabular}
 \caption{Number of points used for the benchmark in three dimensions}\label{FLATNESSDIM}
 \end{table}
 
 We have observed that there is no clear trend in the way the flatness of the domain affects the performance and conclude that the performance depends mostly on the total number of points.\\
-ngths, that is a square or a cube. We will address the effect of assymetrical domains in Section \ref{FLATNESS}. For o
+ngths, that is a square or a cube. 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
 \centering
