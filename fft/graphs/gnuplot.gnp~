@@ -1,0 +1,833 @@
+# 1D FFTW
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-fftw-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - FFTW - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-fftw-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - FFTW - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-fftw-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - FFTW - 1D - C->C"
+plot "1d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-fftw-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - FFTW - 1D - C->C"
+plot "1d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+
+# 1D MKL
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-mkl-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - MKL - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:6 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-mkl-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - MKL - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:7 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-mkl-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - MKL - 1D - C->C"
+plot "1d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:8 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-mkl-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - MKL - 1D - C->C"
+plot "1d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:9 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+
+# 1D GSL
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-gsl-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - GSL - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:10 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:10 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:10 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-gsl-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - GSL - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:11 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:11 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:11 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-gsl-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - GSL - 1D - C->C"
+plot "1d-pow2.dat"    using 1:12 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:12 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:12 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-gsl-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - GSL - 1D - C->C"
+plot "1d-pow2.dat"    using 1:13 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:13 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:13 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+# 1D FFTPACK
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-fftpack-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - FFTPACK - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:14 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:14 with linespoints lc rgb "cyan" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:14 with linespoints lc rgb "cyan" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-fftpack-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - FFTPACK - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:15 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:15 with linespoints lc rgb "cyan" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:15 with linespoints lc rgb "cyan" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-fftpack-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - FFTPACK - 1D - C->C"
+plot "1d-pow2.dat"    using 1:16 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:16 with linespoints lc rgb "cyan" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:16 with linespoints lc rgb "cyan" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-fftpack-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - FFTPACK - 1D - C->C"
+plot "1d-pow2.dat"    using 1:17 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "1d-prodint.dat" using 1:17 with linespoints lc rgb "cyan" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "1d-primes.dat"  using 1:17 with linespoints lc rgb "cyan" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+# 1D ALL POW2
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-pow2-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 1D - Powers of 2 - R->HC"
+plot "1d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "1d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL",\
+     "1d-pow2.dat"    using 1:10 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "GSL",\
+     "1d-pow2.dat"    using 1:14 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "FFTPACK"
+    
+
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-pow2-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 1D - Powers of 2 - R->HC"
+plot "1d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "1d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL",\
+     "1d-pow2.dat"    using 1:11 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "GSL",\
+     "1d-pow2.dat"    using 1:15 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "FFTPACK"
+     
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-pow2-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 1D - Powers of 2 - C->C"
+plot "1d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "1d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL",\
+     "1d-pow2.dat"    using 1:12 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "GSL",\
+     "1d-pow2.dat"    using 1:16 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "FFTPACK"
+    
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-pow2-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 1D - Powers of 2 - C->C"
+plot "1d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "1d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL",\
+     "1d-pow2.dat"    using 1:13 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "GSL",\
+     "1d-pow2.dat"    using 1:17 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "FFTPACK"
+     
+
+# 1D ALL
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "1d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "1d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "1d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "1d-prodint.dat" using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "1d-primes.dat"  using 1:6 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes",\
+     "1d-pow2.dat"    using 1:10 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "GSL - Pow. of 2",\
+     "1d-prodint.dat" using 1:10 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "GSL - Prod. int.",\
+     "1d-primes.dat"  using 1:10 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "GSL - Primes",\
+     "1d-pow2.dat"    using 1:14 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "FFTPACK - Pow. of 2",\
+     "1d-prodint.dat" using 1:14 with linespoints lc rgb "cyan" pt 2 ps 0.5 dashtype 2 title "FFTPACK - Prod. int.",\
+     "1d-primes.dat"  using 1:14 with linespoints lc rgb "cyan" pt 1 ps 0.5 dashtype 4 title "FFTPACK - Primes"
+
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 1D - R->HC"
+plot "1d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "1d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "1d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "1d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "1d-prodint.dat" using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "1d-primes.dat"  using 1:7 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes",\
+     "1d-pow2.dat"    using 1:11 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "GSL - Pow. of 2",\
+     "1d-prodint.dat" using 1:11 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "GSL - Prod. int.",\
+     "1d-primes.dat"  using 1:11 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "GSL - Primes",\
+     "1d-pow2.dat"    using 1:15 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "FFTPACK - Pow. of 2",\
+     "1d-prodint.dat" using 1:15 with linespoints lc rgb "cyan" pt 2 ps 0.5 dashtype 2 title "FFTPACK - Prod. int.",\
+     "1d-primes.dat"  using 1:15 with linespoints lc rgb "cyan" pt 1 ps 0.5 dashtype 4 title "FFTPACK - Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 1D - C->C"
+plot "1d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "1d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "1d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "1d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "1d-prodint.dat" using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "1d-primes.dat"  using 1:8 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes",\
+     "1d-pow2.dat"    using 1:12 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "GSL - Pow. of 2",\
+     "1d-prodint.dat" using 1:12 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "GSL - Prod. int.",\
+     "1d-primes.dat"  using 1:12 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "GSL - Primes",\
+     "1d-pow2.dat"    using 1:16 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "FFTPACK - Pow. of 2",\
+     "1d-prodint.dat" using 1:16 with linespoints lc rgb "cyan" pt 2 ps 0.5 dashtype 2 title "FFTPACK - Prod. int.",\
+     "1d-primes.dat"  using 1:16 with linespoints lc rgb "cyan" pt 1 ps 0.5 dashtype 4 title "FFTPACK - Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "1d-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 1D - C->C"
+plot "1d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "1d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "1d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "1d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "1d-prodint.dat" using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "1d-primes.dat"  using 1:9 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes",\
+     "1d-pow2.dat"    using 1:13 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "GSL - Pow. of 2",\
+     "1d-prodint.dat" using 1:13 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "GSL - Prod. int.",\
+     "1d-primes.dat"  using 1:13 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "GSL - Primes",\
+     "1d-pow2.dat"    using 1:17 with linespoints lc rgb "cyan" pt 7 ps 0.5 dashtype 1 title "FFTPACK - Pow. of 2",\
+     "1d-prodint.dat" using 1:17 with linespoints lc rgb "cyan" pt 2 ps 0.5 dashtype 2 title "FFTPACK - Prod. int.",\
+     "1d-primes.dat"  using 1:17 with linespoints lc rgb "cyan" pt 1 ps 0.5 dashtype 4 title "FFTPACK - Primes"
+
+
+
+
+# 2D FFTW
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-fftw-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - FFTW - 2D - R->HC"
+plot "2d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "2d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "2d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-fftw-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - FFTW - 2D - R->HC"
+plot "2d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "2d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "2d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-fftw-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - FFTW - 2D - C->C"
+plot "2d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "2d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "2d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-fftw-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - FFTW - 2D - C->C"
+plot "2d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "2d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "2d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+
+# 2D MKL
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-mkl-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - MKL - 2D - R->HC"
+plot "2d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "2d-prodint.dat" using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "2d-primes.dat"  using 1:6 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-mkl-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - MKL - 2D - R->HC"
+plot "2d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "2d-prodint.dat" using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "2d-primes.dat"  using 1:7 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-mkl-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - MKL - 2D - C->C"
+plot "2d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "2d-prodint.dat" using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "2d-primes.dat"  using 1:8 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-mkl-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - MKL - 2D - C->C"
+plot "2d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "2d-prodint.dat" using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "2d-primes.dat"  using 1:9 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+
+# 2D ALL POW2
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-pow2-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 2D - Powers of 2 - R->HC"
+plot "2d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "2d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL"
+    
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-pow2-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 2D - Powers of 2 - R->HC"
+plot "2d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "2d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL"
+     
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-pow2-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 2D - Powers of 2 - C->C"
+plot "2d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "2d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL"
+      
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-pow2-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 2D - Powers of 2 - C->C"
+plot "2d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "2d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL"
+     
+
+# 2D ALL
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 2D - R->HC"
+plot "2d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "2d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "2d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "2d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "2d-prodint.dat" using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "2d-primes.dat"  using 1:6 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes"
+
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 2D - R->HC"
+plot "2d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "2d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "2d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "2d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "2d-prodint.dat" using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "2d-primes.dat"  using 1:7 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 2D - C->C"
+plot "2d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "2d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "2d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "2d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "2d-prodint.dat" using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "2d-primes.dat"  using 1:8 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "2d-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 2D - C->C"
+plot "2d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "2d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "2d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "2d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "2d-prodint.dat" using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "2d-primes.dat"  using 1:9 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes"
+
+
+# 3D FFTW
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-fftw-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - FFTW - 3D - R->HC"
+plot "3d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "3d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "3d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-fftw-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - FFTW - 3D - R->HC"
+plot "3d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "3d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "3d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-fftw-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - FFTW - 3D - C->C"
+plot "3d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "3d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "3d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-fftw-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - FFTW - 3D - C->C"
+plot "3d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "3d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "3d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+
+# 3D MKL
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-mkl-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - MKL - 3D - R->HC"
+plot "3d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "3d-prodint.dat" using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "3d-primes.dat"  using 1:6 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-mkl-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - MKL - 3D - R->HC"
+plot "3d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "3d-prodint.dat" using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "3d-primes.dat"  using 1:7 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-mkl-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - MKL - 3D - C->C"
+plot "3d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "3d-prodint.dat" using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "3d-primes.dat"  using 1:8 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-mkl-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - MKL - 3D - C->C"
+plot "3d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "3d-prodint.dat" using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "3d-primes.dat"  using 1:9 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
+
+
+# 3D ALL POW2
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set format y "10^{%L}"
+set output "3d-pow2-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 3D - Powers of 2 - R->HC"
+plot "3d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "3d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL"
+    
+reset
+set format y "10^{%L}"
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-pow2-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 3D - Powers of 2 - R->HC"
+plot "3d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "3d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL"
+     
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-pow2-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 3D - Powers of 2 - C->C"
+plot "3d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "3d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL"
+      
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-pow2-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 3D - Powers of 2 - C->C"
+plot "3d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW",\
+     "3d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL"
+     
+
+# 3D ALL
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-init-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 3D - R->HC"
+plot "3d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "3d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "3d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "3d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "3d-prodint.dat" using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "3d-primes.dat"  using 1:6 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes"
+
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-exec-r.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 3D - R->HC"
+plot "3d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "3d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "3d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "3d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "3d-prodint.dat" using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "3d-primes.dat"  using 1:7 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-init-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Initialisation time as a function of N points - 3D - C->C"
+plot "3d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "3d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "3d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "3d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "3d-prodint.dat" using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "3d-primes.dat"  using 1:8 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes"
+
+reset
+set format y "10^{%L}"
+set terminal pdf enhanced
+set output "3d-exec-c.pdf"
+set key right bottom
+set logscale xy
+set xlabel "N points"
+set ylabel "Time (s)"
+set title "Execution time as a function of N points - 3D - C->C"
+plot "3d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "3d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "3d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "3d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "3d-prodint.dat" using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "3d-primes.dat"  using 1:9 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "MKL - Primes"
