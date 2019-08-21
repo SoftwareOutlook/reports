@@ -12,6 +12,8 @@
 \usepackage[british]{babel}
 \usepackage{hyperref}
 \usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \date{}
 \begin{document}
 \title{Comparison of Several FFT Libraries in C/C++}
@@ -19,36 +21,48 @@
 \affil{Science and Technology Facilities Council, Hartree Centre, Rutherford Appleton Laboratory, Harwell Campus, Harwell Oxford, OX11 0QZ, United Kingdom}
 \maketitle
 \begin{abstract}
-We compare the performance of several libraries computing FFTs called from C or C++ code. 
+We compare the performance of several libraries computing FFTs that can be 
+called from C or C++ code. In this work, we consider FFTW, MKL, GSL and 
+FFTPACK. A benchmarking method was developed in collaboration with CCP-PETMR, 
+which we generalised to ensure that this work applied to a wider range of the 
+UK's Computational Collaborative Projects and High-End Computing Consortia.
 \end{abstract}
 \section{Introduction}
-Some applications require the computation of the discrete Fourier transform (DFT) of large datasets. In such cases, the efficiency of that step can become of critical importance. In this report, we compare the performance obtained with several libraries that can be called from C or C++.
+Some applications require the computation of the discrete Fourier transform 
+(DFT) of large datasets. In such cases, the efficiency of that step can 
+become of critical importance. In this report, we compare the performance 
+obtained with several libraries that can be called from C or C++:  FFTW \cite{fftw}, MKL \cite{mkl}, GSL \cite{gsl} and FFTPACK \cite{fftpack}.
 
 \section{The Fast Fourier Transform}
 
-The Fourier transform of a discrete signal on a finite domain in one dimension containing $N$ points is given by:
-\begin{equation}
-{\cal F}_k=\sum_{j=0}^{N-1} x_j e^{-i\frac{2\pi}{N}kj}.
-\end{equation}\label{fourier}
+The Fourier transform of a discrete signal $x_j, j=1,\ldots,N,$ at uniformally distributed points across a finite domain $[0,N-1]$ in one dimension is given by:
+\begin{equation}\label{fourier}
+{\cal F}_k=\sum_{j=0}^{N-1} x_j e^{-i\frac{2\pi}{N}kj}, \quad k=1,\ldots,N-1.
+\end{equation}
 
-We compute it using the Fast Fourier Transform (FFT) method. It consists in expressing the transform recursively as functions of transforms of more sparse subsets of the data. The most famous of these methods is the Cooley-Tukey algorithm \cite{CT}. The procedure can illustrated by rewriting eq. \ref{fourier} and splitting the sum in a part containing the even values of $j$ and another the odd ones, multiplied by a phase factor.
-\begin{equation}
-{\cal F}_k=\sum_{j=0}^{N/2-1}x_{2j}e^{-i\frac{2\pi}{N}2jk}+e^{-i\frac{2\pi}{N}jk}\sum_{j=0}^{N/2-1}x_{2j+1}e^{-i\frac{2\pi}{n}2jk}
-\end{equation}\label{ct}
-We can subsequently repeat the procedure by expressing the respective sums as a function of more sparse transforms till we are left only with DFTs of a few data points. This dramatically reduces the number of necessary operations which becomes proportional to $N\log(N)$ rather than $N^2$.\\
+We compute it using the Fast Fourier Transform (FFT) method, which expresses 
+the transform recursively as functions of transforms of more sparse subsets 
+of the data. The most famous of these methods is the Cooley-Tukey algorithm 
+\cite{CT}. The procedure can illustrated by rewriting Equation \ref{fourier} 
+and splitting the sum into two parts with one containing the even values of 
+$j$ and the other containing the odd ones multiplied by a phase factor.
+\begin{equation}\label{ct}
+{\cal F}_k=\sum_{j=0}^{N/2-1}x_{2j}e^{-i\frac{2\pi}{N}2jk}+e^{-i\frac{2\pi}{N}jk}\sum_{j=0}^{N/2-1}x_{2j+1}e^{-i\frac{2\pi}{N}2jk}, \quad k=1,\ldots, N-1.
+\end{equation}
+We can subsequently repeat the procedure by expressing the respective sums as a function of more sparse transforms till we are left only with DFTs of a few data points. This dramatically reduces the number of necessary operations, which become  $\cal{O}\left(N\log(N)\right)$ rather than $\cal{O}\left(N^2\right)$.
 
-We will also consider Fourier transforms in more dimensions. For example, in two dimensions, the discrete transform of complex values $z_{j_x j_y}$ located on a grid consisting of $N_x \times N_y$ points is given by:\\
+We also consider Fourier transforms in more dimensions. For example, in two dimensions, the discrete transform of complex values $z_{j_x j_y}$ located on a grid consisting of $N_x \times N_y$ points is given by:
 $$
-{\cal F}_{k_x k_y}=\sum_{j_x=0}^{N_x-1} \sum_{j_y=0}^{N_y-1} z_{j_x j_y} e^{-i\left(\frac{2\pi}{N_x} j_x k_x+\frac{2\pi}{N_y} j_y k_y\right)}.
+{\cal F}_{k_x k_y}=\sum_{j_x=0}^{N_x-1} \sum_{j_y=0}^{N_y-1} z_{j_x j_y} e^{-i\left(\frac{2\pi}{N_x} j_x k_x+\frac{2\pi}{N_y} j_y k_y\right)}, \quad k_x=0,\ldots,N_x-1, k_y=0,\ldots,N_y-1.
 $$
 The inverse of this transform corresponds to:
 $$
-{\cal F}_{k_x k_y}=\frac{1}{N_xN_y}\sum_{j_x=0}^{N_x-1} \sum_{j_y=0}^{N_y-1} z_{j_x j_y} e^{i\left(\frac{2\pi}{N_x} j_x k_x+\frac{2\pi}{N_y} j_y k_y\right)}.
+{\cal F}_{k_x k_y}=\frac{1}{N_xN_y}\sum_{j_x=0}^{N_x-1} \sum_{j_y=0}^{N_y-1} z_{j_x j_y} e^{i\left(\frac{2\pi}{N_x} j_x k_x+\frac{2\pi}{N_y} j_y k_y\right)}, \quad k_x=0,\ldots,N_x-1, k_y=0,\ldots,N_y-1.
 $$
   
 \section{Benchmark}
 
-The benchmark \cite{code} consists in calculating the FFT of a series of volumes, in 1, 2 or 3 dimensions, of real or complex values. The purpose was to mimick a problem submitted to us by the CCP PET-MR collaboration \cite{ccppetmr}, within the Software Outlook initiative \cite{softwareoutlook}, who needed to take the transform of a series of square complex images. This example is depicted in Fig. \ref{benchmark} and considered in Section \ref{CCPPETMR}.\\
+The benchmark \cite{code} consists in calculating the FFT of a series of volumes, in 1, 2 or 3 dimensions, of real or complex values. The purpose was to mimick a problem submitted to us by the CCP PET-MR collaboration \cite{ccppetmr}, within the Software Outlook initiative \cite{softwareoutlook}, who needed to take the transform of a series of square complex images. This example is depicted in Figure \ref{benchmark} and considered in Section \ref{CCPPETMR}.\\
 
 \begin{figure}[H]
 \captionsetup{width=0.6\textwidth}
@@ -58,30 +72,33 @@ The benchmark \cite{code} consists in calculating the FFT of a series of volumes
 \label{benchmark}
 \end{figure}
 
-The whole procedure is more precisely depicted in the following pseudocode. We begin by generating $N_s$ signals in 1, 2 or 3 dimensions. These can be real or complex values on a domain of dimensions $N_x$, $N_y$... We then initialise the object performing the FFT and compute the transform. After this step, we repeat the procedure with the inverse transform, in order to compute the error. We will mesure the initialisation and execution times of these transforms.
-\begin{figure}[H]
-\captionsetup{width=0.8\linewidth}
+The whole procedure is generalised in the following pseudocode. We begin by generating $N_s$ signals (images) in 1, 2 or 3 dimensions. These can be real or complex values on a domain of dimensions $N_x$, $N_y$... We then initialise the object performing the FFT and compute the transform. After this step, we repeat the procedure with the inverse transform, in order to compute the error. We will mesure the initialisation and execution times of these transforms.
+\begin{algorithm}[H]
 \centering
-\begin{verbatim}
-        for i running from 1 to N_s
-          signal[i]=generate_signal(N_x [,N_y[, N_z]])
+\begin{algorithmic}
+        \FOR {$i = 0,\ldots, N_s-1$}
+        \STATE  $signal[i]=generate\_signal(N_x [,N_y, N_z])$
+        \ENDFOR
 
-        initialise FFT
+        \STATE Initialise $FFT$
 
-        for i running from 1 to N_s
-          transform[i]=FFT(signal[i])
+        \FOR {$i=0,\ldots,N_s-1$}
+        \STATE  $transform[i]=FFT(signal[i])$
+        \ENDFOR
 
-        initialise inverse_FFT
+        \STATE Initialise $inverse\_FFT$
 
-        for i running from 1 to N_s
-          inverse_transform[i]=inverse_FFT(transform[i])
+        \FOR {$i=0,\ldots,N_s$}
+         \STATE $inverse\_transform[i]=inverse\_FFT(transform[i])$
+        \ENDFOR
 
-        for i running from 1 to N_s
-          error=error+||inverse_transform[i]-signal[i]||
-\end{verbatim}
+        \FOR {$i=0,\ldots,N_s-1$}
+          \STATE   $error=error+\left\Vert inverse_transform[i]-signal[i]\right\Vert$
+        \ENDFOR
+\end{algorithmic}
 \caption{Pseudocode corresponding to the benchmark}
 \label{PSEUDOCODE}
-\end{figure}
+\end{algorithm}
 
 We used a number of points varying from $\sim 10^3$ to $\sim 10^8$ in 1, 2 and 3 dimensions. The domains had sides of equal lengths (square or cubic) or were flattened (rectangle or cuboid). These dimensions could be powers of 2, products of powers of small integers or prime numbers\\
 
