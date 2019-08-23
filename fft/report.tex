@@ -43,11 +43,11 @@ The Fourier transform of a discrete signal $x_j, j=1,\ldots,N,$ at uniformally d
 We compute it using the Fast Fourier Transform (FFT) method, which expresses 
 the transform recursively as functions of transforms of more sparse subsets 
 of the data. The most famous of these methods is the Cooley-Tukey algorithm 
-\cite{CT}. The procedure can illustrated by rewriting Equation \ref{fourier} 
+\cite{CT}. The procedure can illustrated by rewriting Equation~\ref{fourier} 
 and splitting the sum into two parts with one containing the even values of 
 $j$ and the other containing the odd ones multiplied by a phase factor.
 \begin{equation}\label{ct}
-{\cal F}_k=\sum_{j=0}^{N/2-1}x_{2j}e^{-i\frac{2\pi}{N}2jk}+e^{-i\frac{2\pi}{N}jk}\sum_{j=0}^{N/2-1}x_{2j+1}e^{-i\frac{2\pi}{N}2jk}, \quad k=1,\ldots, N-1.
+{\cal F}_k=\sum_{j=0}^{N/2-1}x_{2j}e^{-i\frac{2\pi}{N}2jk}+e^{-i\frac{2\pi}{N}k}\sum_{j=0}^{N/2-1}x_{2j+1}e^{-i\frac{2\pi}{N}2jk}, \quad k=1,\ldots, N-1.
 \end{equation}
 We can subsequently repeat the procedure by expressing the respective sums as a function of more sparse transforms till we are left only with DFTs of a few data points. This dramatically reduces the number of necessary operations, which become  $\cal{O}\left(N\log(N)\right)$ rather than $\cal{O}\left(N^2\right)$.
 
@@ -62,17 +62,28 @@ $$
   
 \section{Benchmark}
 
-The benchmark \cite{code} consists in calculating the FFT of a series of volumes, in 1, 2 or 3 dimensions, of real or complex values. The purpose was to mimick a problem submitted to us by the CCP PET-MR collaboration \cite{ccppetmr}, within the Software Outlook initiative \cite{softwareoutlook}, who needed to take the transform of a series of square complex images. This example is depicted in Figure \ref{benchmark} and considered in Section \ref{CCPPETMR}.\\
+The benchmark \cite{code} consists in calculating the FFT of a series of volumes, in 1, 2 or 3 dimensions, 
+of real or complex values. The purpose was to mimick a problem submitted to us by the CCP PET-MR 
+collaboration \cite{ccppetmr}, within the Software Outlook initiative \cite{softwareoutlook}, who needed to 
+take the transform of a series of square complex images. This example is depicted in Figure \ref{benchmark} 
+and considered in Section \ref{CCPPETMR}.
 
 \begin{figure}[H]
 \captionsetup{width=0.6\textwidth}
 \centering
 \includegraphics[height=5cm]{benchmark.pdf}
-\caption{The benchmark consists in taking the FFT of several images. Each of them is made of real or complex values and can be a simple line, a rectangle or a cuboid.}
+\caption{The benchmark consists in taking the FFT of several images/signals. Each of them is made of real or complex values and can be a simple line, a rectangle or a cuboid.}
 \label{benchmark}
 \end{figure}
 
-The whole procedure is generalised in the following pseudocode. We begin by generating $N_s$ signals (images) in 1, 2 or 3 dimensions. These can be real or complex values on a domain of dimensions $N_x$, $N_y$... We then initialise the object performing the FFT and compute the transform. After this step, we repeat the procedure with the inverse transform, in order to compute the error. We will mesure the initialisation and execution times of these transforms.
+The whole procedure is generalised in Algorithm~\ref{PSEUDOCODE}. We begin by generating $N_s$ signals 
+(images) in 1, 2 or 3 dimensions. These can be real or complex values and are sampled at uniformally 
+distributed points across the domain. For 1D problems, the sampling is performed at $N$ uniformally 
+spaced points across the domain; in 2D the sample points $(j_x,j_y)$ are uniformally distributed 
+using a rectangular mesh with $N_x\times N_y$ points; in 3D the domain is discretised using a uniform 
+mesh consisting of $N_x\times N_y\times N_z$ grid points. We then initialise the object performing the FFT 
+and compute the transform. After this step, we repeat the procedure with the inverse transform, in 
+order to compute the error. We will measure the initialisation and execution times of these transforms.
 \begin{algorithm}[H]
 \centering
 \begin{algorithmic}
@@ -96,51 +107,92 @@ The whole procedure is generalised in the following pseudocode. We begin by gene
           \STATE   $error=error+\left\Vert inverse_transform[i]-signal[i]\right\Vert$
         \ENDFOR
 \end{algorithmic}
-\caption{Pseudocode corresponding to the benchmark}
+\caption{Pseudocode corresponding to our DFT benchmark}
 \label{PSEUDOCODE}
 \end{algorithm}
 
-We used a number of points varying from $\sim 10^3$ to $\sim 10^8$ in 1, 2 and 3 dimensions. The domains had sides of equal lengths (square or cubic) or were flattened (rectangle or cuboid). These dimensions could be powers of 2, products of powers of small integers or prime numbers\\
+We vary the number of grid points in our benchmark tests. For most of the tests, the domains had 
+sides of equal lengths (square or cubic) or were flattened (rectangle or cuboid). These dimensions 
+could be powers of 2, products of powers of small integers or prime numbers.
 
-The values appearing in the graphs are the execution time averaged over 10 runs. A certain number of bumps or slight unexpected features are apparent. However they were consistently repeated in all our measurements. This is also confirmed by the standard deviation of our results which was always quite small, of the order of a few percents of the average value. We chose not to display error bars on our graphs since they were so small that they were barely visible. 
+The values appearing in the graphs are the execution time averaged over 10 runs. A certain number 
+of bumps or slight unexpected features are apparent. However they were consistently repeated in all 
+our measurements. This was also confirmed by the standard deviation of our results, which were always 
+quite small and of the order of a few percents of the average value. We chose not to display error 
+bars on our graphs since they were so small that they were barely visible. 
 
 \section{Overview of the chosen libraries}
-We consider the following libraries computing FFTs: FFTW \cite{fftw}, MKL \cite{mkl}, GSL \cite{gsl} and FFTPACK \cite{fftpack} (Table \ref{ffttable}). They can perform complex transforms, real-to-half-complex ones (and conversely) as well as, in the case of FFTW, real-to-real transforms when the signal is odd or even. The half-complex output consists in half as many complex values as there were points in the signal, taking advantage of the hermiticity of the Fourier transform of a real function.\\
+We consider the following libraries computing FFTs: FFTW \cite{fftw}, MKL \cite{mkl}, GSL \cite{gsl} 
+and FFTPACK \cite{fftpack} and summarise their attributes in Table~\ref{ffttable}). They can 
+perform complex transforms, 
+real-to-half-complex ones (and conversely) as well as, in the case of FFTW, real-to-real transforms 
+when the signal is odd or even. The half-complex output consists in half as many complex values as 
+there were points in the signal, taking advantage of the hermiticity of the Fourier transform of a 
+real function.
 
-The GSL and FFTPACK libraries only work in one dimension\footnote{FFTPACK can compute FFTs in several dimensions but it is written in FORTRAN and all the C or C++ wrappers we have found only allowed one-dimensional transforms.}. On the contrary, FFTW and MKL can compute FFTs in several dimensions. They are also capable of working in a parallel way, using multithreading and MPI.  
+FFTPACK can compute FFTs in several dimensions but it is written in FORTRAN and all the C or C++ 
+wrappers we have found only allow one-dimensional transforms. The GSL library is only designed to 
+work in one dimension. However, FFTW and MKL can compute FFTs in several dimensions. They are also 
+capable of working in a parallel way, using multithreading and MPI.  
 \begin{table}[H]  
 \captionsetup{width=1\textwidth}
-\begin{tabular}{|p{2.5cm}||p{2.5cm}|p{1cm}|p{3cm}|p{3cm}|p{2cm}|p{2cm}|}
+\begin{tabular}{|l||l|l|l|l|l|}
 \hline
 & Type & Dim. & Radices & Parallelism & Licence \\
 \hline
 \hline
-FFTW & R$\to$H,\ \ \  C$\to$C,\ \ \  H$\to$R, R{\scriptsize (odd/even)}$\to$R& Any&2, 3, 5, 7, 11, 13 + any with code generator & Multithreading, MPI & GPL v2\\
+FFTW & R$\to$H & Any & 2, 3, 5, 7, 11, 13  & Multithreading  & GPL v2\\
+& C$\to$C & & + any with code & MPI &  \\
+&  H$\to$R & &  generator & &  \\
+& R{\scriptsize (odd/even)}$\to$R & & & &  \\
 \hline
-MKL  &  R$\to$H,\ \ \  C$\to$C,\ \ \ \  H$\to$R& Any & & Multithreading, MPI & Proprietary\\
+MKL  &  R$\to$H & Any & & Multithreading & Proprietary\\
+& C$\to$C & & & MPI &  \\
+&  H$\to$R & & & &  \\
 \hline
-GSL  &  R$\to$H,\ \ \  C$\to$C,\ \ \ \  H$\to$R & 1 & 2, 3, 5, 6, 7 & - & GPL v3\\
+GSL  &  R$\to$H & 1 & 2, 3, 5, 6, 7 & - & GPL v3\\
+& C$\to$C & & & &  \\
+&  H$\to$R & & & &  \\
 \hline
-FFTPACK {\scriptsize (CASA wrapper)} &  R$\to$H,\ \ \  C$\to$C,\ \ \ \  H$\to$R & 1 & & - & GPL v2\\
+FFTPACK  &  R$\to$H  & 1 & & - & GPL v2\\
+{\scriptsize (CASA wrapper)} & C$\to$C & & & &  \\
+&  H$\to$R & & & &  \\
 \hline
 \end{tabular}
-\caption{Overview of the FFT libraries considered. R stands for real, C, for complex, and HC, for half-complex.}
+\caption{Overview of the FFT libraries considered. R stands for real, C for complex, and HC for half-complex.}
 \label{ffttable}
 \end{table}
 
-\section{Set up}
-Our measurements were carried out on ARCHER \cite{archer}, the UK National Supercomputing Service. It is made of 4920 compute nodes each containing  two 12-core Intel E5-2697 v2 (Ivy Bridge) processors and at least 64 GB of RAM. The modules \texttt{gcc/7.2.0} and \\ \texttt{intel/17.0.3.191} were loaded. In order to take advantage of multi-threading, the environment variable \texttt{KMP\_AFFINITY} must be set to \texttt{disabled}.\\
+\section{Benchmark set-up}
+Our benchmark runs were carried out on ARCHER \cite{archer}, the UK National Supercomputing Service. 
+It consists of 4920 compute nodes each containing  two 12-core Intel E5-2697 v2 (Ivy Bridge) 
+processors and at least 64 GB of RAM. The modules \texttt{gcc/7.2.0} and \\ \texttt{intel/17.0.3.191} 
+were loaded. In order to take advantage of multi-threading, the environment variable \texttt{KMP\_AFFINITY} 
+must be set to \texttt{disabled}.
 
-Our benchmark was coded in C++ using double-precision reals. More precisely, we used version 3.3.8 of FFTW, version 17.0.3 of MKL and version 2.5 of GSL. Note that we used our own version of Boost, FFTW and GSL because the version of Boost present on the system was lacking certain libraries and we wanted to use the most recent versions of FFTW and GSL. The benchmark was compiled with the flags \texttt{-std=c++1z -O3  -fopenmp   -lm -lfftw3 -lfftw3\_threads -lgslcblas -lgsl -lboost\_system -lboost\_chrono\\-liomp5 -lmkl\_core -lmkl\_intel\_thread -lmkl\_intel\_lp64  -lcasa\_scimath \\-llapack}.\\
+Our benchmark was coded in C++ using double-precision reals. More precisely, we used version 3.3.8 
+of FFTW, version 17.0.3 of MKL and version 2.5 of GSL. Note that we used our own version of Boost, 
+FFTW and GSL because the version of Boost present on the system was lacking certain libraries and 
+we wanted to use the most recent versions of FFTW and GSL. The benchmark was compiled with the flags
+ \texttt{-std=c++1z -O3  -fopenmp   -lm -lfftw3 -lfftw3\_threads -lgslcblas -lgsl -lboost\_system -lboost\_chrono\\-liomp5 -lmkl\_core -lmkl\_intel\_thread -lmkl\_intel\_lp64  -lcasa\_scimath \\-llapack}.
 
-Since FFTPACK was written in FORTRAN, we have resorted to the C++ wrapper provided by CASA, the radioastronomy package \cite{casa}. This is straightforward to install on Debian-like systems, such as the one used by CCP PET-MR in their virtual environment, where CASA can be installed using the package manager. However, including the headers and linking with the libraries was not possible with the version of CASA distributed by the National Radio Astronomy Observatory. As a consequence, this was quite difficult to set up on ARCHER and required the use of libraries provided by an old version of Debian to match those available on the system. For this reason, it was necessary to use as well an older version of CASA, 2.4.0.
+Since FFTPACK was written in FORTRAN, we have resorted to the C++ wrapper provided by CASA, the 
+radioastronomy package \cite{casa}. This is straightforward to install on Debian-like systems, 
+such as the one used by CCP PET-MR in their virtual environment, where CASA can be installed 
+using the package manager. However, including the headers and linking with the libraries was 
+not possible with the version of CASA distributed by the National Radio Astronomy Observatory. 
+As a consequence, this was quite difficult to set up on ARCHER and required the use of libraries 
+provided by an old version of Debian to match those available on the system. For this reason, it 
+was also necessary to use an older version of CASA, 2.4.0.
 
-\pagebreak
+
 \section{Effect of the domain size in one dimension}\label{PERFORMANCE1D}
 
-In this section, we compare the performance of each library, in one dimension, for numbers of points consisting of powers of 2, products of powers of small integers and prime numbers. We do so for real and complex values and with FFTW (Fig. \ref{1DFFTW}), MKL (Fig. \ref{1DMKL}), GSL (Fig. \ref{1DGSL}) and FFTPACK (Fig. \ref{1DFFTPACK}). We then compare the different libraries for powers of 2 (Fig. \ref{1DPOW2}) and in general (Fig. \ref{1D}). In each of these cases, we have plotted the initialisation and execution times as a function of the sample size, for real and complex numbers. We will investigate the effect of parallelism in Section \ref{PARALLELISM}. As a consequence, for the moment, we will run all those benchmarks serially, as a single process containing a single thread.\\
-
-Our example corresponds to the pseudocode in Table \ref{PSEUDOCODE}. We have used a single signal ($N_s=1$) and the number of points is a power of 2, an integer number of the form $2^j\ 3^k\ 5^l\ 7^m$ or a prime number, both close to the corresponding power of 2 (Table \ref{SIZES1D}).
+In this section, we compare the performance of each library, in one dimension. 
+Our example corresponds to the pseudocode in Algorithm~\ref{PSEUDOCODE}. We have 
+used a single signal ($N_s=1$) and the number of grid points, $N,$ is set to be either a power of 2, 
+an integer number of the form $2^j\ 3^k\ 5^l\ 7^m$ or a prime number. The latter are chosen to be 
+close to the corresponding power of 2 (Table~\ref{SIZES1D}).
 \begin{table}[H]
 \captionsetup{width=0.8\linewidth}
 \centering
@@ -165,8 +217,35 @@ $2^{26}=67108864$ & $2^3\ 3^3\ 5^3\ 7^4=64827000$ &\\ \hline
 \end{table}
 
 
-We begin by comparing the performance obtained with powers of 2, products of small integers and primes. As expected, for all the libraries, the performance is worse with primes than in the other cases. 
-\begin{figure}[H]
+ We run our benchmarks with both real and complex values signals and use the DFT libraries 
+FFTW (Figure~\ref{1DFFTW}), MKL (Figure~\ref{1DMKL}), GSL (Figure~\ref{1DGSL}) and FFTPACK 
+(Figure~\ref{1DFFTPACK}). For each library, we compare the effect of using the different 
+classes of $N.$ We then compare the different libraries for powers of 2 (Figure~\ref{1DPOW2}) and, 
+in general, (Figure~\ref{1D}). In each of these cases, we have plotted the wallclock initialisation time and 
+wallclock forward DFT execution times as a function of $N.$ We will investigate the effect of parallelism in 
+Section~\ref{PARALLELISM}. As a consequence, for the moment, we will run all those benchmarks s
+erially, as a single process containing a single thread.
+
+
+\subsection{1D FFTW}
+Analysing the performance of FFTW in Figure~\ref{1DFFTW}, the initialisation time for real input 
+signals is similat for $N$ a power of 2 and values of $N$ that can be factored into a product of 
+small integers: for larger values of $N,$ it increases proportionally to a power of $N.$ For 
+values of $N$ greater than $2^{14},$ the initialisation times for prime values of $N$ are at 
+least 20 times higher than the other classes of $N.$ The behaviour of the initialisation times 
+is different when the signal is complex-valued. Namely, when $N$ is a power of 2, the initialisation 
+time flattens out when $N>10^6.$ Initialisation times are faster for complex input compared to real 
+input: when $N$ can be factored into a product of small integers, the difference is approximately a 
+factor of 2. Compairing DFT execution times for real and complex input signals, the behaviour is very 
+similar but the complex runs are roughly 2 times slower than when the signal is real-valued and $N$ 
+is a power of 2 or the product of small integers. When $N$ is prime, the execution times are almost 
+identical for real and complex signals. 
+
+
+
+
+ 
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
@@ -197,7 +276,22 @@ We begin by comparing the performance obtained with powers of 2, products of sma
 \label{1DFFTW}
 \end{figure}
 
-\begin{figure}[H]
+\subsection{1D MKL}
+Figure~\ref{1DMKL} compares the initialisation and DFT execution times for the MKL library. When the 
+signal is real-valued, there is little difference in initialisation times for $N$ a power of 2 and $N$ 
+a product of small integers. Additionally, the initialisation time is increasing proportionally to a 
+power of the problem size. When $N$ is prime and the signal is real-valued, there is only a relatively 
+small increase in intialisation time as the problem size increases. When the signal contains complex 
+values, the initialisation time is roughly 1.5 times larger for $N$ a product of small integers 
+compared to $N$ being a power of 2. Additionally, for these cases, the initialisation time is roughly 
+an order of magnitude smaller than when the signal has real entries.
+
+The DFT execution times for $N$ a power of 2 or product of small integers are highly correlated to 
+problem size with execution times for real input taking roughly twice the time of signals with complex 
+entries. When $N$ is prime, the DFT execution time is 2.2 times longer when the signal is real instead 
+of complex.
+
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
@@ -228,7 +322,20 @@ We begin by comparing the performance obtained with powers of 2, products of sma
 \label{1DMKL}
 \end{figure}
 
-\begin{figure}[H]
+\subsection{1D GSL and FFTPACK}
+As with the FFTW and MKL libraries, the initialisation times for GSL, Figure~\ref{1DGSL}, have 
+differing behaviours for real and complex signals. For complex signals, there is little difference 
+in initialisation time for the different classes of $N$ and the time is proportional to a power of 
+the problem size. When the signal is real, rather surprisingly, the initialisation time is smallest 
+when $N$ is prime and the times for the other cases are roughly those for corresponding complex 
+signals. For real-valued signals with prime values of $N,$ the DFT execution time increases at a 
+rate proportional to $N^2.$ For complex signals with $N$ prime, there is a much slower increase 
+with respect to execution time and the times are roughly 2.5 times those of the other classes of 
+$N$ considered.
+
+The general behaviours of the GSL and FFTPACK (Figure~\ref{1DFFTPACK}) libraries are similar.  
+
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
@@ -290,7 +397,17 @@ We begin by comparing the performance obtained with powers of 2, products of sma
 \label{1DFFTPACK}
 \end{figure}
 
-We also compared the libraries among themselves for powers of 2 (Table \ref{1DPOW2}) and in general (Table \ref{1D}).  No clear winner emerges from our measurements. For real signals, FFTW and FFTPACK are the fastest for powers of 2 while, for products of powers of small integers, it is FFTW and, in the case of prime numbers, FTTW and MKL. For complex signals, the performances obtained with each library are quite close except with products of powers small integers where FFTW is the most efficient. We also notice that the performance with primes is significantly worse, with real numbers, in the cases of GSL and FFTPACK. As a conclusion, in one dimension, FFTW seems to be the best all-rounder.
+
+\subsection{Comparison libraries for 1D benchmarks}
+We also compared the libraries among themselves for powers of 2 (Figure~\ref{1DPOW2}) and all the 
+classes of $N$ considered (Figure~\ref{1D}).  No clear winner emerges from our measurements with 
+respect to DFT time. For 
+real signals, FFTW and FFTPACK are the fastest for powers of 2 while, for products of powers of small 
+integers, it is FFTW and, in the case of prime numbers, FTTW and MKL. For complex signals, the 
+performances obtained with each library are quite close except with products of powers small integers 
+where FFTW is the most efficient. We also notice that the performance with primes is significantly worse, 
+with real numbers, in the cases of GSL and FFTPACK. As a conclusion, in one dimension, FFTW seems to be 
+the best all-rounder.
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -356,9 +473,9 @@ We also compared the libraries among themselves for powers of 2 (Table \ref{1DPO
 
 \section{Effect of the domain size in two dimensions}\label{PERFORMANCE2D}
 
-In this section, we measure the performance obtained in two dimensions following the same procedure as in Section \ref{PERFORMANCE1D}. However, only FFTW and MKL work in this case (Fig. \ref{2DFFTW} and \ref{2DMKL}). We study only a square domain. We will consider asymmetrical domains in Section \ref{FLATNESS}. \\
+In this section, we measure the performance obtained in two dimensions following the same procedure as in Section \ref{PERFORMANCE1D}. However, only FFTW and MKL work in this case (Figure~\ref{2DFFTW} and \ref{2DMKL}). We study only a square domain. We will consider asymmetrical domains in Section \ref{FLATNESS}. 
 
-We begin by comparing the performance obtained with numbers of points that are a power of 2, the product of powers of small integers or a prime number. These numbers are chosen as in Section \ref{PERFORMANCE1D} and we endeavoured make the total number of points vary within a similar range. The dimensions we chose appear in the Table \ref{SIZES2D}.\\
+We begin by comparing the performance obtained with numbers of points that are a power of 2, the product of powers of small integers or a prime number. These numbers are chosen as in Section \ref{PERFORMANCE1D} and we endeavoured make the total number of points vary within a similar range. The dimensions we chose appear in the Table \ref{SIZES2D}.
 
 \begin{table}[H]
 \captionsetup{width=0.8\linewidth}
@@ -508,7 +625,7 @@ $2^{13}=8192$ & $2^3\ 3\ 7^3=8232$ & 8123\\ \hline
 
 \section{Effect of the domain size in three dimensions}\label{PERFORMANCE3D}
 
-We repeat the analysis carried out in Sections \ref{PERFORMANCE1D} and \ref{PERFORMANCE2D} in three dimensions, on a cubic domain, with  the FFTW and MKL libraries. The number of points considered is given in Table \ref{SIZES3D}.\\
+We repeat the analysis carried out in Sections \ref{PERFORMANCE1D} and \ref{PERFORMANCE2D} in three dimensions, on a cubic domain, with  the FFTW and MKL libraries. The number of points considered is given in Table \ref{SIZES3D}.
 
 \begin{table}[H]
 \captionsetup{width=0.85\linewidth}
@@ -653,7 +770,7 @@ As previously, the best performance is achieved when the number of points is a p
 \caption{Initialisation and execution times as a function of the side of the cube (3 dimensions)}
 \label{3D}
 \end{figure}
-\section{Effect of the flatness of the domain}\label{FLATNESS}
+\section{Effect of the flatness of the domain}\label{Sec:FLATNESS}
 
 The experiments we carried out in Sections \ref{PERFORMANCE2D} and \ref{PERFORMANCE3D} were with domains whose dimensions were the same in all directions, that is, squares or cubes. In this section, we will study, in three dimensions, the effect of the flatness of the domain on the performance. We will compute the transform of a signal on a cuboid containing $512^3$ points stretched in the $z$ direction. The sides in the $x$ and $y$ directions have identical lengths ($N_x=N_y$) and the flatness is defined as the ratio between the number of points in the $z$ and $x$ directions ($N_z/N_x$). The dimensions of the domains considered appear in Table \ref{FLATNESSDIM}.
 \begin{table}[H]
@@ -677,7 +794,7 @@ The experiments we carried out in Sections \ref{PERFORMANCE2D} and \ref{PERFORMA
 \caption{Number of points used for the benchmark in three dimensions}\label{FLATNESSDIM}
 \end{table}
 
-We have observed that there is no clear trend in the way the flatness of the domain affects the performance and conclude that the performance depends mostly on the total number of points.\\
+We have observed that there is no clear trend in the way the flatness of the domain affects the performance and conclude that the performance depends mostly on the total number of points.
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -697,7 +814,7 @@ We have observed that there is no clear trend in the way the flatness of the dom
 \caption{Execution time as a function of the flatness of the domain ($N_y/N_x$), for $N_y=N_z$ (3 dimensions, powers of 2)}
 \label{FLATNESS}
 \end{figure}
-\pagebreak
+
 \section{Parallelism}\label{PARALLELISM}
 So far, we have computed FFTs in a serial way. In this section, we will investigate the effect of parallelism on the performance achieved. Only the FFTW and MKL libraries are capable of running in parallel.  
 \subsection{Multithreading}\label{MULTITHREADING}
@@ -730,7 +847,7 @@ We begin by considering the effect of multithreading on the computation of the t
 \label{3DMULTHCR}
 \end{subfigure}
 \caption{Initialisation and execution times as a function of the number of threads (3 dimensions, $512 \times 512\times 512$ points, FFTW and MKL)}
-\label{3DMKL}
+\label{3DMKLMPITHREAD}
 \end{figure}
 
 \subsection{MPI}\label{MPI}
@@ -941,7 +1058,7 @@ Proceedings of the IEEE,
 216--231,
 Special issue on ``Program Generation, Optimization, and Platform Adaptation''
 \bibitem{mkl}
-\hyperlink{https://software.intel.com/en-us/mkl}{https://software.intel.com/en-us/mkl}
+\url{https://software.intel.com/en-us/mkl}
 
 \bibitem{gsl}
 M. Galassi et al, {\it GNU Scientific Library Reference Manual (3rd Ed.)}, ISBN 0954612078
@@ -955,16 +1072,16 @@ McMullin J. P., Waters B., Schiebel D., Young W., Golap K.,
 ASP Conf. Ser. 376, ed. R. A. Shaw, F. Hill, D. J. Bell (San Francisco, CA: ASP), 127
 
 \bibitem{code}
-\hyperlink{https://github.com/SoftwareOutlook/FFTC}{https://github.com/SoftwareOutlook/FFTC}
+\url{https://github.com/SoftwareOutlook/FFTC}
     
 \bibitem{ccppetmr}
-\hyperlink{https://www.ccppetmr.ac.uk/}{https://www.ccppetmr.ac.uk/}
+\url{https://www.ccppetmr.ac.uk/}
 
 \bibitem{softwareoutlook}
-\hyperlink{https://www.softwareoutlook.ac.uk/}{https://www.softwareoutlook.ac.uk/}
+Software Outlook \url{https://www.softwareoutlook.ac.uk/}
 
 \bibitem{archer}
-ARCHER is the UK National Computing Service (\hyperlink{https://www.archer.ac.uk/}{https://www.archer.ac.uk/})
+ARCHER is the UK National Computing Service (\url{https://www.archer.ac.uk/})
   
 \end{thebibliography}
 
