@@ -202,16 +202,16 @@ close to the corresponding power of 2 (Table~\ref{SIZES1D}).
   \hline
   \hline
 Powers of 2 & prod. pow. int. & primes\\ \hline
-$2^8=256$	 & $2^2\ 3^2\ 5\ 7=210$	     & 257  \\ \hline
-$2^{10}=1024$	 & $2^2\ 3^2\ 5\ 7=1260$	     & 1021  \\ \hline
-$2^{12}=4096$	 & $2\ 3^2\ 5\ 7=4410$	     & 4093 \\ \hline
-$2^{14}=16384$	 & $2\ 3^2\ 5^3\ 7=15750$	     & 16381 \\ \hline
-$2^{16}=65536$	 & $2\ 3^3\ 5^2\ 7^2=66150$      & 65521 \\ \hline
-$2^{18}=262144$	 & $2\ 3\ 5^3\ 7^3=257250$       & 262139 \\ \hline
-$2^{20}=1048576$  & $2\ 3^2\ 5^2\ 7^4=1080450$    & 1048573 \\ \hline
-$2^{22}=4194304$  & $2^2\ 3^2\ 5^2 7^4=4321800$  &	\\ \hline
-$2^{24}=16777216$ & $2^3\ 3^2\ 5^4\ 7^3=15435000$ &	\\ \hline
-$2^{26}=67108864$ & $2^3\ 3^3\ 5^3\ 7^4=64827000$ &\\ \hline
+$2^8=256$	 & $2^2\times 3^2\times 5\times 7=210$	     & 257  \\ \hline
+$2^{10}=1024$	 & $2^2\times 3^2\times 5\times 7=1260$	     & 1021  \\ \hline
+$2^{12}=4096$	 & $2\times 3^2\times 5\times 7=4410$	     & 4093 \\ \hline
+$2^{14}=16384$	 & $2\times 3^2\times 5^3\times 7=15750$	     & 16381 \\ \hline
+$2^{16}=65536$	 & $2\times 3^3\times 5^2\times 7^2=66150$      & 65521 \\ \hline
+$2^{18}=262144$	 & $2\times 3\times 5^3\times 7^3=257250$       & 262139 \\ \hline
+$2^{20}=1048576$  & $2\times 3^2\times 5^2\times 7^4=1080450$    & 1048573 \\ \hline
+$2^{22}=4194304$  & $2^2\times 3^2\times 5^2 7^4=4321800$  &	\\ \hline
+$2^{24}=16777216$ & $2^3\times 3^2\times 5^4\times 7^3=15435000$ &	\\ \hline
+$2^{26}=67108864$ & $2^3\times 3^3\times 5^3\times 7^4=64827000$ &\\ \hline
 \end{tabular}
 \caption{Number of points used for the benchmark in one dimension}\label{SIZES1D}
 \end{table}
@@ -473,9 +473,15 @@ the best all-rounder.
 
 \section{Effect of the domain size in two dimensions}\label{PERFORMANCE2D}
 
-In this section, we measure the performance obtained in two dimensions following the same procedure as in Section \ref{PERFORMANCE1D}. However, only FFTW and MKL work in this case (Figure~\ref{2DFFTW} and \ref{2DMKL}). We study only a square domain. We will consider asymmetrical domains in Section \ref{FLATNESS}. 
+In this section, we measure the performance obtained in two dimensions following the same procedure 
+as in Section~\ref{PERFORMANCE1D}. However, only FFTW and MKL work in this case (Figure~\ref{2DFFTW} 
+and \ref{2DMKL}). In this section, we only consider a square domain. We will consider asymmetrical 
+domains in Section~\ref{FLATNESS}. 
 
-We begin by comparing the performance obtained with numbers of points that are a power of 2, the product of powers of small integers or a prime number. These numbers are chosen as in Section \ref{PERFORMANCE1D} and we endeavoured make the total number of points vary within a similar range. The dimensions we chose appear in the Table \ref{SIZES2D}.
+We compare the performance obtained with numbers of points that are a power of 2, the product of 
+powers of small integers or a prime number. These numbers are chosen as in 
+Section~\ref{PERFORMANCE1D} and we endeavoured make the total number of points vary within a 
+similar range. The dimensions we chose are given in the Table~\ref{SIZES2D}.
 
 \begin{table}[H]
 \captionsetup{width=0.8\linewidth}
@@ -486,18 +492,19 @@ We begin by comparing the performance obtained with numbers of points that are a
   \hline
   \hline
 Powers of 2 & prod. pow. int. & primes\\ \hline
-$2^9=512$ & $2^3\ 3^2\ 7=504$ & 509\\ \hline
-$2^{10}=1024$ & $3\ 7^3=1029$ & 1021\\ \hline
-$2^{11}=2048$ & $2\ 3\ 7^3=2058$ & 2027\\ \hline
-$2^{12}=4096$ & $2^2\ 3\ 7^3=4116$ & 4049\\ \hline
-$2^{13}=8192$ & $2^3\ 3\ 7^3=8232$ & 8123\\ \hline
+$2^9=512$ & $2^3\times 3^2\times 7=504$ & 509\\ \hline
+$2^{10}=1024$ & $3\times 7^3=1029$ & 1021\\ \hline
+$2^{11}=2048$ & $2\times 3\times 7^3=2058$ & 2027\\ \hline
+$2^{12}=4096$ & $2^2\times 3\times 7^3=4116$ & 4049\\ \hline
+$2^{13}=8192$ & $2^3\times 3\times 7^3=8232$ & 8123\\ \hline
 \end{tabular}
 \caption{Number of points on the side of the square}\label{SIZES2D}
 \end{table}
 
+\subsection{2D FFTW}
+In Figure~\ref{2DFFTW}, we observe that the initialisation time behavoiur with respect to $N$ differs depending on whether the input signal is real or complex. For $N$ a power of 2, the initialisation time only increases a small amount with respect to increasing $N:$ for complex signals, the initialisation time is roughly 25\% higher than when the signal is real. When $N$ is a poroduct of small integers, the initialisation time is slightly higher than when $N$ is a power of 2 and the complex case is approximately 30\% larger than the real case. For the three larger values of $N$ with real-valued signals, the initialisation time is approximately 4 times higher for $N$ prime than when $N$ is a power of 2; for complex-valued signals there is between a factor of 2 and 3.5 difference.
 
- As in one dimension (Section \ref{PERFORMANCE1D}), we obtain the best performance when the number of elements on each side is a power of 2 or the product of powers of small integers rather than a prime number. We observe that, in 2 dimensions, the MKL library is the most efficient.
- 
+The DFT execution time behaviour also differs for real and complex signals when FFTW is used. In the real case, $N$ being a power of 2 and $N$ being the product of small integers have similar execution times for prime values of $N$ have execution times that are approximately 3 times larger. When the signal has complex values and $N$ is large, the DFT execution times for prime values of $N$ and powers of 2 are very similar and are roughly 40\% lower than when $N$ is the product of small integers. The complex case with $N$ prime has DFT times roughly 50\% larger that the real case. For large $N$ that are powers of 2, the complex case has DFT times that are approximately a factor of 4.5 larger than when the signal is real.
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -529,6 +536,14 @@ $2^{13}=8192$ & $2^3\ 3\ 7^3=8232$ & 8123\\ \hline
 \caption{Initialisation and execution times as a function of the side of the square (2 dimensions, FFTW)}
 \label{2DFFTW}
 \end{figure}
+
+
+
+\subsection{2D MKL}
+For the MKL library, Figure~\ref{2DMKL}, the initialisation time when $N$ is prime is significatly larger than the other cases of $N.$ However, when $N$ is a power of 2, the initialisation time is slower than when $N$ is the product of small integers. When $N$ is a power of 2, the initialisation time is halved if the signal is complex instead of being real-valued; for $N$ a factor of small integers, the initialisation time is reduced by roughly a factor of 2.5; for $N$ prime, if is roughly a factor of 1.2 smaller. 
+
+The DFT execution time is similar for $N$ being a power of 2 and $N$ a product of small integers. For real-valued signals, the DFT execution time increases by roughly a factor of 3 when switching from $N$ being a power of 2 to $N$ being prime; for complex signals, the time approximately doubles. Comparing prime values of $N$ with real and complex signals, there is little difference in DFT execution time.
+
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
 \centering
@@ -559,6 +574,33 @@ $2^{13}=8192$ & $2^3\ 3\ 7^3=8232$ & 8123\\ \hline
 \caption{Initialisation and execution times as a function of the side of the square (2 dimensions, MKL)}
 \label{2DMKL}
 \end{figure}
+
+
+
+
+
+
+\subsection{2D Library Comparison}
+Comparing the two libraries, Figures~\ref{2DPOW2} and \ref{2D}, we observe that the MKL library normal outperforms FFTW. In Table~\ref{Tbl:2D}, we provide the average initiation and DFT execution times for the largest problems in each class of $N$ and observe that the difference in DFT execution time is significant.
+
+
+\begin{table}[H]
+\captionsetup{width=0.8\linewidth}
+\centering
+\begin{tabular}{|l|l|l|}
+  \hline
+  \multicolumn{3}{|c|}{$N_x=N_y$}\\
+  \hline
+  \hline
+   Powers of 2 & prod. pow. int. & primes\\ \hline
+
+
+\end{tabular}
+\caption{Number of points on the side of the square}\label{Tbl:2D}
+\end{table}
+
+
+As in one dimension (Section \ref{PERFORMANCE1D}), we obtain the best performance when the number of elements on each side is a power of 2 or the product of powers of small integers rather than a prime number. We observe that, in 2 dimensions, the MKL library is the most efficient.
 
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -636,11 +678,11 @@ We repeat the analysis carried out in Sections \ref{PERFORMANCE1D} and \ref{PERF
   \hline
   \hline
   Powers of 2 & prod. pow. int. & primes\\ \hline
-$2^5=32$ & $2\ 3\ 5=30$	& 31\\ \hline
-$2^6=64$ & $2\ 5\ 7=70$	& 61\\ \hline
-$2^7=128$ & $3\ 5\ 7=105$ & 127\\ \hline
-$2^8=256$ & $2\ 3\ 5\ 7=210$ & 257\\ \hline
-$2^9=512$ & $2^2\ 3\ 5\ 7=420$ & 509\\ \hline
+$2^5=32$ & $2\times 3\times 5=30$	& 31\\ \hline
+$2^6=64$ & $2\times 5\times 7=70$	& 61\\ \hline
+$2^7=128$ & $3\times 5\times 7=105$ & 127\\ \hline
+$2^8=256$ & $2\times 3\times 5\ 7=210$ & 257\\ \hline
+$2^9=512$ & $2^2\times 3\times 5\times 7=420$ & 509\\ \hline
 \end{tabular}
 \caption{Number of points on the side of the cube used for the benchmark}\label{SIZES3D}
 \end{table}
@@ -1028,7 +1070,7 @@ We now compare the effects of multithreading and MPI by using a constant number 
 \end{figure}
 
 \section{Requirements from the CCP}\label{CCPPETMR}
-We have also benchmarked the FFT libraries in a situation corresponding to a problem encountered by the CCP/PET-MR collaboration, by computing the transform of a series of 32 square complex images whose side consists of 256 points as well as the closest prime number (257) and product of powers of small integers ($2^2\ 3^2\ 7=252$). We have repeated the algorithm described in Table \ref{PSEUDOCODE} but, this time, with $N_s=32$. In this case, the MKL library performs better than FFTW. None of the other libraries we have considered could be used in two dimensions. GSL works only in one dimension. The FORTRAN version of FFTPACK does not share that limitation. However all the C/C++ wrappers we have found offer only one-dimensional transforms. Finally FFTPACK is distributed with a licence that is less constraining than the GPL but, nevertheless, the C++ wrapper provided by CASA that we have used is distributed under the GPL v2.
+We have also benchmarked the FFT libraries in a situation corresponding to a problem encountered by the CCP/PET-MR collaboration, by computing the transform of a series of 32 square complex images whose side consists of 256 points as well as the closest prime number (257) and product of powers of small integers ($2^2\times 3^2\times 7=252$). We have repeated the algorithm described in Table \ref{PSEUDOCODE} but, this time, with $N_s=32$. In this case, the MKL library performs better than FFTW. None of the other libraries we have considered could be used in two dimensions. GSL works only in one dimension. The FORTRAN version of FFTPACK does not share that limitation. However all the C/C++ wrappers we have found offer only one-dimensional transforms. Finally FFTPACK is distributed with a licence that is less constraining than the GPL but, nevertheless, the C++ wrapper provided by CASA that we have used is distributed under the GPL v2.
 
 \begin{figure}[H]
 \captionsetup{width=0.6\textwidth}
