@@ -84,7 +84,6 @@ of square complex images. This example is depicted in Figure
 \ref{benchmark} and considered in Section \ref{CCPPETMR}.
 
 \begin{figure}[H]
-  \captionsetup{width=0.6\textwidth}
   \centering
   \includegraphics[height=5cm]{benchmark.pdf}
   \caption{The benchmark consists in taking the FFT of several
@@ -161,7 +160,6 @@ in one dimension. However, FFTW and MKL can compute FFTs in several
 dimensions. They are also capable of working in a parallel way, using
 multithreading and MPI.
 \begin{table}[H]
-  \captionsetup{width=1\textwidth}
   \begin{tabular}{|l||l|l|l|l|l|}
     \hline
     & Type & Dim. & Optimised Radices & Parallelism & Licence \\
@@ -233,7 +231,6 @@ integer number of the form $2^j\times  3^k\times  5^l\times 7^m$ or a prime numb
 latter are chosen to be close to the corresponding power of 2
 (Table~\ref{SIZES1D}).
 \begin{table}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{tabular}{|l|l|l|}
     \hline
@@ -290,7 +287,6 @@ are almost identical for real and complex signals.
 
  
 \begin{figure}[htb]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -342,7 +338,6 @@ entries. When $N$ is prime, the DFT execution time is 2.2 times longer
 when the signal is real instead of complex.
 
 \begin{figure}[htb]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -391,7 +386,6 @@ The general behaviours of the GSL and FFTPACK (Figure~\ref{1DFFTPACK})
 libraries are similar.
 
 \begin{figure}[htb]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -423,7 +417,6 @@ libraries are similar.
 \end{figure}
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -491,7 +484,6 @@ and $N$ maybe prime, the GSL and FFTPACK should be avoided.
 
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -523,7 +515,6 @@ and $N$ maybe prime, the GSL and FFTPACK should be avoided.
 \end{figure}
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -553,9 +544,8 @@ and $N$ maybe prime, the GSL and FFTPACK should be avoided.
   \label{1D}
 \end{figure}
 
-\begin{tiny}
+\begin{small}
   \begin{table}[H]
-    \captionsetup{width=0.8\linewidth}
     \centering
     \begin{tabular}{|rr|rrrr|rrrr|}
       \hline
@@ -574,7 +564,7 @@ and $N$ maybe prime, the GSL and FFTPACK should be avoided.
     \end{tabular}
     \caption{Comparision of average initialisation and DFT execution times for FFTW, MKL GSL and FFTPACK.}\label{Tbl:1D}
   \end{table}
-\end{tiny}
+\end{small}
 
 \section{Effect of the domain size in two dimensions}\label{PERFORMANCE2D}
 
@@ -591,7 +581,6 @@ endeavoured make the total number of points vary within a similar
 range. The dimensions we chose are given in the Table~\ref{SIZES2D}.
 
 \begin{table}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{tabular}{|l|l|l|}
     \hline
@@ -635,7 +624,6 @@ are powers of 2, the complex case has DFT times that are approximately
 a factor of 4.5 larger than when the signal is real.
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -686,7 +674,6 @@ approximately doubles. Comparing prime values of $N$ with real and
 complex signals, there is little difference in DFT execution time.
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -731,7 +718,6 @@ observe that the difference in DFT execution time is significant.
 
 
 \begin{table}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{tabular}{|rr|rr|rr|}
     \hline
@@ -753,7 +739,6 @@ observe that the difference in DFT execution time is significant.
 
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -786,7 +771,6 @@ observe that the difference in DFT execution time is significant.
 
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -825,7 +809,6 @@ FFTW and MKL libraries. The number of points considered is given in
 Table \ref{SIZES3D}.
 
 \begin{table}[H]
-  \captionsetup{width=0.85\linewidth}
   \centering
   \begin{tabular}{|l|l|l|}
     \hline
@@ -868,7 +851,6 @@ $N$ prime.
 
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -913,10 +895,16 @@ initialisatio ntimes that are roughly twice those for when $N$ is a
 power of 1. For $N=2^9,$ the initialisation times is more that four
 orders of magnitude smaller that the real case!
 
-The DFT execution time behaviour with respect ot $N$ is similar for both the real and complex cases and increasing at a rate proportional to a power of $N.$ The DFT execution time for the real case is, in general, 40-50\% higher than the complex case. Considering the real case, the DFT execution time for prime values of $N$ is approximately triple that of the the other cases of $N$ used within our benchmark tests. For the complex case, the difference is narrowing as $N$ increases with the ratio being 1.33 for the largest values of $N.$ 
+The DFT execution time behaviour with respect ot $N$ is similar for
+both the real and complex cases and increasing at a rate proportional
+to a power of $N.$ The DFT execution time for the real case is, in
+general, 40-50\% higher than the complex case. Considering the real
+case, the DFT execution time for prime values of $N$ is approximately
+triple that of the the other cases of $N$ used within our benchmark
+tests. For the complex case, the difference is narrowing as $N$
+increases with the ratio being 1.33 for the largest values of $N.$
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -961,7 +949,6 @@ times for differing values of $N$ and observe that there is a greater
 difference in execution time in the complex case.
 
 \begin{table}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{tabular}{|r|rrrrr|}
     \hline
@@ -982,7 +969,6 @@ is doing just one DFT calculation for each initialisation, we would
 recommend using the MKL library in the serial case.
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1013,10 +999,20 @@ recommend using the MKL library in the serial case.
   \label{3DPOW2}
 \end{figure}
 
-The other cases of $N$ considered are included in Figure~\ref{3D}. For the real case, the MKL initialisation times are always much larger than those of FFTW. For the complex case and large values of $N,$ the initialisation times are preferable for FFTW when $N$ is a poroduct of small integers but not when $N$ is prime. In terms of DFT execution times, MKL is always preferable. As above, we consider the total time to perform one initialisation and $k$ DFT calculations. When $N=420$ and the signal is real, the MKL library is generally preferable for all $k$ greater than 2; for complex input signals, the MKL library is preferable for all $k>0.$ For $N=509,$ the MKL library is preferable for the real case when $k>1;$ for complex signals it is preferable for all $k>0.$ 
+The other cases of $N$ considered are included in Figure~\ref{3D}. For
+the real case, the MKL initialisation times are always much larger
+than those of FFTW. For the complex case and large values of $N,$ the
+initialisation times are preferable for FFTW when $N$ is a poroduct of
+small integers but not when $N$ is prime. In terms of DFT execution
+times, MKL is always preferable. As above, we consider the total time
+to perform one initialisation and $k$ DFT calculations. When $N=420$
+and the signal is real, the MKL library is generally preferable for
+all $k$ greater than 2; for complex input signals, the MKL library is
+preferable for all $k>0.$ For $N=509,$ the MKL library is preferable
+for the real case when $k>1;$ for complex signals it is preferable for
+all $k>0.$
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1084,7 +1080,6 @@ of the domain affects the performance and conclude that the
 performance (in the serial version of each library) depends mostly on the total number of points.
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1139,7 +1134,6 @@ corresponding ratios are between 1.8 and 2.5.
 
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1192,17 +1186,28 @@ are three orders of magnitude larger than the real case). Moving from
 steadily decreases but increases again for larger numbers of
 processes. The ratio of initialisation times for 1 and 12 MPI
 processes is 0.095. Comparing the complex version of the distributed
-MKL library with the distributed FFTW library, for the larger number of MPi processes, the FFTW library's initialisation is about a quarter of that of MKL.
+MKL library with the distributed FFTW library, for the larger number
+of MPI processes, the FFTW library's initialisation is about a quarter
+of that of MKL.
 
 
-In terms of DFT execution times, the FFTW library is steadily decreasing as the number of the processes increases but the MKL library statys roughly unchanged. Comparing the complex cases, once more than eight processes are used, FFTW is the favourable library with respect to the DFT execution time. When 96 MPI processes are used, the MKL library takes 3.36 times longer than FFTW.
+In terms of DFT execution times, the FFTW library is steadily
+decreasing as the number of the processes increases but the MKL
+library statys roughly unchanged. Comparing the complex cases, once
+more than eight processes are used, FFTW is the favourable library
+with respect to the DFT execution time. When 96 MPI processes are
+used, the MKL library takes 3.36 times longer than FFTW.
 
-We compare the scalability of the distributed libraries with respect to the serial version of the libraries in Table~\ref{Tbl:MPI}. The results show how the DFT execution times can be improved by using the distributed versions but there is limitations in the scaling (particularly for the MKL library). 
+We compare the scalability of the distributed libraries with respect
+to the serial version of the libraries in Table~\ref{Tbl:MPI}. The
+results show how the DFT execution times can be improved by using the
+distributed versions but there is limitations in the scaling
+(particularly for the MKL library).
 
+\begin{small}
 \begin{table}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
-  \begin{tabular}{|r|rrr|rrr|}
+  \begin{tabular}{|r|rr|rr|rr|}
     \hline
     & \multicolumn{2}{|c|}{FFTW} & \multicolumn{2}{|c|}{MKL(C)} &   \multicolumn{2}{|c|}{MKL(R)}   \\
    $P$ & INIT & DFT & INIT & DFT & INIT & DFT  \\
@@ -1217,13 +1222,12 @@ We compare the scalability of the distributed libraries with respect to the seri
    96 &  1.53e+1 &   4.02e-2 &   6.03e-1 &   1.41e-1 &   8.41e-5 &   6.99e-1 \\
     \hline
   \end{tabular}
-  \caption{Ratio of initialisation and DFT execution times for 1D MPI benchmark with respect to serial times. For MKL, the real (R) and complex (C) cases for input signals are provided.}\label{Tbl:MPI}
+  \caption{Ratio of initialisation and DFT execution times for 1D MPI benchmark with respect to serial times for different numbers of MPI processes, $P.$ For MKL, the real (R) and complex (C) cases for input signals are provided.}\label{Tbl:MPI}
 \end{table}
-
+\end{small}
 
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1243,11 +1247,34 @@ We compare the scalability of the distributed libraries with respect to the seri
 \end{figure}
 
 
-\susubsection{2D MPI Benchmark Results}
-We compare the distributed version of FFTW and MKL for our 2D MPI benchmark in Figure~\ref{2DMPI}. 
+\subsubsection{2D MPI Benchmark Results}
+We compare the distributed version of FFTW and MKL for our 2D MPI
+benchmark in Figure~\ref{2DMPI}. Comparing initialisation times, the
+MKL library is significantly faster than the FFTW. For the MKL
+library, the real version has initialisation times that increase as
+the number of processes increases but they stay roughly constant in
+the complex case. However, in general, the initialisation times are
+negligible compared to the DFT execution times.
+
+Comparing the DFT execution times, for both libraries, the times are
+lower for the real input signal cases: factors of roughly 2.0 and 2.5
+for FFTW and MKL, respectively. For our benchmark runs, the MKL
+library was faster than FFTW but as the number of processors
+increased, the difference became smaller, see
+Table~\ref{Tbl:MPI2D}. In Table~\ref{Tbl:MPI2DScale}, we compare the
+scalability of the FFTW and MKL distributed libraries with respect to
+their serial versions. For FFTW, the distributed version exhibits an
+overhead in the initialisation times but this is countered by the DFT
+execution times. For the MKL library, there is little different in the
+initialisation times when comparing the distributed and serial version
+but, for multiple processes, there are gains with respect to the DFT
+execution times. However, the FFTW is producing better scalability
+trends.
+
+
+
 
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1266,8 +1293,78 @@ We compare the distributed version of FFTW and MKL for our 2D MPI benchmark in F
   \label{2DMPI}
 \end{figure}
 
+
+\begin{small}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|r|r|r||}
+    \hline
+   $P$ & Real & Complex  \\
+    \hline
+    1 & 2.02 & 1.71   \\
+    6 & 1.60 & 1.38  \\
+   12 & 1.83 & 1.37  \\
+   24 & 1.45 & 1.37  \\
+   48 & 1.13 & 1.11  \\
+    \hline
+  \end{tabular}
+  \caption{Ratio of FFTW DFT execution times for 2D MPI benchmark with respect to MKL for different numbers of MPI processes, $P.$ The real and complex cases for input signals are provided.}\label{Tbl:MPI2D}
+\end{table}
+\end{small}
+
+\begin{small}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|r|rr|rr|rr|rr|}
+    \hline
+    & \multicolumn{2}{|c|}{FFTW(C)} & \multicolumn{2}{|c|}{FFTW(R)} & \multicolumn{2}{|c|}{MKL(C)} &   \multicolumn{2}{|c|}{MKL(R)}   \\
+   $P$ & INIT & DFT & INIT & DFTg & INIT & DFT & INIT & DFT  \\
+    \hline
+   1 &   1.37e+1 &   5.40e-1 &   2.25e+1 &   6.98e-1 &   8.93e-1 &   2.00e+0 &   6.15e-1 &   7.94e-1 \\
+   2 &   1.75e+1 &   2.40e-1 &   1.21e+1 &   4.23e-1 &  - &  - &   - &  - \\
+   4 &   1.86e+1 &   1.37e-1 &   1.29e+1 &   2.82e-1 &  - &  - &    - &  - \\
+   6 &   6.20e+0 &   8.63e-2 &   1.25e+1 &   1.76e-1 &   1.00e+0 &   3.95e-1 &   1.01e+0 &   2.52e-1 \\
+   8 &  - &  - &   - &  - &   - &  - &   1.09e+0 &   2.18e-1 \\
+   12 &   4.83e+0 &   6.27e-2 &   1.22e+1 &   1.44e-1 &   9.44e-1 &   2.90e-1 &   1.22e+0 &   1.82e-1 \\
+   16 &  - &  - &  - &  - &  - &  - &    1.23e+0 &   1.54e-1 \\
+   24 &   1.50e+1 &   3.12e-2 &   1.52e+1 &   6.77e-2 &   8.68e-1 &   1.45e-1 &   1.16e+0 &   1.07e-1 \\
+   48 &   1.60e+1 &   1.83e-2 &   1.50e+1 &   3.30e-2 &   1.02e+0 &   1.05e-1 &   1.43e+0 &   6.68e-2 \\
+   96 &   1.73e+1 &   1.37e-2 &   2.27e+1 &   3.29e-2 &  - &  - &  - &  - \\
+    \hline
+  \end{tabular}
+  \caption{Ratio of initialisation and DFT execution times for 2D MPI benchmark with respect to serial times for different numbers of MPI processes, $P.$ For MKL, the real (R) and complex (C) cases for input signals are provided.}\label{Tbl:MPI2DScale}
+\end{table}
+\end{small}
+
+
+\subsubsection{3D MPI Benchmark Results}
+In Figure~\ref{3DMPI}, we compare the results for our 3D MPI
+benchmarks. As with the 2D MPI benchmarks, the DFT execution times are
+better for the MKL library but the FFTW library is exhibiting better
+scalability properties with respect to the number of processes. In
+terms of initialisation times, the MKL library is significantly better
+than FFTW and both libraries only exhibit mild changes in
+initialisation times as the number of MPI processes increases. As in
+the previous subsections, we compare the distributed libraries with
+their serial counterparts, Table~\ref{Tbl:MPI3DScale}. We observe how,
+in the case of FFTW, the initialisation times has significantly
+increased but the DFT execution times are scaling reasonably well with
+respect to the number of MPI processes. For MKL, there is little
+difference in the initialisation times for the serial and distributed
+versions but the scaling properties are not as good as FFTW.
+
+[WHY IS THERE MISSING DATA?]
+
+
+
+
+
+
+
+
+
+
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1286,22 +1383,63 @@ We compare the distributed version of FFTW and MKL for our 2D MPI benchmark in F
   \label{3DMPI}
 \end{figure}
 
+
+\begin{small}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|r|rr|rr|rr|rr|}
+    \hline
+    & \multicolumn{2}{|c|}{FFTW(C)} & \multicolumn{2}{|c|}{FFTW(R)} & \multicolumn{2}{|c|}{MKL(C)} &   \multicolumn{2}{|c|}{MKL(R)}   \\
+   $P$ & INIT & DFT & INIT & DFTg & INIT & DFT & INIT & DFT  \\
+    \hline
+   1 &   7.99e+1 &   8.08e-1 &   8.13e+0 &   7.40e-1 &   8.11e-1 &   1.69e+0 &   9.02e-5 &   8.07e-1 \\
+   2 &   1.16e+2 &   2.93e-1 &   1.08e+1 &   4.89e-1 &  - & - & - & - \\
+   4 &   1.19e+2 &   1.52e-1 &   1.22e+1 &   2.75e-1 &   9.51e-1 &   4.80e-1 &   1.55e-4 &   3.53e-1 \\
+   6 &   8.31e+1 &   1.21e-1 &   6.30e+0 &   2.55e-1 &   7.84e-1 &   3.51e-1 &   1.70e-4 &   2.65e-1 \\
+   12 &  5.64e+1 &   8.49e-2 &   6.15e+0 &   1.63e-1 &   1.45e+0 &   2.54e-1 &   1.47e-4 &   1.86e-1 \\
+   24 &  1.34e+2 &   3.97e-2 &   7.89e+0 &   9.51e-2 &   1.69e+0 &   1.55e-1 &   9.89e-5 &   1.07e-1 \\
+   48 &  2.19e+2 &   3.86e-2 &   1.34e+1 &   7.93e-2 &  - & - & - & - \\
+    \hline
+  \end{tabular}
+  \caption{Ratio of initialisation and DFT execution times for 3D MPI benchmark with respect to serial times for different numbers of MPI processes, $P.$ For MKL, the real (R) and complex (C) cases for input signals are provided.}\label{Tbl:MPI3DScale}
+\end{table}
+\end{small}
+
+
+
 \subsection{MPI and multithreading}\label{MPIMULTH}
 We now combine multithreading with MPI in the same conditions as in
 Section \ref{MPI}. We increase the number of threads up to the number
 of cores on a compute node and subsequently increase the number of
 such processes. We carry out this procedure till we use 4 processes,
-each consisting of 24 threads. In one dimension\footnote{In one
-  dimension, FFTW works in a distributed way only with a complex
-  signal.}, the MKL library scales poorly and FFTW yields a better
-performance. In two dimensions, the MKL library is the fastest and the
-performance of FFTW improves only with several processes and not with
-multithreading. In three dimensions, only the MKL works and it does
-only with a single process. We conclude that, while multithreading and
-MPI bring a performance improvement separately, their combination
-leads to poor scaling and crashes.
+each consisting of 24 threads. Thus, upto 24 cores, we are really only
+assessing the multithreading scalability properties of the distributed
+version of the libraries.
+
+
+
+\subsubsection{1D MPI+Multithreading Benchmarks}\label{Sec:1DMPIThread}
+Again, we note that, in one dimension, FFTW works in a distributed way
+only with a complex signal.  We compare the libraries in
+Figure~\ref{1DMPIMULTH}) and note that both libraries have relatively
+constant initialisation times as the number of cores and processes
+increase apart from when we start to incorporate multiple MPI
+processes (with 24 cores per process) and then the complex version of
+the distributed MKL library exhibits decreasing initialisation times.
+Considering the DFT execution times, the MKL libary runs with real
+input signals have almost constant times as the number of cores and
+processes increase. FFTW also exhibits constant DFT execution times up
+until the point at which we use multible MPI processes. However, the
+distributed MKL library with complex input signals shows some increase
+in DFT execution time as the number of cores increases whilst using
+one MPI process. Moving from one to two MPI processes has little
+effect on the MPI time but a further increase to four MPI processes
+quarters the execution time.
+
+
+
+
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1320,8 +1458,22 @@ leads to poor scaling and crashes.
   \label{1DMPIMULTH}
 \end{figure}
 
+
+
+
+\subsubsection{2D MPI+Multithreading Benchmarks}
+In two dimensions, the FFTW library has similar behaviour to the one
+dimensional version of our benchmark, Section~\ref{Sec:1DMPIThread},
+with its performance only improving when multiple MPI processes, each
+with 24 threads, are used (note that the complex version has better
+scaling properties than the real version). MKL library is faster than
+FFTW with respect to both initialisation and DFT execution times but
+it crashed when using the complex version with multiple MPI processes.
+
+
+
+
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1340,8 +1492,17 @@ leads to poor scaling and crashes.
   \label{2DMPIMULTH}
 \end{figure}
 
+
+
+
+
+\subsubsection{3D MPI+Multithreading Benchmarks}
+In three dimensions, only the MKL works and it does only with a single
+process. We conclude that, in the environmnet we used, multithreading
+and MPI bring a performance improvement separately but their
+combination leads to poor scaling and crashes.
+
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1364,16 +1525,20 @@ leads to poor scaling and crashes.
 We now compare the effects of multithreading and MPI by using a
 constant number of cores, 24, on a single node while varying the
 number of processes and threads. The signal is the same as in Sections
-\ref{MPI} and \ref{MPIMULTH}. As was stated in Section \ref{MPIMULTH},
-multhreading, when combined with MPI, does not seem to yield a
-significant performance improvement. As a consequence, the performance
-improves only with an increasing number of threads. In one dimension,
-the MKL library scales poorly and FFTW gives the best performance. In
-two dimensions, the MKL library is the fastest. Finally, in three
-dimensions, we have only obtained data with the MKL library since FFTW
-crashes.
+\ref{MPI} and \ref{MPIMULTH}.
+
+In one dimension, Figure~\ref{1DCONST}, altering the number of MPI
+processes whilst keeping the total number of cores used constant has
+little effect on either the initialisation or DFT execution times. the
+MKL library scales poorly and FFTW gives the best performance. For the
+FFTW library, increasing the number of MPI processes (and subsequently
+reducing the number of threads per process) results in improved DFT
+execution times.
+
+
+
+
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1392,8 +1557,12 @@ crashes.
   \label{1DCONST}
 \end{figure}
 
+In two dimensions, the MKL library is the fastest with respect to both
+initialisation times and DFT execution times. Considering the DFT
+execution times, both libraries benefit from using a larger number of
+MPI processes.
+
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1412,8 +1581,16 @@ crashes.
   \label{2DCONST}
 \end{figure}
 
+
+
+Finally, in three dimensions, we have only obtained data with the MKL
+library since FFTW crashes. For real input signals, the initialisation
+times increase as the number of MPI processes increase/threads per MPI
+process decreases. However, the initialisation times at least two
+orders of magnitude smaller than the DFT execution times and, thuse,
+the decrease in DFT execution time as MPI processes increase is of
+greater importance.
 \begin{figure}[H]
-  \captionsetup{width=0.8\linewidth}
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -1450,7 +1627,6 @@ nevertheless, the C++ wrapper provided by CASA that we have used is
 distributed under the GPL v2.
 
 \begin{figure}[H]
-  \captionsetup{width=0.6\textwidth}
   \centering
   \includegraphics[height=8cm]{graphs/ccppetmr.pdf}
   \caption{Execution time for the transform of 32 complex square
@@ -1465,8 +1641,14 @@ with MPI or multithreading separately, the MKL library also performs
 best, except in one dimension. Finally, combining MPI with
 multithreading leads, in our experiments, to problems such as poor
 scaling and crashes.
-\section{Acknowledgements}
-The special sentence that only Barbara knows.
+
+\section*{Acknowledgements}
+This work made use of computational support by CoSeC, the
+Computational Science Centre for Research Communities, through its
+Software Outlook activity.
+
+
+
 \begin{thebibliography}{9}
 
 \bibitem{CT} Cooley J. W., Tukey J. W.  {\it An algorithm for the
