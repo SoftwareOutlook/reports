@@ -5,7 +5,7 @@
 \usepackage{graphicx} \usepackage{caption} \usepackage{float}
 \usepackage[british]{babel} \usepackage{hyperref}
 \usepackage{subcaption} \usepackage{algorithm}
-\usepackage{algorithmic} \date{}
+\usepackage{algorithmic}
 \begin{document}
 \title{Comparison of Several FFT Libraries in C/C++} \author{Philippe
   Gambron \thanks{\texttt{philippe.gambron{@}stfc.ac.uk}}, Sue Thorne
@@ -28,33 +28,45 @@ transform (DFT) of large datasets. In such cases, the efficiency of
 that step can become of critical importance. In this report, we
 compare the performance obtained with several libraries that can be
 called from C or C++: FFTW \cite{fftw}, MKL \cite{mkl}, GSL \cite{gsl}
-and FFTPACK \cite{fftpack}.
+and FFTPACK \cite{fftpack}. These libraries all assume uniformally
+distributed points across the domain of consideration but we note that
+there are libraries available aimed at non-uniformally distributed
+points.
+
+In conjunction with CCP-PETMR \cite{bibccppetmr}, we have developed a
+benchmark for comparing the different libraries and have 1D, 2D and 3D
+versions of this benchmark, Section~\ref{Sec:bench}. In
+Sections~\ref{PERFORMANCE1D}-\ref{Sec:FLATNESS}, we compare the
+libraries in a serial setting; parallelised experiments are carried
+out in Section~\ref{PARALLELISM}. Results for the CCP-PETMR use case
+are provided in Section~\ref{Sec:CCPPETMR}.
 
 \section{The Fast Fourier Transform}
 
 The Fourier transform of a discrete signal $x_j, j=1,\ldots,N,$ at
-uniformally d istributed points across a finite domain $[0,N-1]$ in
+uniformally distributed points across a finite domain $[0,N-1]$ in
 one dimension is given by:
 \begin{equation}\label{fourier} {\cal F}_k=\sum_{j=0}^{N-1} x_j
-  e^{-i\frac{2\pi}{N}kj}, \quad k=1,\ldots,N-1.
+  e^{-i\frac{2\pi}{N}kj}, \quad k=0,\ldots,N-1.
 \end{equation}
 
-We compute it using the Fast Fourier Transform (FFT) method, which
-expresses the transform recursively as functions of transforms of more
-sparse subsets of the data. The most famous of these methods is the
-Cooley-Tukey algorithm \cite{CT}. The procedure can illustrated by
-rewriting Equation~\ref{fourier} and splitting the sum into two parts
-with one containing the even values of $j$ and the other containing
-the odd ones multiplied by a phase factor.
+We compute the discrete Fourier trasform (DFT) by using the Fast
+Fourier Transform (FFT) method, which expresses the transform
+recursively as functions of transforms of more sparse subsets of the
+data. The most famous of these methods is the Cooley-Tukey algorithm
+\cite{CT}. The procedure can be illustrated by rewriting
+Equation~\ref{fourier} and splitting the sum into two parts with one
+containing the even values of $j$ and the other containing the odd
+ones multiplied by a phase factor.
 \begin{equation}\label{ct} {\cal
     F}_k=\sum_{j=0}^{N/2-1}x_{2j}e^{-i\frac{2\pi}{N}2jk}+e^{-i\frac{2\pi}{N}k}\sum_{j=0}^{N/2-1}x_{2j+1}e^{-i\frac{2\pi}{N}2jk},
-  \quad k=1,\ldots, N-1.
+  \quad k=0,\ldots, N-1.
 \end{equation}
 We can subsequently repeat the procedure by expressing the respective
 sums as a function of more sparse transforms till we are left only
 with DFTs of a few data points. This dramatically reduces the number
 of necessary operations, which become $\cal{O}\left(N\log(N)\right)$
-rather than $\cal{O}\left(N^2\right)$.
+rather than $\mathcal{O}\left(N^{2} \right)$.
 
 We also consider Fourier transforms in more dimensions. For example,
 in two dimensions, the discrete transform of complex values $z_{j_x
@@ -73,20 +85,21 @@ $$
 k_y=0,\ldots,N_y-1.
 $$
   
-\section{Benchmark}
+\section{Benchmark}\label{Sec:bench}
 
-The benchmark \cite{code} consists in calculating the FFT of a series
-of volumes, in 1, 2 or 3 dimensions, of real or complex values. The
-purpose was to mimick a problem submitted to us by the CCP PET-MR
-collaboration \cite{ccppetmr}, within the Software Outlook initiative
+The benchmark consists of calculating the DFT of a series of volumes,
+in 1, 2 or 3 dimensions, of real or complex values and can be obtained
+from Software Outlook's GitHub repository \cite{code}. The purpose was
+to mimick a problem submitted to us by the CCP PET-MR collaboration
+\cite{bibccppetmr}, within the Software Outlook initiative
 \cite{softwareoutlook}, who needed to take the transform of a series
 of square complex images. This example is depicted in Figure
-\ref{benchmark} and considered in Section \ref{CCPPETMR}.
+\ref{benchmark} and considered in Section \ref{Sec:CCPPETMR}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[height=5cm]{benchmark.pdf}
-  \caption{The benchmark consists in taking the FFT of several
+  \caption{The benchmark consists of taking the DFT of several
     images/signals. Each of them is made of real or complex values and
     can be a simple line, a rectangle or a cuboid.}
   \label{benchmark}
@@ -100,10 +113,10 @@ performed at $N$ uniformally spaced points across the domain; in 2D
 the sample points $(j_x,j_y)$ are uniformally distributed using a
 rectangular mesh with $N_x\times N_y$ points; in 3D the domain is
 discretised using a uniform mesh consisting of $N_x\times N_y\times
-N_z$ grid points. We then initialise the object performing the FFT and
-compute the transform. After this step, we repeat the procedure with
+N_z$ grid points. We then initialise the object performing the DFT and
+compute the transform. Optionally, after this step, we repeat the procedure with
 the inverse transform, in order to compute the error. We will measure
-the initialisation and execution times of these transforms.
+the initialisation and execution times of these forward transforms.
 \begin{algorithm}[H]
   \centering
   \begin{algorithmic}
@@ -111,20 +124,22 @@ the initialisation and execution times of these transforms.
     $signal[i]=generate\_signal(N_x [,N_y, N_z])$
     \ENDFOR
 
-    \STATE Initialise $FFT$
+    \STATE Initialise $DFT$
 
-    \FOR {$i=0,\ldots,N_s-1$} \STATE $transform[i]=FFT(signal[i])$
+    \FOR {$i=0,\ldots,N_s-1$} \STATE $transform[i]=DFT(signal[i])$
     \ENDFOR
 
-    \STATE Initialise $inverse\_FFT$
+    \IF{$check\_error$}
+    \STATE Initialise $inverse\_DFT$
 
-    \FOR {$i=0,\ldots,N_s$} \STATE
-    $inverse\_transform[i]=inverse\_FFT(transform[i])$
+     \FOR {$i=0,\ldots,N_s$} \STATE
+    $inverse\_transform[i]=inverse\_DFT(transform[i])$
     \ENDFOR
 
     \FOR {$i=0,\ldots,N_s-1$} \STATE $error=error+\left\Vert
       inverse\_transform[i]-signal[i]\right\Vert$
     \ENDFOR
+   \ENDIF
   \end{algorithmic}
   \caption{Pseudocode corresponding to our DFT benchmark}
   \label{PSEUDOCODE}
@@ -135,23 +150,23 @@ the tests, the domains had sides of equal lengths (square or cubic) or
 were flattened (rectangle or cuboid). These dimensions could be powers
 of 2, products of powers of small integers or prime numbers.
 
-The values appearing in the graphs are the execution time averaged
+The values appearing in the graphs are the wallclock times averaged
 over 10 runs. A certain number of bumps or slight unexpected features
-are apparent. However they were consistently repeated in all our
+are apparent. However, they were consistently repeated in all of our
 measurements. This was also confirmed by the standard deviation of our
 results, which were always quite small and of the order of a few
-percents of the average value. We chose not to display error bars on
+percents of the average value. We chose not to display error bars in
 our graphs since they were so small that they were barely visible.
 
 \section{Overview of the chosen libraries}
-We consider the following libraries computing FFTs: FFTW \cite{fftw},
-MKL \cite{mkl}, GSL \cite{gsl} and FFTPACK \cite{fftpack} and
-summarise their attributes in Table~\ref{ffttable}). They can perform
-complex transforms, real-to-half-complex ones (and conversely) as well
-as, in the case of FFTW, real-to-real transforms when the signal is
-odd or even. The half-complex output consists in half as many complex
-values as there were points in the signal, taking advantage of the
-hermiticity of the Fourier transform of a real function.
+We consider the following libraries for computing DFTs: FFTW, MKL, GSL
+and FFTPACK. We summarise their attributes in
+Table~\ref{ffttable}. They can perform complex transforms,
+real-to-half-complex ones (and conversely) as well as, in the case of
+FFTW, real-to-real transforms when the signal is odd or even. The
+half-complex output consists in half as many complex values as there
+were points in the signal, taking advantage of the hermiticity of the
+Fourier transform of a real function.
 
 FFTPACK can compute FFTs in several dimensions but it is written in
 FORTRAN and all the C or C++ wrappers we have found only allow
@@ -245,7 +260,7 @@ latter are chosen to be close to the corresponding power of 2
     $2^{16}=65536$	 & $2\times 3^3\times 5^2\times 7^2=66150$      & 65521 \\ \hline
     $2^{18}=262144$	 & $2\times 3\times 5^3\times 7^3=257250$       & 262139 \\ \hline
     $2^{20}=1048576$  & $2\times 3^2\times 5^2\times 7^4=1080450$    & 1048573 \\ \hline
-    $2^{22}=4194304$  & $2^2\times 3^2\times 5^2 7^4=4321800$  &	\\ \hline
+    $2^{22}=4194304$  & $2^2\times 3^2\times 5^2 \times 7^4=4321800$  &	\\ \hline
     $2^{24}=16777216$ & $2^3\times 3^2\times 5^4\times 7^3=15435000$ &	\\ \hline
     $2^{26}=67108864$ & $2^3\times 3^3\times 5^3\times 7^4=64827000$ &\\ \hline
   \end{tabular}
@@ -254,23 +269,22 @@ latter are chosen to be close to the corresponding power of 2
 
 
 We run our benchmarks with both real and complex values signals and
-use the DFT libraries FFTW (Figure~\ref{1DFFTW}), MKL
-(Figure~\ref{1DMKL}), GSL (Figure~\ref{1DGSL}) and FFTPACK
-(Figure~\ref{1DFFTPACK}). For each library, we compare the effect of
-using the different classes of $N.$ We then compare the different
-libraries for powers of 2 (Figure~\ref{1DPOW2}). Figure~\ref{1D} compares the libraries for all cases of $N.$ In each of these cases, we have plotted the
-wallclock initialisation time and wallclock forward DFT execution
-times as a function of $N.$ We will investigate the effect of
-parallelism in Section~\ref{PARALLELISM}. As a consequence, for the
-moment, we will run all those benchmarks s erially, as a single
-process containing a single thread.
+use the DFT libraries FFTW (Section~\ref{Sec:FFTW1d}), MKL
+(Sec:~\ref{Sec:MKL1d}), GSL  and FFTPACK
+(Section~\ref{Sec:FFTPACK1d}). For each library, we compare the effect
+of using the different classes of $N.$ We then compare the different
+libraries in Section~\ref{Sec:ALL1d}. In each of these cases, we have
+plotted the wallclock initialisation time and wallclock forward DFT
+execution times as a function of $N$ and used the non-distributed
+versions of the libraries with one thread. We will investigate the
+effect of parallelism in Section~\ref{PARALLELISM}.
 
 
-\subsection{1D FFTW}
+\subsection{1D FFTW}\label{Sec:FFTW1d}
 Analysing the performance of FFTW in Figure~\ref{1DFFTW}, the
 initialisation time for real input signals is similar for $N$ a power
 of 2 and values of $N$ that can be factored into a product of small
-integers: for larger values of $N,$ it increases proportionally to a
+integers: for larger values of $N,$ it increases (roughly) proportionally to a
 power of $N.$ For values of $N$ greater than $2^{14},$ the
 initialisation times for prime values of $N$ are at least 20 times
 higher than the other classes of $N.$ The behaviour of the
@@ -279,7 +293,7 @@ Namely, when $N$ is a power of 2, the initialisation time flattens out
 when $N>10^6.$ Initialisation times are faster for complex input
 compared to real input: when $N$ can be factored into a product of
 small integers, the difference is approximately a factor of 2.
-Compairing DFT execution times for real and complex input signals, the
+Comparing DFT execution times for real and complex input signals, the
 behaviour is very similar but the complex runs are roughly 2 times
 slower than when the signal is real-valued and $N$ is a power of 2 or
 the product of small integers. When $N$ is prime, the execution times
@@ -317,24 +331,24 @@ are almost identical for real and complex signals.
   \label{1DFFTW}
 \end{figure}
 
-\subsection{1D MKL}
+\subsection{1D MKL}\label{Sec:MKL1d}
 Figure~\ref{1DMKL} compares the initialisation and DFT execution times
 for the MKL library. When the signal is real-valued, there is little
 difference in initialisation times for $N$ a power of 2 and $N$ a
-product of small integers. Additionally, the initialisation time is
-increasing proportionally to a power of the problem size. When $N$ is
-prime and the signal is real-valued, there is only a relatively small
-increase in intialisation time as the problem size increases. When the
-signal contains complex values, the initialisation time is roughly 1.5
-times larger for $N$ a product of small integers compared to $N$ being
-a power of 2. Additionally, for these cases, the initialisation time
-is roughly an order of magnitude smaller than when the signal has real
-entries.
+product of small integers. Additionally, the initialisation time
+appears to be increasing almost proportionally to a power of the
+problem size. When $N$ is prime and the signal is real-valued, there
+is only a relatively small increase in intialisation time as the
+problem size increases. When the signal contains complex values, the
+initialisation time is roughly 1.5 times larger for $N$ a product of
+small integers compared to $N$ being a power of 2. Additionally, for
+these cases, the initialisation time is roughly an order of magnitude
+smaller than when the signal has real entries.
 
 The DFT execution times for $N$ a power of 2 or product of small
 integers are highly correlated to problem size with execution times
 for real input taking roughly twice the time of signals with complex
-entries. When $N$ is prime, the DFT execution time is 2.2 times longer
+entries. When $N$ is prime, the DFT execution time is roughly 2.2 times longer
 when the signal is real instead of complex.
 
 \begin{figure}[htb]
@@ -368,19 +382,20 @@ when the signal is real instead of complex.
   \label{1DMKL}
 \end{figure}
 
-\subsection{1D GSL and FFTPACK}
+\subsection{1D GSL and FFTPACK}\label{Sec:FFTPACK1d}
 As with the FFTW and MKL libraries, the initialisation times for GSL,
 Figure~\ref{1DGSL}, have differing behaviours for real and complex
 signals. For complex signals, there is little difference in
 initialisation time for the different classes of $N$ and the time is
-proportional to a power of the problem size. When the signal is real,
-rather surprisingly, the initialisation time is smallest when $N$ is
-prime and the times for the other cases are roughly those for
-corresponding complex signals. For real-valued signals with prime
-values of $N,$ the DFT execution time increases at a rate proportional
-to $N^2.$ For complex signals with $N$ prime, there is a much slower
-increase with respect to execution time and the times are roughly 2.5
-times those of the other classes of $N$ considered.
+proportional to a power of the problem size for larger values of
+$N$. When the signal is real, rather surprisingly, the initialisation
+time is smallest when $N$ is prime and the times for the other cases
+are roughly those for corresponding complex signals. For real-valued
+signals with prime values of $N,$ the DFT execution time increases at
+a rate proportional to $N^2.$ For complex signals with $N$ prime,
+there is a much slower increase with respect to execution time and the
+times are roughly 2.5 times those of the other classes of $N$
+considered.
 
 The general behaviours of the GSL and FFTPACK (Figure~\ref{1DFFTPACK})
 libraries are similar.
@@ -448,10 +463,10 @@ libraries are similar.
 \end{figure}
 
 
-\subsection{Comparison libraries for 1D benchmarks}
+\subsection{Comparison of libraries for 1D benchmarks}\label{Sec:ALL1d}
 We also compared the libraries among themselves for powers of 2
 (Figure~\ref{1DPOW2}) and all the classes of $N$ considered
-(Figure~\ref{1D}). In Table~\ref{Tbl:1D} we provide the initialisation
+(Figure~\ref{1D}). In Table~\ref{Tbl:1D}, we provide the initialisation
 and DFT execution times for the largest value of prime $N$ considered
 and the nearest values of $N$ for the other clasees of $N.$ For large
 values of $N$ that are powers of 2 with real input signals, FFTW has
@@ -464,19 +479,19 @@ has significantly lower initialisation times.
 If $N$ is large and a product of small integers but not a power of 2,
 the initialisation time for real input signals is similar for FFTW,
 FFTPACK and GSL but the MKL library is (roughly) a factor of four
-times larger; for the complex case, FFTW has the best inialisation
+times larger; for the complex case, FFTW has the best initialisation
 time with the GSL library taking about four times longer and the
 others taking longer still. Looking at the DFT execution times, FFTW
-is fastes for the real case but all of the libraries have similar DFT
+is fastest for the real case but all of the libraries have similar DFT
 execution times in the complex case.
 
 
 When $N$ is prime, FFTPACK has the fastest initialisation time (both
 real and complex cases). However, for real input, the DFT execution
 times of GSL and FFTPACK are at least three orders of magnitude larger
-than those of FFTW and MKL. If the input signal is complex, MKL has
-the best DFT execution times with the others being approximately three
-times larger.
+than those of FFTW and MKL, which are similar. If the input signal is
+complex, MKL has the best DFT execution times with the others being
+approximately three times larger.
 
 
 Therefore, there is no clear winner but if the input signal is real
@@ -568,17 +583,17 @@ and $N$ maybe prime, the GSL and FFTPACK should be avoided.
 
 \section{Effect of the domain size in two dimensions}\label{PERFORMANCE2D}
 
-In this section, we measure the performance obtained in two dimensions
-following the same procedure as in Section~\ref{PERFORMANCE1D}.
-However, only FFTW and MKL work in this case (Figure~\ref{2DFFTW} and
-\ref{2DMKL}). In this section, we only consider a square domain. We
-will consider asymmetrical domains in Section~\ref{FLATNESS}.
+In this section, we measure the performance obtained with the two
+dimensional version of our benchmark and follow the same procedure as
+in Section~\ref{PERFORMANCE1D}.  However, only FFTW and MKL work in
+this case. In this section, we only consider a square domain. We will
+consider asymmetrical domains in Section~\ref{FLATNESS}.
 
-We compare the performance obtained with numbers of points that are a
-power of 2, the product of powers of small integers or a prime number.
-These numbers are chosen as in Section~\ref{PERFORMANCE1D} and we
-endeavoured make the total number of points vary within a similar
-range. The dimensions we chose are given in the Table~\ref{SIZES2D}.
+We compare the performance obtained with numbers of points across a
+single edge of the square domain that are a power of 2, the product of
+powers of small integers or a prime number.  These numbers are chosen
+as in Section~\ref{PERFORMANCE1D} and we endeavoured to make the total
+number of points vary within a similar range, Table~\ref{SIZES2D}.
 
 \begin{table}[H]
   \centering
@@ -599,22 +614,23 @@ range. The dimensions we chose are given in the Table~\ref{SIZES2D}.
 
 \subsection{2D FFTW}
 In Figure~\ref{2DFFTW}, we observe that the initialisation time
-behavoiur with respect to $N$ differs depending on whether the input
-signal is real or complex. For $N$ a power of 2, the initialisation
-time only increases a small amount with respect to increasing $N:$ for
-complex signals, the initialisation time is roughly 25\% higher than
-when the signal is real. When $N$ is a poroduct of small integers, the
-initialisation time is slightly higher than when $N$ is a power of 2
-and the complex case is approximately 30\% larger than the real case.
-For the three larger values of $N$ with real-valued signals, the
-initialisation time is approximately 4 times higher for $N$ prime than
-when $N$ is a power of 2; for complex-valued signals there is between
-a factor of 2 and 3.5 difference.
+behaviour for the FFTW library with respect to $N$ differs depending
+on whether the input signal is real or complex. For $N$ a power of 2,
+the initialisation time only increases a small amount with respect to
+increasing $N:$ for complex signals, the initialisation time is
+roughly 25\% higher than when the signal is real. When $N$ is a
+product of small integers, the initialisation time is slightly higher
+than when $N$ is a power of 2 and the complex case is approximately
+30\% larger than the real case.  For the three larger values of $N$
+with real-valued signals, the initialisation time is approximately 4
+times higher for $N$ prime than $N$ a power of 2; for
+complex-valued signals there is between a factor of 2 and 3.5
+difference.
 
 The DFT execution time behaviour also differs for real and complex
 signals when FFTW is used. In the real case, $N$ being a power of 2
 and $N$ being the product of small integers have similar execution
-times for prime values of $N$ have execution times that are
+times but prime values of $N$ have execution times that are
 approximately 3 times larger. When the signal has complex values and
 $N$ is large, the DFT execution times for prime values of $N$ and
 powers of 2 are very similar and are roughly 40\% lower than when $N$
@@ -712,9 +728,11 @@ complex signals, there is little difference in DFT execution time.
 \subsection{2D Library Comparison}
 Comparing the two libraries, Figures~\ref{2DPOW2} and \ref{2D}, we
 observe that the MKL library generally outperforms FFTW. In
-Table~\ref{Tbl:2D}, we provide the average initiation and DFT
+Table~\ref{Tbl:2D}, we provide the average initialisation and DFT
 execution times for the largest problems in each class of $N$ and
-observe that the difference in DFT execution time is significant.
+observe that the difference in DFT execution time is
+significant. Hence, in this case, we would recommend using the MKL
+library.
 
 
 \begin{table}[H]
@@ -725,16 +743,16 @@ observe that the difference in DFT execution time is significant.
      $N$ & R/C & FFTW & MKL & FFTW & MKL \\
     \hline
     \hline
-    8123 & R & 1.69e-4 & 2.30e-4 & 9.15 & 3.97 \\
-    8192 & R & 3.87e-4 & 5.99e-4 &  2.80 & 1.33  \\ 
-    8232 & R & 4.48e-4 & 5.21e-4 & 2.97 & 1.42 \\  
+    8123 & R & 1.69e-4 & 2.30e-4 & 9.15e+0 & 3.97e+0 \\
+    8192 & R & 3.87e-4 & 5.99e-4 &  2.80e+0 & 1.33e+0  \\ 
+    8232 & R & 4.48e-4 & 5.21e-4 & 2.97e+0 & 1.42e+0 \\  
 \hline
     8123 & C & 1.63e-4 & 1.64e-4 & 14.1 & 5.30 \\
     8192 & C & 4.79e-4 & 2.71e-4 & 13.1 & 2.47 \\
     8232 & C & 5.80e-4 & 2.07e-4 & 7.56 & 2.15 \\
 \hline
   \end{tabular}
-  \caption{Comparision of average initialisation and DFT execution times for FFTW and MKL and the largest test problems in each class of $N.$}\label{Tbl:2D}
+  \caption{Comparision of average initialisation and DFT execution times for FFTW and MKL with the largest test problems in each class of $N.$}\label{Tbl:2D}
 \end{table}
 
 
@@ -805,8 +823,9 @@ observe that the difference in DFT execution time is significant.
 
 We repeat the analysis carried out in Sections \ref{PERFORMANCE1D} and
 \ref{PERFORMANCE2D} in three dimensions, on a cubic domain, with the
-FFTW and MKL libraries. The number of points considered is given in
-Table \ref{SIZES3D}.
+FFTW and MKL libraries. The number of points along a single each of
+the cubic domain that we use in our benchmarks is given in Table
+\ref{SIZES3D}.
 
 \begin{table}[H]
   \centering
@@ -819,10 +838,11 @@ Table \ref{SIZES3D}.
     $2^5=32$ & $2\times 3\times 5=30$	& 31\\ \hline
     $2^6=64$ & $2\times 5\times 7=70$	& 61\\ \hline
     $2^7=128$ & $3\times 5\times 7=105$ & 127\\ \hline
-    $2^8=256$ & $2\times 3\times 5\ 7=210$ & 257\\ \hline
+    $2^8=256$ & $2\times 3\times 5\times 7=210$ & 257\\ \hline
     $2^9=512$ & $2^2\times 3\times 5\times 7=420$ & 509\\ \hline
   \end{tabular}
-  \caption{Number of points on the side of the cube used for the benchmark}\label{SIZES3D}
+  \caption{Number of points on the edge of the cube used for the
+    benchmark}\label{SIZES3D}
 \end{table}
 
 \subsection{3D FFTW Library}
@@ -830,10 +850,10 @@ Results for the FFTW library applied to our 3D benchmark problems are
 provided in Figure~\ref{3DFFTW}. We see that the initialisation time
 is markedly different when comparing the real and complex cases, with
 the real case having initialisation times that are significantly
-higher than in the comples case when $N$ is either a power of 2 or the
-production of small integers: for the largest size of $N$ considered,
+higher than in the complex case when $N$ is either a power of 2 or the
+product of small integers: for the largest size of $N$ considered,
 there is a factor of 13 difference when $N$ is a power of 2 and a
-factor of 9 difference when $N$ is a product of small integers. For
+factor of 9 difference when $N$ is a product of small integers; for
 prime values of $N,$ the difference between initialisation times is
 roughly a factor of two with the time for real input initialisation
 being larger than that of the complex case.
@@ -846,7 +866,7 @@ Additionally, for the largest problem size with $N$ a power of 2 and
 complex input, the execution time is greater than the other cases $N$
 that are similar in size. For real inputs, the DFT execution time is
 very similar for $N$ a power of 2 and $N$ the product of small
-integers but the execution times is close to three times larger for
+integers but the execution times are close to three times larger for
 $N$ prime.
 
 
@@ -883,24 +903,23 @@ $N$ prime.
 
 
 \subsection{3D MKL Library}
-As with FFTW, the initialisation time behaviour with respect to $N$
-differs for the real and complex cases. For the real case, the
-initialisation time is roughly proportional to a power of $N$ with the
-initialisation time for primes taking three times as long as for
-comparable values of $N$ that are powers of 2 or the product of small
-integers. For the complex case, once $N$ is larger than 100, the
-initialisation time starts to fattern off and remains close to
-$10^{-4}$ seconds. In this case, prime values of $N$ have
-initialisatio ntimes that are roughly twice those for when $N$ is a
-power of 1. For $N=2^9,$ the initialisation times is more that four
-orders of magnitude smaller that the real case!
+As with FFTW, the initialisation time behaviour of the MKL library
+with respect to $N$ differs for the real and complex cases. For the
+real case, the initialisation time for primes takes roughly three
+times as long as for comparable values of $N$ that are powers of 2 or
+the product of small integers. For the complex case, once $N$ is
+larger than 100, the initialisation time starts to flatten off. In
+this case, prime values of $N$ have initialisation times that are
+roughly twice those when $N$ is a power of 2. For $N=2^9,$ the
+initialisation time is more than four orders of magnitude smaller than
+the real case!
 
 The DFT execution time behaviour with respect ot $N$ is similar for
 both the real and complex cases and increasing at a rate proportional
 to a power of $N.$ The DFT execution time for the real case is, in
 general, 40-50\% higher than the complex case. Considering the real
 case, the DFT execution time for prime values of $N$ is approximately
-triple that of the the other cases of $N$ used within our benchmark
+triple that of the other cases of $N$ used within our benchmark
 tests. For the complex case, the difference is narrowing as $N$
 increases with the ratio being 1.33 for the largest values of $N.$
 
@@ -945,7 +964,7 @@ smaller ratio, 3.38, for the initialisation times in the complex case
 with $N$ also equal to $2^9.$ In terms of the DFT execution times, the
 MKL library is faster than the FFTW library. In
 Table~\ref{Tbl:3DPOW2}, we provide the ratio of the DFT execution
-times for differing values of $N$ and observe that there is a greater
+times (MKL:FFTW) for differing values of $N$ and observe a greater
 difference in execution time in the complex case.
 
 \begin{table}[H]
@@ -959,7 +978,7 @@ difference in execution time in the complex case.
     C & 0.45 & 0.60 & 0.29 & 0.23 & 0.16 \\
     \hline
   \end{tabular}
-  \caption{Ratio of DFT execution times for 3D benchmark with $N$ a power of 2. Both the real (R) and complex (C) cases for input signals are provided.}\label{Tbl:3DPOW2}
+  \caption{Ratio of DFT execution times (MKL:FFTW) for 3D benchmark with $N$ a power of 2. Both the real (R) and complex (C) cases for input signals are provided.}\label{Tbl:3DPOW2}
 \end{table}
 
 For $N=2^9,$ the time to perform one initialisation and $k$ DFT
@@ -1001,8 +1020,8 @@ recommend using the MKL library in the serial case.
 
 The other cases of $N$ considered are included in Figure~\ref{3D}. For
 the real case, the MKL initialisation times are always much larger
-than those of FFTW. For the complex case and large values of $N,$ the
-initialisation times are preferable for FFTW when $N$ is a poroduct of
+than those of FFTW. For the complex case with large values of $N,$ the
+initialisation times are preferable for FFTW when $N$ is a product of
 small integers but not when $N$ is prime. In terms of DFT execution
 times, MKL is always preferable. As above, we consider the total time
 to perform one initialisation and $k$ DFT calculations. When $N=420$
@@ -1042,6 +1061,7 @@ all $k>0.$
     side of the cube (3 dimensions)}
   \label{3D}
 \end{figure}
+
 \section{Effect of the flatness of the domain}\label{Sec:FLATNESS}
 
 The experiments we carried out in Sections \ref{PERFORMANCE2D} and
@@ -1049,11 +1069,12 @@ The experiments we carried out in Sections \ref{PERFORMANCE2D} and
 in all directions, that is, squares or cubes. In this section, we will
 study, in three dimensions, the effect of the flatness of the domain
 on the performance. We will compute the transform of a signal on a
-cuboid containing $512^3$ points stretched in the $z$ direction. The
-sides in the $x$ and $y$ directions have identical lengths ($N_x=N_y$)
-and the flatness is defined as the ratio between the number of points
-in the $z$ and $x$ directions ($N_z/N_x$). The dimensions of the
-domains considered appear in Table \ref{FLATNESSDIM}.
+cuboid containing $512^3$ points uniformally distributed within a
+cuboid. The sides in the $x$ and $y$ directions have identical lengths
+($N_x=N_y$) and the flatness is defined as the ratio between the
+number of points in the $z$ and $x$ directions ($N_z/N_x$). The
+dimensions of the domains considered appear in Table
+\ref{FLATNESSDIM}.
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|l|l|}
@@ -1075,9 +1096,10 @@ domains considered appear in Table \ref{FLATNESSDIM}.
   \caption{Number of points used for the benchmark in three dimensions}\label{FLATNESSDIM}
 \end{table}
 
-We have observed that there is no clear trend in the way the flatness
-of the domain affects the performance and conclude that the
-performance (in the serial version of each library) depends mostly on the total number of points.
+In Figure~\ref{FLATNESS}, we have observe that there is no clear trend
+in the way the flatness of the domain affects the performance and
+conclude that the performance (in the serial version of each library)
+depends mostly on the total number of points and not the domain shape.
 
 \begin{figure}[H]
   \centering
@@ -1099,7 +1121,7 @@ performance (in the serial version of each library) depends mostly on the total 
 \end{figure}
 
 \section{Parallelism}\label{PARALLELISM}
-So far, we have computed FFTs using serial versions of the FFT libraries. 
+So far, we have computed FDTs using serial versions of the FFT libraries. 
 In this section, we
 will investigate the effect of parallelism on the performance
 achieved. Only the FFTW and MKL libraries are capable of running in
@@ -1115,7 +1137,7 @@ times for the real cases increase for the FFTW libraray as the number
 of threads increases but, in comparision, the MKL library's
 initialisation times decrease. However, the MKL initialisation times
 are at least three orders of magnitude larger than those of FFTW. For
-the complex case, the initialisation times for MKL baraely change when
+the complex case, the initialisation times for MKL barely change when
 the number of threads differs but, again, the FFTW library has
 initialisation times that increase as the number of threads increases
 and for the larger number of threads, the initialisation times are
@@ -1126,7 +1148,7 @@ case.
 
 With respect to the DFT execution time, the MKL library is nearly
 always faster than the FFTW library but the times become similar as
-the number of threads increases becasue the FFTW library has better
+the number of threads increases because the FFTW library has better
 scaling properties. The complex FFTW DFT execution times are between 2
 and 3 times larger than the real case. For the MKL library, the 
 corresponding ratios are between 1.8 and 2.5.
@@ -1170,15 +1192,15 @@ We now turn to studying the effect of the parallelism provided by MPI.
 In this case, we used up to 96 processes, corresponding to 4 ARCHER
 nodes, each with only a single thread. We carried out the measurements
 using a constant number of points on a line ($N_x=16777216$), a square
-($N_x=N_y=4096$) and a cube ($N_x=N_y=N_z=256$). We note that the
-distributed version of the FFTW library only has interfaces for
-complex input signals.
+($N_x=N_y=4096$) and a cube ($N_x=N_y=N_z=256$). We note that, in the
+1D case, the distributed version of the FFTW library only has
+interfaces for complex input signals.
 
 
 \subsubsection{1D MPI Benchmark Results}
 In Figure~\ref{1DMPI}, we compare the distributed versions of the FFTW
-and MKL libraries. We start by observing that the MKL library iwht
-real input signals has initialisation times that reamin (roughly)
+and MKL libraries. We start by observing that the MKL library with
+real input signals has initialisation times that remain (roughly)
 constant as the number of MPI processes increases but the complex
 version has initialisation times that decrease slightly (although they
 are three orders of magnitude larger than the real case). Moving from
@@ -1192,16 +1214,16 @@ of that of MKL.
 
 
 In terms of DFT execution times, the FFTW library is steadily
-decreasing as the number of the processes increases but the MKL
-library statys roughly unchanged. Comparing the complex cases, once
-more than eight processes are used, FFTW is the favourable library
-with respect to the DFT execution time. When 96 MPI processes are
-used, the MKL library takes 3.36 times longer than FFTW.
+decreasing as the number of processes increases but the MKL library
+stays roughly unchanged. Comparing the complex cases, once more than
+eight processes are used, FFTW is the more favourable library with
+respect to the DFT execution time. When 96 MPI processes are used, the
+MKL library takes 3.36 times longer than FFTW.
 
 We compare the scalability of the distributed libraries with respect
 to the serial version of the libraries in Table~\ref{Tbl:MPI}. The
 results show how the DFT execution times can be improved by using the
-distributed versions but there is limitations in the scaling
+distributed versions but there are limitations in the scaling
 (particularly for the MKL library).
 
 \begin{small}
@@ -1249,23 +1271,25 @@ distributed versions but there is limitations in the scaling
 
 \subsubsection{2D MPI Benchmark Results}
 We compare the distributed version of FFTW and MKL for our 2D MPI
-benchmark in Figure~\ref{2DMPI}. Comparing initialisation times, the
-MKL library is significantly faster than the FFTW. For the MKL
-library, the real version has initialisation times that increase as
-the number of processes increases but they stay roughly constant in
-the complex case. However, in general, the initialisation times are
+benchmark in Figure~\ref{2DMPI}. There were a number of cases where
+the libraries crashed and, hence, the corresponding data is missing
+from the graphs and tables. Comparing initialisation times, the MKL
+library is significantly faster than the FFTW. For the MKL library,
+the real version has initialisation times that increase as the number
+of processes increases but they stay roughly constant in the complex
+case. However, in general, the initialisation times are fairly
 negligible compared to the DFT execution times.
 
-Comparing the DFT execution times, for both libraries, the times are
-lower for the real input signal cases: factors of roughly 2.0 and 2.5
-for FFTW and MKL, respectively. For our benchmark runs, the MKL
+We now compare the DFT execution times. For both libraries, the times
+are lower for the real input signal cases: factors of roughly 2.0 and
+2.5 for FFTW and MKL, respectively. For our benchmark runs, the MKL
 library was faster than FFTW but as the number of processors
 increased, the difference became smaller, see
 Table~\ref{Tbl:MPI2D}. In Table~\ref{Tbl:MPI2DScale}, we compare the
 scalability of the FFTW and MKL distributed libraries with respect to
 their serial versions. For FFTW, the distributed version exhibits an
 overhead in the initialisation times but this is countered by the DFT
-execution times. For the MKL library, there is little different in the
+execution times. For the MKL library, there is little difference in the
 initialisation times when comparing the distributed and serial version
 but, for multiple processes, there are gains with respect to the DFT
 execution times. However, the FFTW is producing better scalability
@@ -1351,10 +1375,11 @@ in the case of FFTW, the initialisation times has significantly
 increased but the DFT execution times are scaling reasonably well with
 respect to the number of MPI processes. For MKL, there is little
 difference in the initialisation times for the serial and distributed
-versions but the scaling properties are not as good as FFTW.
+versions but the scaling properties for the DFT computations are not
+as good as FFTW.
 
-[WHY IS THERE MISSING DATA?]
-
+As with the 2D MPI benchmarks, there is missing data in the graphs and
+this is due to the libraries crashing.
 
 
 
@@ -1411,8 +1436,8 @@ versions but the scaling properties are not as good as FFTW.
 We now combine multithreading with MPI in the same conditions as in
 Section \ref{MPI}. We increase the number of threads up to the number
 of cores on a compute node and subsequently increase the number of
-such processes. We carry out this procedure till we use 4 processes,
-each consisting of 24 threads. Thus, upto 24 cores, we are really only
+such processes. We carry out this procedure until we use 4 processes,
+each consisting of 24 threads. Thus, up to 24 cores, we are really only
 assessing the multithreading scalability properties of the distributed
 version of the libraries.
 
@@ -1433,7 +1458,7 @@ until the point at which we use multible MPI processes. However, the
 distributed MKL library with complex input signals shows some increase
 in DFT execution time as the number of cores increases whilst using
 one MPI process. Moving from one to two MPI processes has little
-effect on the MPI time but a further increase to four MPI processes
+effect on the DFT time but a further increase to four MPI processes
 quarters the execution time.
 
 
@@ -1497,10 +1522,10 @@ it crashed when using the complex version with multiple MPI processes.
 
 
 \subsubsection{3D MPI+Multithreading Benchmarks}
-In three dimensions, only the MKL works and it does only with a single
-process. We conclude that, in the environmnet we used, multithreading
-and MPI bring a performance improvement separately but their
-combination leads to poor scaling and crashes.
+In three dimensions, only the MKL library works and it does so only
+with a single process. We conclude that, in the environment we used,
+multithreading combined with MPI can bring a performance improvement
+separately but their combination leads to poor scaling and crashes.
 
 \begin{figure}[H]
   \centering
@@ -1522,18 +1547,23 @@ combination leads to poor scaling and crashes.
 \end{figure}
 
 \subsection{Constant number of cores}\label{CONST}
-We now compare the effects of multithreading and MPI by using a
+We now compare the effects of multithreading combined with MPI by using a
 constant number of cores, 24, on a single node while varying the
-number of processes and threads. The signal is the same as in Sections
-\ref{MPI} and \ref{MPIMULTH}.
+number of processes and threads. The input signal is the same as in Sections~\ref{MPI} and \ref{MPIMULTH}.
 
-In one dimension, Figure~\ref{1DCONST}, altering the number of MPI
-processes whilst keeping the total number of cores used constant has
-little effect on either the initialisation or DFT execution times. the
-MKL library scales poorly and FFTW gives the best performance. For the
-FFTW library, increasing the number of MPI processes (and subsequently
-reducing the number of threads per process) results in improved DFT
-execution times.
+In one dimension, Figure~\ref{1DCONST}, we see that altering the
+number of MPI processes whilst keeping the total number of cores used
+constant has little effect on the initialisation time for the MKL
+interface for real input signals but increasing the number of MPI
+processes does reduce the initialisation time when the MKL is
+initialised for complex input signals. The FFTW library initialisatio
+ntimes show no consistent trend as the number of processes/threads
+vary. In terms of DFT execution times, increasing the number of MPI
+processes produces a mild increase for the MKL library with real input
+signals, no real trend up or down for MKL with complex input signals
+but the FFTW library has a significant improvement with an order of
+magnitude decrease when moving from 24 threads/1 MPI process to 1
+thread/24 MPI processes.
 
 
 
@@ -1586,8 +1616,8 @@ MPI processes.
 Finally, in three dimensions, we have only obtained data with the MKL
 library since FFTW crashes. For real input signals, the initialisation
 times increase as the number of MPI processes increase/threads per MPI
-process decreases. However, the initialisation times at least two
-orders of magnitude smaller than the DFT execution times and, thuse,
+process decrease. However, the initialisation times are at least two
+orders of magnitude smaller than the DFT execution times and, thus,
 the decrease in DFT execution time as MPI processes increase is of
 greater importance.
 \begin{figure}[H]
@@ -1609,38 +1639,37 @@ greater importance.
   \label{3DCONST}
 \end{figure}
 
-\section{Requirements from the CCP}\label{CCPPETMR}
+\section{Requirements from the CCP}\label{Sec:CCPPETMR}
 We have also benchmarked the FFT libraries in a situation
 corresponding to a problem encountered by the CCP/PET-MR
-collaboration, by computing the transform of a series of 32 square
-complex images whose side consists of 256 points as well as the
-closest prime number (257) and product of powers of small integers
-($2^2\times 3^2\times 7=252$). We have repeated the algorithm
-described in Table \ref{PSEUDOCODE} but, this time, with $N_s=32$. In
-this case, the MKL library performs better than FFTW. None of the
-other libraries we have considered could be used in two dimensions.
-GSL works only in one dimension. The FORTRAN version of FFTPACK does
-not share that limitation. However all the C/C++ wrappers we have
-found offer only one-dimensional transforms. Finally FFTPACK is
-distributed with a licence that is less constraining than the GPL but,
-nevertheless, the C++ wrapper provided by CASA that we have used is
-distributed under the GPL v2.
+collaboration: computing the DFT of a series of 32 square complex
+images whose side consists of 256 points, as well as the closest prime
+number (257) and product of powers of small integers ($2^2\times
+3^2\times 7=252$). We have repeated the algorithm described in Table
+\ref{PSEUDOCODE} but, this time, with $N_s=32$. In this case, the MKL
+library performs significantly better than FFTW. Note that neither GSL
+or FFTPACK can be used because they only work for one dimensional
+transforms and we didn't use the parallel capabilities of the
+code. However, if we had, we would still expect MKL to have been
+significantly faster when run with identical numbers of threads and
+MPI processes.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \includegraphics[height=8cm]{graphs/ccppetmr.pdf}
   \caption{Execution time for the transform of 32 complex square
     images as a function of square side\\(2 dimensions, complex)}
   \label{method}
 \end{figure}
+
 \section{Conclusion}
 When the FFT is executed serially, in one dimension, the situation is
-not very clear but FFTW seems to be the most efficient. In two and
-three dimensions, the MKL library is the fastest. When run in parallel
-with MPI or multithreading separately, the MKL library also performs
-best, except in one dimension. Finally, combining MPI with
-multithreading leads, in our experiments, to problems such as poor
-scaling and crashes.
+not very clear and the properties of $N$ should be considered to
+choose the best library. In two and three dimensions, the MKL library
+is fastest in the serial case. When run in parallel with MPI or multithreading
+separately, the MKL library also performs best, except in one
+dimension. Finally, combining MPI with multithreading leads, in our
+experiments, to problems such as poor scaling and crashes.
 
 \section*{Acknowledgements}
 This work made use of computational support by CoSeC, the
@@ -1650,16 +1679,13 @@ Software Outlook activity.
 
 
 \begin{thebibliography}{9}
-
-\bibitem{CT} Cooley J. W., Tukey J. W.  {\it An algorithm for the
-    machine calculation of complex Fourier series}, Math. Comp. 19
-  (1965), 297-301
  
 \bibitem{fftw} Frigo, Matteo and Johnson, Steven G., {\it The Design
     and Implementation of FFTW3}, Proceedings of the IEEE, 2005, 93,
   2, 216--231, Special issue on ``Program Generation, Optimization,
   and Platform Adaptation''
-\bibitem{mkl} \url{https://software.intel.com/en-us/mkl}
+  
+\bibitem{mkl} Intel Math Kernel Library, \url{https://software.intel.com/en-us/mkl}
 
 \bibitem{gsl} M. Galassi et al, {\it GNU Scientific Library Reference
     Manual (3rd Ed.)}, ISBN 0954612078
@@ -1667,21 +1693,35 @@ Software Outlook activity.
 \bibitem{fftpack} P.N. Swarztrauber, {\it Vectorizing the FFTs},
   Parallel Computations (G. Rodrigue, ed.), Academic Press, 1982, pp.
   51--83.
+
+  
+    
+\bibitem{bibccppetmr} Collaborative Computational Project in Positron
+  Emission Tomography and Magnetic Resonance Imaging,
+  \url{https://www.ccppetmr.ac.uk/}
+
+  
+
+\bibitem{CT} Cooley J. W., Tukey J. W.  {\it An algorithm for the
+    machine calculation of complex Fourier series}, Math. Comp. 19
+  (1965), 297-301
+
+\bibitem{code} Software Outlook's GitHub Repository: FFT Benchmarking
+  in C++, \url{https://github.com/SoftwareOutlook/FFTC}
+
+
+  
+\bibitem{softwareoutlook} Software Outlook,
+  \url{https://www.softwareoutlook.ac.uk/}
+
+
+\bibitem{archer} ARCHER: the UK National Computing Service
+  (\url{https://www.archer.ac.uk/})
   
 \bibitem{casa} McMullin J. P., Waters B., Schiebel D., Young W., Golap
   K., {\it Astronomical Data Analysis Software and Systems XVI}, ASP
   Conf. Ser. 376, ed. R. A. Shaw, F. Hill, D. J. Bell (San Francisco,
   CA: ASP), 127
-
-\bibitem{code} \url{https://github.com/SoftwareOutlook/FFTC}
-    
-\bibitem{ccppetmr} \url{https://www.ccppetmr.ac.uk/}
-
-\bibitem{softwareoutlook} Software Outlook
-  \url{https://www.softwareoutlook.ac.uk/}
-
-\bibitem{archer} ARCHER is the UK National Computing Service
-  (\url{https://www.archer.ac.uk/})
   
 \end{thebibliography}
 

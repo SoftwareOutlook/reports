@@ -545,12 +545,12 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 2D, Real"
-plot [400:] "2d-pow2.dat"    using 1:2 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
-     "2d-prodint.dat" using 1:2 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
-     "2d-primes.dat"  using 1:2 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 4 title "FFTW - Primes",\
-     "2d-pow2.dat"    using 1:6 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
-     "2d-prodint.dat" using 1:6 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
-     "2d-primes.dat"  using 1:6 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 4 title "MKL - Primes"
+plot [400:] "2d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "2d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "2d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "2d-pow2.dat"    using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "2d-prodint.dat" using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "2d-primes.dat"  using 1:6 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 4 title "MKL - Primes"
 
 
 reset
@@ -562,12 +562,12 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 2D, Real"
-plot [400:] "2d-pow2.dat"    using 1:3 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
-     "2d-prodint.dat" using 1:3 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
-     "2d-primes.dat"  using 1:3 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 4 title "FFTW - Primes",\
-     "2d-pow2.dat"    using 1:7 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
-     "2d-prodint.dat" using 1:7 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
-     "2d-primes.dat"  using 1:7 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 4 title "MKL - Primes"
+plot [400:] "2d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "2d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "2d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "2d-pow2.dat"    using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "2d-prodint.dat" using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "2d-primes.dat"  using 1:7 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 4 title "MKL - Primes"
 
 reset
 set format y "10^{%L}"
@@ -578,12 +578,12 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 2D, Complex"
-plot [400:] "2d-pow2.dat"    using 1:4 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
-     "2d-prodint.dat" using 1:4 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
-     "2d-primes.dat"  using 1:4 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 4 title "FFTW - Primes",\
-     "2d-pow2.dat"    using 1:8 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
-     "2d-prodint.dat" using 1:8 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
-     "2d-primes.dat"  using 1:8 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 4 title "MKL - Primes"
+plot [400:] "2d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "2d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "2d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "2d-pow2.dat"    using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "2d-prodint.dat" using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "2d-primes.dat"  using 1:8 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 4 title "MKL - Primes"
 
 reset
 set format y "10^{%L}"
@@ -594,12 +594,12 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 2D, Complex"
-plot [400:] "2d-pow2.dat"    using 1:5 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
-     "2d-prodint.dat" using 1:5 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
-     "2d-primes.dat"  using 1:5 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 4 title "FFTW - Primes",\
-     "2d-pow2.dat"    using 1:9 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
-     "2d-prodint.dat" using 1:9 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
-     "2d-primes.dat"  using 1:9 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 4 title "MKL - Primes"
+plot [400:] "2d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "FFTW - Pow. of 2",\
+     "2d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 2 title "FFTW - Prod. int.",\
+     "2d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 4 title "FFTW - Primes",\
+     "2d-pow2.dat"    using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 1 title "MKL - Pow. of 2",\
+     "2d-prodint.dat" using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "MKL - Prod. int.",\
+     "2d-primes.dat"  using 1:9 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 4 title "MKL - Primes"
 
 
 # 3D FFTW
@@ -860,10 +860,8 @@ plot "flatness.dat" using 1:6 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashty
      "flatness.dat" using 1:8 with linespoints lc rgb "red"  pt 2 ps 0.5 dashtype 1 title "MKL"
 
 reset
-set format y "10^{%L}"
 set terminal pdf
 set output "ccppetmr.pdf"
-set logscale y
 set style data histogram
 set style histogram cluster gap 1
 set style fill solid
@@ -872,7 +870,7 @@ set boxwidth 0.8 absolute
 set title "Performance for (2^2x3^2x7)^2, (2^8)^2 and 257^2 points - 32 coils, complex"
 set xlabel "N points"
 set ylabel "Time (s)"
-plot "ccppetmr.dat" using 2:xtic(1) lc rgb "red" title "FFTW", "" using 3:xtic(1) lc rgb "blue" title "MKL"
+plot "ccppetmr.dat" using 3:xtic(1) lc rgb "blue" title "FFTW", "" using 5:xtic(1) lc rgb "red" title "MKL"
 
 
 ###############################################
