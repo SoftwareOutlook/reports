@@ -47,7 +47,7 @@ cuFFT  &  R$\to$H,\ \ \  C$\to$C,\ \ \ \  H$\to$R & 1, 2, 3 & 2, 3, 5, 7 & GPL v
 \label{ffttable}
 \end{table}
 \section{Benchmark}
-The benchmark \cite{code} consists in processing a real or complex signal on a domain in 1, 2 or 3 dimensions. We first multiply it by a series of real signals, thus producing another series of real or complex signals, and then take their FFT.  The purpose was to mimick a problem submitted to us by the CCP PET-MR collaboration \cite{ccppetmr}, within the Software Outlook initiative \cite{softwareoutlook}, who needed to multiply a complex image by a series of coil sensitivities and then compute the FFT of these products. In Section \ref{PRODUCT}, we benchmark the product while, in Section \ref{FFT}, we study the performance obtained while computing the FFT. For the example specific to the CCP/PET-MR collaboration (Section \ref{CCPPETMR}), we take the FFT of 32 square images. In the more general case, we use a single signal but consider domains in 1, 2 or 3 dimensions. The bemchmark is depicted in Fig. \ref{benchmark} and described more extensively in \cite{FFTREPORT}.\\
+The benchmark\footnote{The source code is available at: \hyperlink{https://github.com/SoftwareOutlook/GPU}{https://github.com/SoftwareOutlook/GPU}.} consists in processing a real or complex signal on a domain in 1, 2 or 3 dimensions. We first multiply it by a series of real signals, thus producing another series of real or complex signals, and then take their FFT.  The purpose was to mimick a problem submitted to us by the CCP PET-MR collaboration \cite{ccppetmr}, within the Software Outlook initiative \cite{softwareoutlook}, who needed to multiply a complex image by a series of coil sensitivities and then compute the FFT of these products. In Section \ref{PRODUCT}, we benchmark the product while, in Section \ref{FFT}, we study the performance obtained while computing the FFT. For the example specific to the CCP/PET-MR collaboration (Section \ref{CCPPETMR}), we take the FFT of 32 square images. In the more general case, we use a single signal but consider domains in 1, 2 or 3 dimensions. The bemchmark is depicted in Fig. \ref{benchmark} and described more extensively in \cite{FFTREPORT}.\\
 
 \begin{figure}[H]
 \captionsetup{width=0.6\textwidth}
@@ -61,7 +61,7 @@ To study the performances achieved while computing the FFT in the general case, 
 
 \section{Setup}
 
-The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU (6 cores, 3.6 GHz), a NVIDIA Quadro GV100 GPU and 12 GB of RAM. We used the following frameworks: CUDA (version 10.0.130), OpenCL (version 1.2.7), OpenACC (version 2.7), OpenMP (version 4.0.0) and Kokkos (version 2.9.0) and clFFT (version 2.0). In this context, one disadvantage of OpenCL becomes apparent. The support for it is more limited. The most recent versions (from 2.0) are not completely supported by NVIDIA GPUs.  
+The measurements were carried out on a system featuring an Intel Xeon W-2133 CPU (6 cores, 3.6 GHz), a NVIDIA Quadro GV100 GPU and 12 GB of RAM. We used GCC (version 7.3.0) and the following frameworks: CUDA (version 10.0.130), OpenCL (version 1.2.7), OpenACC (version 2.7), OpenMP (version 4.0.0) and Kokkos (version 2.9.0) and clFFT (version 2.0). In this context, one disadvantage of OpenCL becomes apparent. The support for it is more limited. The most recent versions (from 2.0) are not completely supported by NVIDIA GPUs.  
 
 \section{Product}\label{PRODUCT}
 We first compare the multiplication of an array of $2^{24}$ real or complex numbers by an array of real numbers by considering the operation executed respecively in a serial way on the processor, in a multi-threaded way on the processor as well using OpenMP and Kokkos, on the GPU using CUDA, OpenCL, OpenACC, OpenMP and Kokkos. In the case of CUDA and OpenCL, we have made the comparison using streams or queues. This is a mechanism that allows the concurrent execution of kernels as well as overlapping data transfers in different directions.
@@ -760,9 +760,6 @@ The mysterious sentence that only Barbara knows.
 McMullin, J. P., Waters, B., Schiebel, D., Young, W., Golap, K.,
 {\it Astronomical Data Analysis Software and Systems XVI},
 ASP Conf. Ser. 376, ed. R. A. Shaw, F. Hill, D. J. Bell (San Francisco, CA: ASP), 127
-
-\bibitem{code}
-\hyperlink{https://github.com/SoftwareOutlook/GPU}{https://github.com/SoftwareOutlook/GPU}
 
 \bibitem{FFTREPORT}
 The FFT technical report.
