@@ -1,4 +1,4 @@
-# 1D CUDA
+# 1D cuFFT
 
 reset
 set format y "10^{%L}"
@@ -8,7 +8,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - CUDA - 1D - real"
+set title "Initialisation time as a function of N points - cuFFT - 1D - real"
 plot "fft-cuda-1d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-1d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-1d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -22,7 +22,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - CUDA - 1D - real"
+set title "Execution time as a function of N points - cuFFT - 1D - real"
 plot "fft-cuda-1d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-1d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-1d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -35,7 +35,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - CUDA - 1D - complex"
+set title "Initialisation time as a function of N points - cuFFT - 1D - complex"
 plot "fft-cuda-1d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-1d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-1d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -49,7 +49,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - CUDA - 1D - complex"
+set title "Execution time as a function of N points - cuFFT - 1D - complex"
 plot "fft-cuda-1d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-1d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-1d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -65,7 +65,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenCL - 1D - real"
+set title "Initialisation time as a function of N points - clFFT - 1D - real"
 plot "fft-opencl-1d-pow2.dat"    using 1:2 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-1d-prodint.dat" using 1:2 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-1d-primes.dat"  using 1:2 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -79,7 +79,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenCL - 1D - real"
+set title "Execution time as a function of N points - clFFT - 1D - real"
 plot "fft-opencl-1d-pow2.dat"    using 1:3 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-1d-prodint.dat" using 1:3 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-1d-primes.dat"  using 1:3 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -92,7 +92,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenCL - 1D - complex"
+set title "Initialisation time as a function of N points - clFFT - 1D - complex"
 plot "fft-opencl-1d-pow2.dat"    using 1:4 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-1d-prodint.dat" using 1:4 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-1d-primes.dat"  using 1:4 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -106,7 +106,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenCL - 1D - complex"
+set title "Execution time as a function of N points - clFFT - 1D - complex"
 plot "fft-opencl-1d-pow2.dat"    using 1:5 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-1d-prodint.dat" using 1:5 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-1d-primes.dat"  using 1:5 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -124,10 +124,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenACC - 1D - real"
-plot "fft-openacc-1d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-1d-prodint.dat" using 1:2 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-1d-primes.dat"  using 1:2 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Initialisation time as a function of N points - AccFFT - 1D - real"
+plot "fft-openacc-1d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-1d-prodint.dat" using 1:2 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-1d-primes.dat"  using 1:2 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 reset
@@ -138,10 +138,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenACC - 1D - real"
-plot "fft-openacc-1d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-1d-prodint.dat" using 1:3 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-1d-primes.dat"  using 1:3 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Execution time as a function of N points - AccFFT - 1D - real"
+plot "fft-openacc-1d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-1d-prodint.dat" using 1:3 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-1d-primes.dat"  using 1:3 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 reset
 set format y "10^{%L}"
@@ -151,10 +151,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenACC - 1D - complex"
-plot "fft-openacc-1d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-1d-prodint.dat" using 1:4 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-1d-primes.dat"  using 1:4 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Initialisation time as a function of N points - AccFFT - 1D - complex"
+plot "fft-openacc-1d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-1d-prodint.dat" using 1:4 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-1d-primes.dat"  using 1:4 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 reset
@@ -165,10 +165,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenACC - 1D - complex"
-plot "fft-openacc-1d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-1d-prodint.dat" using 1:5 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-1d-primes.dat"  using 1:5 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Execution time as a function of N points - AccFFT - 1D - complex"
+plot "fft-openacc-1d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-1d-prodint.dat" using 1:5 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-1d-primes.dat"  using 1:5 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 # 1D POW2
@@ -182,9 +182,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 1D - powers of 2 - real"
-plot "fft-cuda-1d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-1d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-1d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot "fft-cuda-1d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-1d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-1d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -195,9 +195,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 1D - powers of 2 - real"
-plot "fft-cuda-1d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-1d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-1d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot "fft-cuda-1d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-1d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-1d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -208,9 +208,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 1D - powers of 2 - complex"
-plot "fft-cuda-1d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-1d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-1d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot "fft-cuda-1d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-1d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-1d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -221,9 +221,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 1D - powers of 2 - complex"
-plot "fft-cuda-1d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-1d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-1d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot "fft-cuda-1d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-1d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-1d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
      
 
 # 1D
@@ -237,15 +237,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 1D - real"
-plot "fft-cuda-1d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-1d-prodint.dat"    using 1:2 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-1d-primes.dat"     using 1:2 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-1d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-1d-prodint.dat"  using 1:2 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-1d-primes.dat"   using 1:2 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-1d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-1d-prodint.dat" using 1:2 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-1d-primes.dat"  using 1:2 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot "fft-cuda-1d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-1d-prodint.dat"    using 1:2 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-1d-primes.dat"     using 1:2 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-1d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-1d-prodint.dat"  using 1:2 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-1d-primes.dat"   using 1:2 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-1d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-1d-prodint.dat" using 1:2 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-1d-primes.dat"  using 1:2 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -256,15 +256,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 1D - real"
-plot "fft-cuda-1d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-1d-prodint.dat"    using 1:3 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-1d-primes.dat"     using 1:3 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-1d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-1d-prodint.dat"  using 1:3 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-1d-primes.dat"   using 1:3 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-1d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-1d-prodint.dat" using 1:3 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-1d-primes.dat"  using 1:3 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot "fft-cuda-1d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-1d-prodint.dat"    using 1:3 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-1d-primes.dat"     using 1:3 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-1d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-1d-prodint.dat"  using 1:3 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-1d-primes.dat"   using 1:3 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-1d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-1d-prodint.dat" using 1:3 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-1d-primes.dat"  using 1:3 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -275,15 +275,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 1D - complex"
-plot "fft-cuda-1d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-1d-prodint.dat"    using 1:4 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-1d-primes.dat"     using 1:4 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-1d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-1d-prodint.dat"  using 1:4 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-1d-primes.dat"   using 1:4 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-1d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-1d-prodint.dat" using 1:4 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-1d-primes.dat"  using 1:4 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot "fft-cuda-1d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-1d-prodint.dat"    using 1:4 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-1d-primes.dat"     using 1:4 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-1d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-1d-prodint.dat"  using 1:4 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-1d-primes.dat"   using 1:4 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-1d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-1d-prodint.dat" using 1:4 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-1d-primes.dat"  using 1:4 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -294,15 +294,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 1D - complex"
-plot "fft-cuda-1d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-1d-prodint.dat"    using 1:5 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-1d-primes.dat"     using 1:5 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-1d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-1d-prodint.dat"  using 1:5 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-1d-primes.dat"   using 1:5 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-1d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-1d-prodint.dat" using 1:5 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-1d-primes.dat"  using 1:5 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot "fft-cuda-1d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-1d-prodint.dat"    using 1:5 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-1d-primes.dat"     using 1:5 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-1d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-1d-prodint.dat"  using 1:5 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-1d-primes.dat"   using 1:5 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-1d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-1d-prodint.dat" using 1:5 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-1d-primes.dat"  using 1:5 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 
 
@@ -317,8 +317,8 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 1D - real - N=2^j"
-plot "gpucpucomparison.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "gpucpucomparison.dat"    using 1:4 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "FFTW, serial"
+plot "gpucpucomparison.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "FFTW,serial",\
+     "gpucpucomparison.dat"    using 1:4 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "CuFFT"
     
 reset
 set format y "10^{%L}"
@@ -329,11 +329,11 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 1D - complex - N=2^j"
-plot "gpucpucomparison.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "gpucpucomparison.dat"    using 1:5 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "FFTW, serial"
+plot "gpucpucomparison.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "FFTW, serial",\
+     "gpucpucomparison.dat"    using 1:5 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "CuFFT"
 
 
-# 2D CUDA
+# 2D cuFFT
 
 reset
 set format y "10^{%L}"
@@ -343,7 +343,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - CUDA - 2D - real"
+set title "Initialisation time as a function of N points - cuFFT - 2D - real"
 plot [400:10000] "fft-cuda-2d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-2d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-2d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -357,7 +357,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - CUDA - 2D - real"
+set title "Execution time as a function of N points - cuFFT - 2D - real"
 plot [400:10000] "fft-cuda-2d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-2d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-2d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -370,7 +370,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - CUDA - 2D - complex"
+set title "Initialisation time as a function of N points - cuFFT - 2D - complex"
 plot [400:10000] "fft-cuda-2d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-2d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-2d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -384,7 +384,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - CUDA - 2D - complex"
+set title "Execution time as a function of N points - cuFFT - 2D - complex"
 plot [400:10000] "fft-cuda-2d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-2d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-2d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -400,7 +400,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenCL - 2D - real"
+set title "Initialisation time as a function of N points - clFFT - 2D - real"
 plot [400:10000] "fft-opencl-2d-pow2.dat"    using 1:2 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-2d-prodint.dat" using 1:2 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-2d-primes.dat"  using 1:2 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -414,7 +414,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenCL - 2D - real"
+set title "Execution time as a function of N points - clFFT - 2D - real"
 plot [400:10000] "fft-opencl-2d-pow2.dat"    using 1:3 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-2d-prodint.dat" using 1:3 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-2d-primes.dat"  using 1:3 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -427,7 +427,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenCL - 2D - complex"
+set title "Initialisation time as a function of N points - clFFT - 2D - complex"
 plot [400:10000] "fft-opencl-2d-pow2.dat"    using 1:4 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-2d-prodint.dat" using 1:4 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-2d-primes.dat"  using 1:4 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -441,7 +441,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenCL - 2D - complex"
+set title "Execution time as a function of N points - clFFT - 2D - complex"
 plot [400:10000] "fft-opencl-2d-pow2.dat"    using 1:5 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-2d-prodint.dat" using 1:5 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-2d-primes.dat"  using 1:5 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -459,10 +459,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenACC - 2D - real"
-plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-2d-prodint.dat" using 1:2 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-2d-primes.dat"  using 1:2 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Initialisation time as a function of N points - AccFFT - 2D - real"
+plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-2d-prodint.dat" using 1:2 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-2d-primes.dat"  using 1:2 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 reset
@@ -473,10 +473,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenACC - 2D - real"
-plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-2d-prodint.dat" using 1:3 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-2d-primes.dat"  using 1:3 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Execution time as a function of N points - AccFFT - 2D - real"
+plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-2d-prodint.dat" using 1:3 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-2d-primes.dat"  using 1:3 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 reset
 set format y "10^{%L}"
@@ -486,10 +486,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenACC - 2D - complex"
-plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-2d-prodint.dat" using 1:4 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-2d-primes.dat"  using 1:4 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Initialisation time as a function of N points - AccFFT - 2D - complex"
+plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-2d-prodint.dat" using 1:4 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-2d-primes.dat"  using 1:4 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 reset
@@ -500,10 +500,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenACC - 2D - complex"
-plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-2d-prodint.dat" using 1:5 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-2d-primes.dat"  using 1:5 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Execution time as a function of N points - AccFFT - 2D - complex"
+plot [400:10000] "fft-openacc-2d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-2d-prodint.dat" using 1:5 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-2d-primes.dat"  using 1:5 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 # 2D POW2
@@ -517,9 +517,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 2D - powers of 2 - real"
-plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-2d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-2d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-2d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-2d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -530,9 +530,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 2D - powers of 2 - real"
-plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-2d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-2d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-2d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-2d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -543,9 +543,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 2D - powers of 2 - complex"
-plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-2d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-2d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-2d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-2d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -556,9 +556,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 2D - powers of 2 - complex"
-plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-2d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-2d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-2d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-2d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
      
 
 # 2D
@@ -572,15 +572,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 2D - real"
-plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-2d-prodint.dat"    using 1:2 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-2d-primes.dat"     using 1:2 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-2d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-2d-prodint.dat"  using 1:2 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-2d-primes.dat"   using 1:2 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-2d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-2d-prodint.dat" using 1:2 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-2d-primes.dat"  using 1:2 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-2d-prodint.dat"    using 1:2 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-2d-primes.dat"     using 1:2 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-2d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-2d-prodint.dat"  using 1:2 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-2d-primes.dat"   using 1:2 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-2d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-2d-prodint.dat" using 1:2 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-2d-primes.dat"  using 1:2 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -591,15 +591,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 2D - real"
-plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-2d-prodint.dat"    using 1:3 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-2d-primes.dat"     using 1:3 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-2d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-2d-prodint.dat"  using 1:3 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-2d-primes.dat"   using 1:3 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-2d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-2d-prodint.dat" using 1:3 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-2d-primes.dat"  using 1:3 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-2d-prodint.dat"    using 1:3 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-2d-primes.dat"     using 1:3 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-2d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-2d-prodint.dat"  using 1:3 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-2d-primes.dat"   using 1:3 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-2d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-2d-prodint.dat" using 1:3 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-2d-primes.dat"  using 1:3 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -610,15 +610,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 2D - complex"
-plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-2d-prodint.dat"    using 1:4 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-2d-primes.dat"     using 1:4 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-2d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-2d-prodint.dat"  using 1:4 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-2d-primes.dat"   using 1:4 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-2d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-2d-prodint.dat" using 1:4 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-2d-primes.dat"  using 1:4 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-2d-prodint.dat"    using 1:4 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-2d-primes.dat"     using 1:4 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-2d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-2d-prodint.dat"  using 1:4 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-2d-primes.dat"   using 1:4 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-2d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-2d-prodint.dat" using 1:4 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-2d-primes.dat"  using 1:4 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -629,18 +629,18 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 2D - complex"
-plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-2d-prodint.dat"    using 1:5 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-2d-primes.dat"     using 1:5 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-2d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-2d-prodint.dat"  using 1:5 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-2d-primes.dat"   using 1:5 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-2d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-2d-prodint.dat" using 1:5 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-2d-primes.dat"  using 1:5 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot [400:10000] "fft-cuda-2d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-2d-prodint.dat"    using 1:5 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-2d-primes.dat"     using 1:5 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-2d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-2d-prodint.dat"  using 1:5 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-2d-primes.dat"   using 1:5 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-2d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-2d-prodint.dat" using 1:5 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-2d-primes.dat"  using 1:5 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 
-# 3D CUDA
+# 3D cuFFT
 
 reset
 set format y "10^{%L}"
@@ -650,7 +650,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - CUDA - 3D - real"
+set title "Initialisation time as a function of N points - cuFFT - 3D - real"
 plot [20:600] "fft-cuda-3d-pow2.dat"    using 1:2 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-3d-prodint.dat" using 1:2 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-3d-primes.dat"  using 1:2 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -664,7 +664,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - CUDA - 3D - real"
+set title "Execution time as a function of N points - cuFFT - 3D - real"
 plot [20:600] "fft-cuda-3d-pow2.dat"    using 1:3 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-3d-prodint.dat" using 1:3 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-3d-primes.dat"  using 1:3 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -677,7 +677,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - CUDA - 3D - complex"
+set title "Initialisation time as a function of N points - cuFFT - 3D - complex"
 plot [20:600] "fft-cuda-3d-pow2.dat"    using 1:4 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-3d-prodint.dat" using 1:4 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-3d-primes.dat"  using 1:4 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -691,7 +691,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - CUDA - 3D - complex"
+set title "Execution time as a function of N points - cuFFT - 3D - complex"
 plot [20:600] "fft-cuda-3d-pow2.dat"    using 1:5 with linespoints lc rgb "blue" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-cuda-3d-prodint.dat" using 1:5 with linespoints lc rgb "blue" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-cuda-3d-primes.dat"  using 1:5 with linespoints lc rgb "blue" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -707,7 +707,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenCL - 3D - real"
+set title "Initialisation time as a function of N points - clFFT - 3D - real"
 plot [20:600] "fft-opencl-3d-pow2.dat"    using 1:2 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-3d-prodint.dat" using 1:2 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-3d-primes.dat"  using 1:2 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -721,7 +721,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenCL - 3D - real"
+set title "Execution time as a function of N points - clFFT - 3D - real"
 plot [20:600] "fft-opencl-3d-pow2.dat"    using 1:3 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-3d-prodint.dat" using 1:3 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-3d-primes.dat"  using 1:3 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -734,7 +734,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenCL - 3D - complex"
+set title "Initialisation time as a function of N points - clFFT - 3D - complex"
 plot [20:600] "fft-opencl-3d-pow2.dat"    using 1:4 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-3d-prodint.dat" using 1:4 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-3d-primes.dat"  using 1:4 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -748,7 +748,7 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenCL - 3D - complex"
+set title "Execution time as a function of N points - clFFT - 3D - complex"
 plot [20:600] "fft-opencl-3d-pow2.dat"    using 1:5 with linespoints lc rgb "red" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
      "fft-opencl-3d-prodint.dat" using 1:5 with linespoints lc rgb "red" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
      "fft-opencl-3d-primes.dat"  using 1:5 with linespoints lc rgb "red" pt 1 ps 0.5 dashtype 4 title "Primes"
@@ -766,10 +766,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenACC - 3D - real"
-plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-3d-prodint.dat" using 1:2 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-3d-primes.dat"  using 1:2 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Initialisation time as a function of N points - AccFFT - 3D - real"
+plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-3d-prodint.dat" using 1:2 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-3d-primes.dat"  using 1:2 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 reset
@@ -780,10 +780,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenACC - 3D - real"
-plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-3d-prodint.dat" using 1:3 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-3d-primes.dat"  using 1:3 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Execution time as a function of N points - AccFFT - 3D - real"
+plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-3d-prodint.dat" using 1:3 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-3d-primes.dat"  using 1:3 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 reset
 set format y "10^{%L}"
@@ -793,10 +793,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Initialisation time as a function of N points - OpenACC - 3D - complex"
-plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-3d-prodint.dat" using 1:4 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-3d-primes.dat"  using 1:4 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Initialisation time as a function of N points - AccFFT - 3D - complex"
+plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-3d-prodint.dat" using 1:4 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-3d-primes.dat"  using 1:4 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 reset
@@ -807,10 +807,10 @@ set key right bottom
 set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
-set title "Execution time as a function of N points - OpenACC - 3D - complex"
-plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
-     "fft-openacc-3d-prodint.dat" using 1:5 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
-     "fft-openacc-3d-primes.dat"  using 1:5 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "Primes"
+set title "Execution time as a function of N points - AccFFT - 3D - complex"
+plot [20:600] "fft-openacc-3d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "Pow. of 2",\
+     "fft-openacc-3d-prodint.dat" using 1:5 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "Prod. int.",\
+     "fft-openacc-3d-primes.dat"  using 1:5 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "Primes"
 
 
 # 3D POW2
@@ -824,9 +824,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 3D - powers of 2 - real"
-plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-3d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-3d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-3d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-3d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -837,9 +837,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 3D - powers of 2 - real"
-plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-3d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-3d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-3d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-3d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -850,9 +850,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 3D - powers of 2 - complex"
-plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-3d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-3d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-3d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-3d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -863,9 +863,9 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 3D - powers of 2 - complex"
-plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "fft-opencl-3d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "fft-openacc-3d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "fft-opencl-3d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "fft-openacc-3d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT"
      
 
 # 3D
@@ -879,15 +879,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 3D - real"
-plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-3d-prodint.dat"    using 1:2 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-3d-primes.dat"     using 1:2 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-3d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-3d-prodint.dat"  using 1:2 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-3d-primes.dat"   using 1:2 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-3d-pow2.dat"    using 1:2 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-3d-prodint.dat" using 1:2 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-3d-primes.dat"  using 1:2 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:2 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-3d-prodint.dat"    using 1:2 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-3d-primes.dat"     using 1:2 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-3d-pow2.dat"     using 1:2 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-3d-prodint.dat"  using 1:2 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-3d-primes.dat"   using 1:2 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-3d-pow2.dat"    using 1:2 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-3d-prodint.dat" using 1:2 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-3d-primes.dat"  using 1:2 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -898,15 +898,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 3D - real"
-plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-3d-prodint.dat"    using 1:3 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-3d-primes.dat"     using 1:3 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-3d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-3d-prodint.dat"  using 1:3 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-3d-primes.dat"   using 1:3 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-3d-pow2.dat"    using 1:3 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-3d-prodint.dat" using 1:3 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-3d-primes.dat"  using 1:3 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-3d-prodint.dat"    using 1:3 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-3d-primes.dat"     using 1:3 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-3d-pow2.dat"     using 1:3 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-3d-prodint.dat"  using 1:3 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-3d-primes.dat"   using 1:3 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-3d-pow2.dat"    using 1:3 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-3d-prodint.dat" using 1:3 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-3d-primes.dat"  using 1:3 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -917,15 +917,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of N points - 3D - complex"
-plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-3d-prodint.dat"    using 1:4 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-3d-primes.dat"     using 1:4 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-3d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-3d-prodint.dat"  using 1:4 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-3d-primes.dat"   using 1:4 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-3d-pow2.dat"    using 1:4 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-3d-prodint.dat" using 1:4 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-3d-primes.dat"  using 1:4 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-3d-prodint.dat"    using 1:4 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-3d-primes.dat"     using 1:4 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-3d-pow2.dat"     using 1:4 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-3d-prodint.dat"  using 1:4 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-3d-primes.dat"   using 1:4 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-3d-pow2.dat"    using 1:4 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-3d-prodint.dat" using 1:4 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-3d-primes.dat"  using 1:4 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 reset
 set format y "10^{%L}"
@@ -936,15 +936,15 @@ set logscale xy
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time as a function of N points - 3D - complex"
-plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA - pow. of 2",\
-     "fft-cuda-3d-prodint.dat"    using 1:5 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "CUDA - prod. int.",\
-     "fft-cuda-3d-primes.dat"     using 1:5 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "CUDA - primes",\
-     "fft-opencl-3d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "OpenCL - pow. of 2",\
-     "fft-opencl-3d-prodint.dat"  using 1:5 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "OpenCL - prod. int.",\
-     "fft-opencl-3d-primes.dat"   using 1:5 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "OpenCL - primes",\
-     "fft-openacc-3d-pow2.dat"    using 1:5 with linespoints lc rgb "brown" pt 7 ps 0.5 dashtype 1 title "OpenACC - pow. of 2",\
-     "fft-openacc-3d-prodint.dat" using 1:5 with linespoints lc rgb "brown" pt 2 ps 0.5 dashtype 2 title "OpenACC - prod. int.",\
-     "fft-openacc-3d-primes.dat"  using 1:5 with linespoints lc rgb "brown" pt 1 ps 0.5 dashtype 4 title "OpenACC - primes"
+plot [20:600] "fft-cuda-3d-pow2.dat"       using 1:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT - pow. of 2",\
+     "fft-cuda-3d-prodint.dat"    using 1:5 with linespoints lc rgb "blue"  pt 2 ps 0.5 dashtype 2 title "cuFFT - prod. int.",\
+     "fft-cuda-3d-primes.dat"     using 1:5 with linespoints lc rgb "blue"  pt 1 ps 0.5 dashtype 4 title "cuFFT - primes",\
+     "fft-opencl-3d-pow2.dat"     using 1:5 with linespoints lc rgb "red"   pt 7 ps 0.5 dashtype 1 title "clFFT - pow. of 2",\
+     "fft-opencl-3d-prodint.dat"  using 1:5 with linespoints lc rgb "red"   pt 2 ps 0.5 dashtype 2 title "clFFT - prod. int.",\
+     "fft-opencl-3d-primes.dat"   using 1:5 with linespoints lc rgb "red"   pt 1 ps 0.5 dashtype 4 title "clFFT - primes",\
+     "fft-openacc-3d-pow2.dat"    using 1:5 with linespoints lc rgb "green" pt 7 ps 0.5 dashtype 1 title "AccFFT - pow. of 2",\
+     "fft-openacc-3d-prodint.dat" using 1:5 with linespoints lc rgb "green" pt 2 ps 0.5 dashtype 2 title "AccFFT - prod. int.",\
+     "fft-openacc-3d-primes.dat"  using 1:5 with linespoints lc rgb "green" pt 1 ps 0.5 dashtype 4 title "AccFFT - primes"
 
 
 # FLATNESS
@@ -958,9 +958,9 @@ set logscale xy
 set xlabel "Flatness (n_x/n_z, n_x=n_y)"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of flatness - 3D - powers of 2 - real"
-plot "flatness.dat" using 2:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "flatness.dat" using 2:7 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "flatness.dat" using 2:11 with linespoints lc rgb "brown"  pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot "flatness.dat" using 2:3 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "flatness.dat" using 2:7 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "flatness.dat" using 2:11 with linespoints lc rgb "green"  pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 
 reset
@@ -973,9 +973,9 @@ set logscale xy
 set xlabel "Flatness (n_x/n_z, n_x=n_y)"
 set ylabel "Time (s)"
 set title "Execution time as a function of flatness - 3D - powers of 2 - real"
-plot "flatness.dat" using 2:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "flatness.dat" using 2:8 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "flatness.dat" using 2:12 with linespoints lc rgb "brown"  pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot "flatness.dat" using 2:4 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "flatness.dat" using 2:8 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "flatness.dat" using 2:12 with linespoints lc rgb "green"  pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -987,9 +987,9 @@ set logscale xy
 set xlabel "Flatness (n_x/n_z, n_x=n_y)"
 set ylabel "Time (s)"
 set title "Initialisation time as a function of flatness - 3D - powers of 2 - complex"
-plot "flatness.dat" using 2:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "flatness.dat" using 2:9 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "flatness.dat" using 2:13 with linespoints lc rgb "brown"  pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot "flatness.dat" using 2:5 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "flatness.dat" using 2:9 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "flatness.dat" using 2:13 with linespoints lc rgb "green"  pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 
 reset
@@ -1002,9 +1002,9 @@ set logscale xy
 set xlabel "Flatness (n_x/n_z, n_x=n_y)"
 set ylabel "Time (s)"
 set title "Execution time as a function of flatness - 3D - powers of 2 - complex"
-plot "flatness.dat" using 2:6 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "CUDA",\
-     "flatness.dat" using 2:10 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "OpenCL",\
-     "flatness.dat" using 2:14 with linespoints lc rgb "brown"  pt 7 ps 0.5 dashtype 1 title "OpenACC"
+plot "flatness.dat" using 2:6 with linespoints lc rgb "blue"  pt 7 ps 0.5 dashtype 1 title "cuFFT",\
+     "flatness.dat" using 2:10 with linespoints lc rgb "red"  pt 7 ps 0.5 dashtype 1 title "clFFT",\
+     "flatness.dat" using 2:14 with linespoints lc rgb "green"  pt 7 ps 0.5 dashtype 1 title "AccFFT"
 
 
 # CCPPETMR
@@ -1021,9 +1021,9 @@ set style fill solid noborder
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Initialisation time - 2D - complex"
-plot "ccppetmr-cuda.dat"    using ($1-0.25):2 with boxes lc rgb "red"   title "CUDA",\
-     "ccppetmr-opencl.dat"  using 1:2         with boxes lc rgb "blue"  title "OpenCL",\
-     "ccppetmr-openacc.dat" using ($1+0.25):2 with boxes lc rgb "brown" title "OpenACC"
+plot "ccppetmr-cuda.dat"    using ($1-0.25):2 with boxes lc rgb "blue"   title "cuFFT",\
+     "ccppetmr-opencl.dat"  using 1:2         with boxes lc rgb "red"  title "clFFT",\
+     "ccppetmr-openacc.dat" using ($1+0.25):2 with boxes lc rgb "green" title "AccFFT"
 
 reset
 set format y "10^{%L}"
@@ -1037,16 +1037,16 @@ set style fill solid noborder
 set xlabel "N points"
 set ylabel "Time (s)"
 set title "Execution time - 2D - complex"
-plot "ccppetmr-cuda.dat"    using ($1-0.25):2 with boxes lc rgb "red"   title "CUDA",\
-     "ccppetmr-opencl.dat"  using 1:2         with boxes lc rgb "blue"  title "OpenCL",\
-     "ccppetmr-openacc.dat" using ($1+0.25):2 with boxes lc rgb "brown" title "OpenACC"
+plot "ccppetmr-cuda.dat"    using ($1-0.25):2 with boxes lc rgb "blue"   title "cuFFT",\
+     "ccppetmr-opencl.dat"  using 1:2         with boxes lc rgb "red"  title "clFFT",\
+     "ccppetmr-openacc.dat" using ($1+0.25):2 with boxes lc rgb "green" title "AccFFT"
 
 
 
 
 # PRODUCT
-
-set format y "10^{%L}"
+reset
+#set format y "10^{%L}"
 set terminal pdf enhanced
 set output "product-r.pdf"
 set key right top
@@ -1058,8 +1058,8 @@ set style fill solid noborder
 set title "Product - real"
 plot "product-r.dat" using 2:xtic(1) with boxes lc rgb "blue" title "" 
 
-
-set format y "10^{%L}"
+reset
+#set format y "10^{%L}"
 set terminal pdf enhanced
 set output "product-c.pdf"
 set key right top
