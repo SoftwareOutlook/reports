@@ -20,15 +20,15 @@
 \date{\today}
 \maketitle
 \begin{abstract}
-We compare the performance of several frameworks that can be used, in
-C, for general-purpose programming on a graphical processing unit or
-to compute Fast Fourier Transforms. The frameworks considered are
+We compare the performance of several GPU frameworks that can be used,
+in C or C++, for general-purpose programming or computing Fast Fourier
+Transforms using the available GPU. The frameworks considered are
 CUCA, OpenCL, OpenACC, OpenMP and Kokkos.
 \end{abstract}
 
 
 \section{Introduction}
-During the last decade, the use of graphical processing units (GPU)
+During the last decade, the use of graphical processing units (GPUs)
 has become increasingly widespread.  While there are some overheads
 associated with data transfers and some constraints
 on the types of algorithms can be efficiently programmed, one can
@@ -44,16 +44,15 @@ using the FFT libraries provided by some of these frameworks.
 We consider the following frameworks for GPU programming: CUDA
 \cite{cuda}, OpenCL \cite{opencl}, \mbox{OpenACC} \cite{openacc},
 OpenMP \cite{openmp}\footnote{From version 4.0, OpenMP offers GPU
-  programming capabilities.} and Kokkos \cite{kokkos}. The first three of these
-frameworks also provide FFT libraries, which are cuFFT \cite{cufft},
-clFFT \cite{clfft} and AccFFT \cite{accfft}, respectively. Table
-\ref{ffttable} contains an overview of their properties. They can
-perform complex transforms, real-to-half-complex ones (and conversely)
-as well as, in the case of FFTW, real-to-real transforms when the
-signal is odd or even. The half-complex output consists of half as
-many complex values as there were points in the signal, taking
-advantage of the hermiticity of the Fourier transform of a real
-function.
+  programming capabilities.} and Kokkos \cite{kokkos}. The first three
+of these frameworks also provide FFT libraries, which are cuFFT
+\cite{cufft}, clFFT \cite{clfft} and AccFFT \cite{accfft},
+respectively. Table \ref{ffttable} contains an overview of their
+properties. They can perform complex, real-to-half-complex
+and half complex-to-real transforms. The half-complex output
+consists of half as many complex values as there were points in the
+signal, taking advantage of the hermiticity of the Fourier transform
+of a real function.
 
 \begin{table}[H]
 \captionsetup{width=0.8\textwidth}
@@ -77,21 +76,21 @@ cuFFT  &  R$\to$H,\ \ \  C$\to$C,\ \ \ \  H$\to$R & 1, 2, 3 & 2, 3, 5, 7 & GPL v
 \section{Benchmark}
 The benchmark\footnote{The source code is available at:
   \hyperlink{https://github.com/SoftwareOutlook/GPU}{https://github.com/SoftwareOutlook/GPU}.}
-consists of the processing a real or complex signal on a domain in 1, 2 or
-3 dimensions. We first multiply it by a series of real signals, thus
-producing another series of real or complex signals, and then take
-their FFT.  The purpose was to mimick a problem submitted to us by the
-CCP PET-MR collaboration \cite{ccppetmr}, within the Software Outlook
-initiative \cite{softwareoutlook}, who needed to multiply a complex
-image by a series of coil sensitivities and then compute the FFT of
-these products. In Section \ref{PRODUCT}, we benchmark the product
-while, in Section \ref{FFT}, we study the performance obtained while
-computing the FFT. For the example specific to the CCP/PET-MR
-collaboration (Section \ref{CCPPETMR}), we take the FFT of 32 square
-images. In the more general case, we use a single signal but consider
-domains in 1, 2 or 3 dimensions. The benchmark is depicted in
-Figure~\ref{benchmark} and described more extensively in
-\cite{FFTREPORT}.
+consists of the processing a real or complex signal on a domain in 1,
+2 or 3 dimensions. We first multiply it by a series of real signals,
+thus producing another series of real or complex signals, and then
+take their FFT.  The purpose was to mimick a problem submitted by the
+CCP PET-MR collaboration \cite{ccppetmr} to us, the Software Outlook
+initiative \cite{softwareoutlook}, that requires the multiplication of
+a complex image by a series of coil sensitivities and then computing
+the FFT of these products. In Section \ref{PRODUCT}, we benchmark the
+multiplication of th eimages by coil sensitivites, while, in Section
+\ref{FFT}, we study the performance obtained while computing the
+FFT. For the example specific to the CCP/PET-MR collaboration (Section
+\ref{CCPPETMR}), we take the FFT of 32 square images. In the more
+general case, we use a single signal but consider domains in 1, 2 or 3
+dimensions. The benchmark is depicted in Figure~\ref{benchmark} and
+described more extensively in \cite{FFTREPORT}.
 
 \begin{figure}[H]
 \captionsetup{width=0.6\textwidth}
@@ -101,16 +100,10 @@ Figure~\ref{benchmark} and described more extensively in
 \label{benchmark}
 \end{figure}
 
-To study the performances achieved while computing the FFT in the
-general case, we use a number of points varying from $\sim 10^3$ to
-$\sim 10^8$, in 1, 2 or 3 dimensions (Sections \ref{PERFORMANCE1D},
-\ref{PERFORMANCE2D} and \ref{PERFORMANCE3D} respectively). The domains
-have sides of equal lengths (square or cubic) or are flattened
-(rectangle or cuboid). These dimensions could be powers of 2, products
-of powers of small integers (2, 3, 5 and 7) or prime numbers. The
-values appearing in the graphs are the wallclock initialisation and execution
-times averaged over 10 runs. The bumps remaining on the graphs in some
-cases appear consistently when we repeat the measurements.
+The
+values appearing in the graphs are the wallclock initialisation and FFT execution
+times averaged over 10 runs. There are some bumps in the graphs, which
+are consistently seen when we repeat the measurements.
 
 \subsection{Testing Environment Setup}
 
@@ -136,13 +129,13 @@ apparent: the support for it is more limited due to the most recent versions
 (from 2.0 onwards) being not completely supported by NVIDIA GPUs.
 
 \section{Product}\label{PRODUCT}
-We first compare the multiplication of a 1D array of $2^{24}$ real or
+In this section, we compare the multiplication of a 1D array of $2^{24}$ real or
 complex numbers by an array of real numbers by considering the
-operations executed in a serial way on the processor and in a
-multi-threaded way [HOW MANY CORES?] using either OpenMP and Kokkos, or
+operations executed in a serial way on the processor, in a
+multi-threaded way using six cores with either OpenMP and Kokkos, or
 on the GPU using CUDA, OpenCL, OpenACC, OpenMP and Kokkos. In the case
-of CUDA and OpenCL, we have made the comparison using streams or
-queues. This is a mechanism that allows the concurrent execution of
+of CUDA and OpenCL, we have also included a comparison using streams or
+queues, respectively. This is a mechanism that allows the concurrent execution of
 kernels as well as overlapping data transfers in different directions.
 \begin{figure}[H]
 \captionsetup{width=0.8\linewidth}
@@ -163,8 +156,8 @@ kernels as well as overlapping data transfers in different directions.
 \label{1DFFTW}
 \end{figure}
 
-We observe that the best performance is obtanined with OpenMP, both on
-the CPU and the GPU. We noted that, while compiling the example
+We observe that the best performance is obtained with OpenMP, both on
+the CPU and the GPU. We note that, while compiling the example
 involving Kokkos was straightforward, enabling CUDA required a
 compilation that was more complicated\footnote{An external makefile as
   well as a header file containing the configuration must be
@@ -635,15 +628,12 @@ Software Outlook activity.
   
 \bibitem{accfft} AccFFT: A Massively Parallel FFT Library for CPU/GPU, \url{http://accfft.org/}
 
-\bibitem{casa} McMullin, J. P., Waters, B., Schiebel, D., Young, W., Golap, K.,
-{\it Astronomical Data Analysis Software and Systems XVI},
-ASP Conf. Ser. 376, ed. R. A. Shaw, F. Hill, D. J. Bell (San Francisco, CA: ASP), 127
-
-\bibitem{FFTREPORT} The FFT technical report.
-
 \bibitem{ccppetmr} CCP PET-MR, Collaborative Computational Project in Positron Emission Tomography and Magnetic Resonance imaging, \url{https://www.ccppetmr.ac.uk/}
 
 \bibitem{softwareoutlook} Software Outlook, \url{https://www.softwareoutlook.ac.uk/}
+
+\bibitem{FFTREPORT}  Gambron, P., Thorne, H. S.,
+{\it Comparison of FFT libraries for use in C/C++ codes}, Tech. Rep. RAL-TR-2020-XX, 2020.
 
 \bibitem{KOKKOSDOC} Kokkos: Compiling, \url{https://github.com/kokkos/kokkos/wiki/Compiling}
 
