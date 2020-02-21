@@ -92,7 +92,7 @@ general case, we use a single signal but consider domains in 1, 2 or 3
 dimensions. The benchmark is depicted in Figure~\ref{benchmark} and
 described more extensively in \cite{FFTREPORT}.
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.6\textwidth}
 \centering
 \includegraphics[height=5cm]{benchmark.pdf}
@@ -137,7 +137,7 @@ on the GPU using CUDA, OpenCL, OpenACC, OpenMP and Kokkos. In the case
 of CUDA and OpenCL, we have also included a comparison using streams or
 queues, respectively. This is a mechanism that allows the concurrent execution of
 kernels as well as overlapping data transfers in different directions.
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
@@ -168,23 +168,24 @@ compilation that was more complicated\footnote{An external makefile as
   \texttt{spread} before the execution of the program.}.
 
 \section{Fast Fourier Transform}\label{FFT}
-We repeat the analysis carried out in \cite{FFTREPORT}. We measure the
-wallclock initialisation and execution times obtained by computing the
-FFT transform with cuFFT, clFFT and AccFFT for signals that were real
-and complex in one, two and three dimensions. We initially consider
-domains whose sides are identical and that contain a number of points
-varying from $\sim 10^3$ to $\sim 10^8$.
+In this report, we repeat the analysis carried out in \cite{FFTREPORT}
+but compare GPU enabled FFT libraries. We measure the wallclock
+initialisation and FFT execution times obtained by computing the FFT
+transform with cuFFT, clFFT and AccFFT for signals that were real and
+complex in one, two and three dimensions. We initially consider
+domains whose sides are identical and use a wide range of problem
+sizes.
 
 Before we study in detail the performance obtained with GPUs, it is
 enlightening to illustrate the effect they can provide by comparing
 the performance obtained with cuFFT with the one achieved with FFTW
-running in a serial way on the CPU. We have carried out these
-measurements by computing the FFT of real and complex signals, in one
-dimension. For a large number of points, the GPU improves the
+\cite{fftw} running in a serial way on the CPU. We have carried out
+these measurements by computing the FFT of real and complex signals,
+in one dimension. For a large number of points, the GPU improves the
 performance by almost an order of magnitude while it is slower for a
 small number of points because of the overheads (Figure
 \ref{COMPGPUCPU}).
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
@@ -215,10 +216,10 @@ Table~\ref{1DSIZES}.
 \centering
 \begin{tabular}{|l|l|l|}
   \hline
-  \multicolumn{3}{|c|}{$N_x$}\\
+  \multicolumn{3}{|c|}{$N=N_x$}\\
   \hline
   \hline
-Powers of 2 & prod. pow. int. & primes\\ \hline
+Powers of 2 & Product of powers of integers & Primes\\ \hline
 $2^8=256$ & $2\times 3\times 5\times 7 = 210$	& 257 \\ \hline
 $2^{10}=1024$ & $2^2\times 3^2\times 5\times 7 = 1260$ & 1021 \\ \hline
 $2^{12}=4096$ & $2^2\times 3^3\times 5\times 7 = 4410$ & 4093 \\ \hline
@@ -238,73 +239,73 @@ extent, clFFT. However the latter suffers from a drawback: its
 initialisation time stays roughly constant no matter the problem size
 and, for the smaller problem sizes, this initialisation time can the
 between 2 and 3 orders of magnitude larger than the other libraries.
-We also observe that, for small numbers of points, the performance
-tends to be better for powers of 2, than for products of small
+We also observe that, for small problem sizes, the performance
+tends to be better for powers of 2 than for products of small
 integers and finally for prime numbers.
   
 
 
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-1d-pow2-r-init.pdf}
-\caption{Intialisation (real)}
+\caption{Initialisation (real)}
 \label{FFTPOW21DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-1d-pow2-r-exec.pdf}
-\caption{Execution (real)}
+\caption{FFT (real)}
 \label{FFTPOW21DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-1d-pow2-c-init.pdf}
-\caption{Intialisation (complex)}
+\caption{Initialisation (complex)}
 \label{FFTPOW21DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-1d-pow2-c-exec.pdf}
-\caption{Execution (complex)}
+\caption{FFT (complex)}
 \label{FFTPOW21DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points (1 dimension, powers of 2)}
+\caption{Initialisation and FFT execution times as a function of the number of points (1 dimension, powers of 2)}
 \label{FFTPOW21D}
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-1d-r-init.pdf}
-\caption{Intialisation (real)}
+\caption{Initialisation (real)}
 \label{FFT1DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-1d-r-exec.pdf}
-\caption{Execution (real)}
+\caption{FFT (real)}
 \label{FFT1DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-1d-c-exec.pdf}
-\caption{Intialisation (complex)}
+\caption{Initialisation (complex)}
 \label{FFT1DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-1d-c-exec.pdf}
-\caption{Execution (complex)}
+\caption{FFT (complex)}
 \label{FFT1DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points (1 dimension)}
+\caption{Initialisation and FFT execution times as a function of the number of points (1 dimension)}
 \label{FFT1D}
 \end{figure}
 
@@ -317,22 +318,22 @@ are given in table \ref{2DSIZES}.
 \centering
 \begin{tabular}{|l|l|l|}
   \hline
-  \multicolumn{3}{|c|}{$N_x=N_y$}\\
+  \multicolumn{3}{|c|}{$N=N_x=N_y$}\\
   \hline
   \hline
-Powers of 2 & prod. pow. int. & primes\\ \hline
-$2^9 = 512$ & $2^3\ 3^2\ 7 = 504$ & 509\\ \hline
-$2^{10} = 1024$ & $3\ 7^3 = 1029$ & 1021\\ \hline
-$2^{11} = 2048$	& $2\ 3 \ 7^3 = 2058$ &	2027\\ \hline
-$2^{12} = 4096$	& $2^2\ 3\ 7^3 = 4116$ & 4049\\ \hline
-$2^{13} = 8192$	& $2^3\ 3\ 7^3 = 8232$ & 8123\\ \hline
+Powers of 2 & Product of powers of integers & Primes\\ \hline
+$2^9 = 512$ & $2^3\times 3^2\times 7 = 504$ & 509\\ \hline
+$2^{10} = 1024$ & $3\times 7^3 = 1029$ & 1021\\ \hline
+$2^{11} = 2048$	& $2\times 3 \times 7^3 = 2058$ &	2027\\ \hline
+$2^{12} = 4096$	& $2^2\times 3\times 7^3 = 4116$ & 4049\\ \hline
+$2^{13} = 8192$	& $2^3\times 3\times 7^3 = 8232$ & 8123\\ \hline
 \end{tabular}
 \caption{Number of points (along one domain edge) used for the benchmark in two dimensions}\label{2DSIZES}
 \end{table}
 
 The libraries are compared in Figures~\ref{FFTPOW22D} and \ref{FFT2D}.
 In two dimensions, clFFT performs slightly better than cuFFT while
-AccFFT lags behind. However clFFT suffers from the same drawback as
+AccFFT lags behind in terms of FFT execution time. However clFFT suffers from the same drawback as
 the one we had identified in Section \ref{PERFORMANCE1D}. In most
 cases, the performance tends to be worse when
 the number of points on the side of the domain is a prime number
@@ -341,65 +342,65 @@ integers.
 
 
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-r-init.pdf}
-\caption{Intialisation (real)}
+\caption{Initialisation (real)}
 \label{FFTPOW22DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-r-exec.pdf}
-\caption{Execution (real)}
+\caption{FFT (real)}
 \label{FFTPOW22DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-c-init.pdf}
-\caption{Intialisation (complex)}
+\caption{Initialisation (complex)}
 \label{FFTPOW22DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-pow2-c-exec.pdf}
-\caption{Execution (complex)}
+\caption{FFT (complex)}
 \label{FFTPOW22DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points (2 dimensions, powers of 2)}
+\caption{Initialisation and FFT execution times as a function of the number of points (2 dimensions, powers of 2)}
 \label{FFTPOW22D}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-r-init.pdf}
-\caption{Intialisation (real)}
+\caption{Initialisation (real)}
 \label{FFT2DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-r-exec.pdf}
-\caption{Execution (real)}
+\caption{FFT (real)}
 \label{FFT2DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-c-init.pdf}
-\caption{Intialisation (complex)}
+\caption{Initialisation (complex)}
 \label{FFT2DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-2d-c-exec.pdf}
-\caption{Execution (complex)}
+\caption{FFT (complex)}
 \label{FFT2DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points (2 dimensions)}
+\caption{Initialisation and FFT execution times as a function of the number of points (2 dimensions)}
 \label{FFT2D}
 \end{figure}
 
@@ -415,10 +416,10 @@ given in Table~\ref{3DSIZES}.
   \captionsetup{width=0.8\linewidth}
 \begin{tabular}{|l|l|l|}
   \hline
-  \multicolumn{3}{|c|}{$N_x=N_y=N_z$}\\
+  \multicolumn{3}{|c|}{$N=N_x=N_y=N_z$}\\
   \hline
   \hline
-Powers of 2 & prod. pow. int. & primes\\ \hline
+Powers of 2 & Product of powers of integers & Primes\\ \hline
 $2^5 = 32$ & $2\times 3\times 5 =	30$ & 31\\ \hline
 $2^6 = 64$ & $2\times 5\times 7 = 70$ & 61\\ \hline
 $2^7 = 128$ & $3\times 5\times 7 = 105$ & 127\\ \hline
@@ -441,65 +442,65 @@ number.
 
 
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-3d-pow2-r-init.pdf}
-\caption{Intialisation (real)}
+\caption{Initialisation (real)}
 \label{FFTPOW23DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-3d-pow2-r-exec.pdf}
-\caption{Execution (real)}
+\caption{FFT (real)}
 \label{FFTPOW23DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-3d-pow2-c-init.pdf}
-\caption{Intialisation (complex)}
+\caption{Initialisation (complex)}
 \label{FFTPOW23DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-3d-pow2-c-exec.pdf}
-\caption{Execution (complex)}
+\caption{FFT (complex)}
 \label{FFTPOW23DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points (3 dimensions, powers of 2)}
+\caption{Initialisation and FFT execution times as a function of the number of points (3 dimensions, powers of 2)}
 \label{FFTPOW23D}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-3d-r-init.pdf}
-\caption{Intialisation (real)}
+\caption{Initialisation (real)}
 \label{FFT3DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-3d-r-exec.pdf}
-\caption{Execution (real)}
+\caption{FFT (real)}
 \label{FFT3DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-3d-c-init.pdf}
-\caption{Intialisation (complex)}
+\caption{Initialisation (complex)}
 \label{FFT3DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-3d-c-exec.pdf}
-\caption{Execution (complex)}
+\caption{FFT (complex)}
 \label{FFT3DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points (3 dimensions)}
+\caption{Initialisation and FFT execution times as a function of the number of points (3 dimensions)}
 \label{FFT3D}
 \end{figure}
 
@@ -507,16 +508,23 @@ number.
 So far, we have considered only square or cubic domains. In this
 section, we study the effect of the flatness of the domain by
 computing the FFT on an increasingly flat cuboid containing $256^3$
-points. We define the flatness by the ratio between the number of
+points. We define the \textit{flatness} by the ratio between the number of
 points in the $z$ and $x$ directions whereas the dimensions in the $x$
-and $y$ directions are identical (Flatness:=$N_z/N_x$, $N_x=N_y$)
-(Table~\ref{FLATNESSDIM}).
+and $y$ directions are identical:
+\begin{eqnarray*}
+  flatness & =& N_z/N_x,\\
+  N_x & =& N_y,\\
+  N_z & = & \frac{256^3}{N_x^2}.
+\end{eqnarray*}
+ See Table~\ref{FLATNESSDIM} for the
+  values of $N_x,$ $N_y$ and $N_z$ that are used within our
+  benchmarks.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
-$N_x=N_y$ & $N_z $ & Flatness\\ 
+$N_x=N_y$ & $N_z $ & $flatness$\\ 
 \hline
 \hline
 256 & 256 & 1\\ \hline
@@ -531,38 +539,38 @@ $N_x=N_y$ & $N_z $ & Flatness\\
 \caption{Number of points used for the benchmark in three dimensions}\label{FLATNESSDIM}
 \end{table}
 
-We observe that the flatness does not alter significantly the
-performance which remains dependent only on the total number of
-points.
+Results are provided in \ref{FLATNESSGRAPH} and we observe that the
+flatness does not significantly alter the performance which remains
+dependent only on the total number of points.
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/flatness-r-init.pdf}
-\caption{Intialisation (real)}
+\caption{Initialisation (real)}
 \label{FLAT1DRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/flatness-r-exec.pdf}
-\caption{Execution (real)}
+\caption{FFT (real)}
 \label{FLAT1DRE}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/flatness-c-init.pdf}
-\caption{Intialisation (complex)}
+\caption{Initialisation (complex)}
 \label{FLAT1DCI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/flatness-c-exec.pdf}
-\caption{Execution (complex)}
+\caption{FFT (complex)}
 \label{FLAT1DCE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the flatness ($N_z/N_x$, $N_x=N_y$) of the domain (3 dimensions)}
+\caption{Initialisation and FFT execution times as a function of $flatness$ of the domain (3 dimensions)}
 \label{FLATNESSGRAPH}
 \end{figure}
 
@@ -570,37 +578,35 @@ points.
 We have also benchmarked the libraries provided by these frameworks
 for the computation of FFTs in a context similar to the situation
 encountered by the CCP/PET-MR collaboration. In this example, we
-compute the FFT of 32 square complex images. Their side is made of
-252, 256 and 257 points in the cases, respectively, of a number of
-points corresponding to a product of powers of small integers, a power
-of 2 or a prime number. In this context, it is cuFFT that is the most
-efficient.
-\begin{figure}[H]
+compute the FFT of 32 square complex images. Their domain sides have
+252, 256 and 257 points. In this context, it is cuFFT that is the most
+efficient in terms of both initialisation and FFT times.
+\begin{figure}[htb]
 \captionsetup{width=0.8\linewidth}
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-ccppetmr-init.pdf}
-\caption{Intialisation (real)}
+\caption{Initialisation (real)}
 \label{CCPPETMRDRI}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=.9\linewidth]{graphs/fft-ccppetmr-exec.pdf}
-\caption{Execution (real)}
+\caption{FFT (real)}
 \label{CCPPETMRRE}
 \end{subfigure}
-\caption{Initialisation and execution times as a function of the number of points (3 dimensions)}
+\caption{Initialisation and FFT execution times as a function of the number of points (3 dimensions)}
 \label{CCPPETMRGRAPH}
 \end{figure}
 
 \section{Conclusion}
-For the execution on the GPU of a small piece of code we have
-programmed, OpenMP was the most efficient framework. In the case of
-the computation of a FFT using a library, CUDA's cuFFT and clFFT's
+For the execution on the GPU of a simple series of componentwise array
+multiplications, OpenMP was the most efficient framework. In the case
+of the computation of a FFT using a library, CUDA's cuFFT and OpenCL's
 clFFT offer performances that are close in terms of wallclock FFT
 execution time but cuFFT's initialisation times were much lower than
-thos of clFFT. As a consequence, the library provided by CUDA seems
+those of clFFT. As a consequence, the library provided by CUDA seems
 the most efficient. We also note that frameworks based on preprocessor
 directives, such as OpenMP and OpenACC, are much easier to use.
 
@@ -636,6 +642,11 @@ Software Outlook activity.
 {\it Comparison of FFT libraries for use in C/C++ codes}, Tech. Rep. RAL-TR-2020-XX, 2020.
 
 \bibitem{KOKKOSDOC} Kokkos: Compiling, \url{https://github.com/kokkos/kokkos/wiki/Compiling}
+
+  \bibitem{fftw} Frigo, Matteo and Johnson, Steven G., {\it The Design
+    and Implementation of FFTW3}, Proceedings of the IEEE, 2005, 93,
+  2, 216--231, Special issue on ``Program Generation, Optimization,
+  and Platform Adaptation''
 
 \end{thebibliography}
 
